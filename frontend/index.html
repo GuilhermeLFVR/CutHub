@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DashNOX</title>
+    <title>CutHub</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -20,13 +20,13 @@
         <div class="loader-logo-wrap">
           <div class="loader-glow"></div>
           <img
-            src="/assets/img/logo-dashnox.png"
-            alt="Logo DashNOX"
+            src="/assets/img/logo-cuthub.png"
+            alt="Logo CutHub"
             class="loader-logo"
           />
         </div>
-        <h1 class="loader-title">DashNOX</h1>
-        <p class="loader-subtitle">Inicializando seu painel financeiro...</p>
+        <h1 class="loader-title">CutHub</h1>
+        <p class="loader-subtitle">Inicializando sua barbearia...</p>
         <div class="loader-bar">
           <div class="loader-bar-fill"></div>
         </div>
@@ -38,28 +38,28 @@
         <div class="sidebar-top">
           <div class="brand-mini-wrap">
             <img
-              src="/assets/img/logo-dashnox.png"
-              alt="Logo DashNOX"
+              src="/assets/img/logo-cuthub.png"
+              alt="Logo CutHub"
               class="brand-mini-logo"
             />
-            <div class="brand-mini">DashNOX</div>
+            <div class="brand-mini">CutHub</div>
           </div>
-          <p class="sidebar-subtitle">Painel financeiro</p>
+          <p class="sidebar-subtitle">Gestão de barbearias</p>
         </div>
 
         <nav class="sidebar-nav">
-          <a class="nav-item active" href="#" data-section-target="finance">Financeiro</a>
-          <a class="nav-item" href="#" data-section-target="betting">Apostas</a>
+          <a class="nav-item active" href="#" data-section-target="finance">Dashboard</a>
+          <a class="nav-item" href="#" data-section-target="betting">Clientes</a>
         </nav>
       </aside>
 
       <main class="main-content">
         <header class="hero-header reveal-up">
           <div class="hero-copy">
-            <span class="hero-badge">Painel financeiro inteligente</span>
-            <h1 class="brand-title">DashNOX</h1>
+            <span class="hero-badge">Plataforma inteligente para barbearias</span>
+            <h1 class="brand-title">CutHub</h1>
             <p class="hero-description">
-              Controle financeiro e operacional em um só lugar.
+              Clientes, agendamentos e atendimentos em um só lugar.
             </p>
           </div>
 
@@ -67,8 +67,8 @@
             <div class="hero-logo-aura"></div>
             <div class="logo-shine"></div>
             <img
-              src="/assets/img/logo-dashnox.png"
-              alt="Logo DashNOX"
+              src="/assets/img/logo-cuthub.png"
+              alt="Logo CutHub"
               class="hero-logo"
               id="heroLogo"
             />
@@ -78,39 +78,39 @@
         <section class="module-switcher-panel moving-border reveal-up">
           <div class="module-switcher-copy">
             <span class="panel-eyebrow">Painel principal</span>
-            <h2 id="moduleHeading">Financeiro</h2>
-            <p id="moduleDescription" class="module-switcher-description">Organize dinheiro e operações de apostas em um painel claro, afiado e sem bagunça.</p>
+            <h2 id="moduleHeading">Dashboard</h2>
+            <p id="moduleDescription" class="module-switcher-description">Gerencie clientes, barbeiros e agendamentos em um único painel.</p>
           </div>
 
           <div class="module-switcher-actions">
-            <button class="module-tab active" type="button" data-section-target="finance">Financeiro</button>
-            <button class="module-tab" type="button" data-section-target="betting">Apostas</button>
+            <button class="module-tab active" type="button" data-section-target="finance">Dashboard</button>
+            <button class="module-tab" type="button" data-section-target="betting">Clientes</button>
           </div>
         </section>
 
         <section id="financeGoalsPanel" class="panel moving-border reveal-up goals-panel goals-panel-premium">
           <div class="panel-header panel-header-split goals-panel-header">
             <div>
-              <span class="panel-eyebrow">Meta financeira</span>
-              <h2>Meta do mês</h2>
-              <p class="goals-helper">Defina a meta financeira do mês selecionado.</p>
+              <span class="panel-eyebrow">Resumo operacional</span>
+              <h2>Resumo da barbearia</h2>
+              <p class="goals-helper">Acompanhe os principais indicadores da barbearia.</p>
             </div>
-            <button id="saveGoalsButton" class="primary-button goals-save-button" type="button">Salvar meta</button>
+            <button id="saveGoalsButton" class="primary-button goals-save-button" type="button">Salvar resumo</button>
           </div>
 
           <div class="goals-form-grid goals-form-grid-single">
             <div class="form-group goals-form-group">
-              <label for="financeGoalInput">Meta financeira do mês</label>
-              <input class="goals-input" id="financeGoalInput" type="number" min="0" step="0.01" placeholder="Ex.: 3000" />
+              <label for="financeGoalInput">Resumo operacional do mês</label>
+              <input class="goals-input" id="financeGoalInput" type="number" min="0" step="0.01" placeholder="Ex.: 120" />
             </div>
           </div>
 
           <div class="goals-progress-grid goals-progress-grid-single">
             <article class="stat-card goal-progress-card">
-              <span class="stat-label">Dinheiro</span>
+              <span class="stat-label">Atendimentos</span>
               <strong id="financeGoalHeadline" class="stat-value small">Sem meta</strong>
               <div class="goal-progress-bar"><div id="financeGoalBar" class="goal-progress-fill"></div></div>
-              <p id="financeGoalText" class="stat-footnote">Defina sua meta mensal para acompanhar o ritmo.</p>
+              <p id="financeGoalText" class="stat-footnote">Defina a meta de atendimentos para acompanhar o ritmo do mês.</p>
             </article>
           </div>
         </section>
@@ -132,14 +132,14 @@
                 Filtrar
               </button>
               <button id="exportCsvButton" class="secondary-button ghost-button" type="button">
-                Baixar extrato
+                Exportar dados
               </button>
             </div>
           </div>
 
           <div class="toolbar-panel-right">
             <button id="openModalButton" class="primary-button primary-button-lg" type="button">
-              + Nova Transação
+              + Novo Cliente
             </button>
           </div>
         </section>
@@ -170,28 +170,28 @@
             <article class="stat-card stat-card-featured moving-border reveal-up">
               <div class="stat-topline">
                 <span class="stat-icon icon-balance">◈</span>
-                <span class="stat-label">Saldo do Período</span>
+                <span class="stat-label">Agendamentos Hoje</span>
               </div>
-              <strong id="balanceValue" class="stat-value">R$ 0,00</strong>
-              <span class="stat-footnote">Visão consolidada do período</span>
+              <strong id="balanceValue" class="stat-value">0</strong>
+              <span class="stat-footnote">Horários marcados para hoje</span>
             </article>
 
             <article class="stat-card moving-border reveal-up">
               <div class="stat-topline">
                 <span class="stat-icon icon-income">↗</span>
-                <span class="stat-label">Ganhos</span>
+                <span class="stat-label">Clientes</span>
               </div>
               <strong id="incomeValue" class="stat-value positive">R$ 0,00</strong>
-              <span class="stat-footnote">Total de entradas do período</span>
+              <span class="stat-footnote">Clientes cadastrados na base</span>
             </article>
 
             <article class="stat-card moving-border reveal-up">
               <div class="stat-topline">
                 <span class="stat-icon icon-expense">↘</span>
-                <span class="stat-label">Gastos</span>
+                <span class="stat-label">Serviços</span>
               </div>
               <strong id="expenseValue" class="stat-value negative">R$ 0,00</strong>
-              <span class="stat-footnote">Total de saídas do período</span>
+              <span class="stat-footnote">Serviços disponíveis no catálogo</span>
             </article>
 
             <article class="stat-card moving-border reveal-up">
@@ -200,53 +200,53 @@
                 <span class="stat-label">Status</span>
               </div>
               <strong id="statusValue" class="stat-value small">Carregando...</strong>
-              <span class="stat-footnote">Resumo da atividade atual</span>
+              <span class="stat-footnote">Resumo operacional atual</span>
             </article>
 
             <article class="stat-card stat-card-total-balance moving-border reveal-up">
               <div class="stat-topline">
                 <span class="stat-icon icon-status">◌</span>
-                <span class="stat-label">Saldo Total</span>
+                <span class="stat-label">Barbeiros Ativos</span>
               </div>
               <strong id="totalBalanceValue" class="stat-value small">R$ 0,00</strong>
-              <span class="stat-footnote">Saldo real manual, independente do mês</span>
+              <span class="stat-footnote">Equipe disponível para atendimento</span>
               <div class="total-balance-base-row">
-                <span class="total-balance-base-label">Base atual</span>
+                <span class="total-balance-base-label">Capacidade</span>
                 <strong id="totalBalanceBaseValue" class="total-balance-base-value">R$ 0,00</strong>
               </div>
               <div class="total-balance-form">
                 <input id="totalBalanceInput" class="total-balance-input" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex.: 1500,00">
                 <button id="saveTotalBalanceButton" class="primary-button total-balance-button" type="button">Salvar</button>
               </div>
-              <span id="totalBalanceHint" class="stat-footnote total-balance-hint">Defina quanto você tem hoje em conta. Esse valor não muda quando você troca o mês.</span>
+              <span id="totalBalanceHint" class="stat-footnote total-balance-hint">Defina a capacidade operacional da barbearia.</span>
             </article>
           </section>
 
           <section class="cards-grid summary-grid">
             <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Categoria Top</span>
+              <span class="stat-label">Serviço Top</span>
               <strong id="topCategory" class="stat-value small">-</strong>
             </article>
 
             <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Total de Transações</span>
+              <span class="stat-label">Total de Clientes</span>
               <strong id="totalTransactions" class="stat-value small">0</strong>
             </article>
 
             <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Ticket Médio</span>
+              <span class="stat-label">Tempo Médio</span>
               <strong id="avgTicket" class="stat-value small">R$ 0,00</strong>
             </article>
 
             <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Dia Mais Caro</span>
+              <span class="stat-label">Dia Mais Cheio</span>
               <strong id="highestDay" class="stat-value small">-</strong>
             </article>
           </section>
 
           <section id="insightPanel" class="panel insight-panel moving-border hidden reveal-up">
             <div class="insight-header">
-              <span class="insight-badge">Insight do mês</span>
+              <span class="insight-badge">Insight operacional</span>
             </div>
             <p id="insightText" class="insight-text">Carregando insight...</p>
           </section>
@@ -254,8 +254,8 @@
           <section class="panel chart-panel moving-border reveal-up">
             <div class="panel-header panel-header-split">
               <div>
-                <span class="panel-eyebrow">Análise temporal</span>
-                <h2 id="flowTitle">Fluxo Diário do Mês</h2>
+                <span class="panel-eyebrow">Agenda temporal</span>
+                <h2 id="flowTitle">Atendimentos por dia</h2>
               </div>
             </div>
 
@@ -267,8 +267,8 @@
           <section id="chart-section" class="panel chart-panel moving-border reveal-up">
             <div class="panel-header panel-header-split">
               <div>
-                <span class="panel-eyebrow">Distribuição de gastos</span>
-                <h2 id="chartTitle">Gastos por Categoria</h2>
+                <span class="panel-eyebrow">Distribuição de serviços</span>
+                <h2 id="chartTitle">Serviços por Categoria</h2>
               </div>
             </div>
 
@@ -280,36 +280,36 @@
           <section id="transactions-section" class="panel table-panel moving-border reveal-up">
             <div class="panel-header panel-header-split">
               <div>
-                <span class="panel-eyebrow">Lançamentos do período</span>
-                <h2 id="tableTitle">Transações</h2>
+                <span class="panel-eyebrow">Cadastros recentes</span>
+                <h2 id="tableTitle">Clientes</h2>
               </div>
             </div>
 
             <div class="table-filters table-filters-extended">
-              <input type="text" id="searchInput" placeholder="Buscar descrição..." />
+              <input type="text" id="searchInput" placeholder="Buscar cliente..." />
               <select id="typeFilter">
-                <option value="">Todos os tipos</option>
-                <option value="income">Ganhos</option>
-                <option value="expense">Gastos</option>
+                <option value="">Todos os status</option>
+                <option value="income">Clientes</option>
+                <option value="expense">Serviços</option>
               </select>
-              <input type="text" id="categoryFilter" placeholder="Filtrar categoria..." />
+              <input type="text" id="categoryFilter" placeholder="Filtrar serviço..." />
               <button id="bulkDeleteButton" class="danger-button bulk-delete-button" type="button" disabled>
-                Excluir selecionadas
+                Remover selecionados
               </button>
             </div>
 
             <div id="selectionSummary" class="selection-summary hidden">
-              0 transações selecionadas
+              0 clientes selecionados
             </div>
 
             <div id="emptyState" class="empty-state-panel hidden">
               <div class="empty-state-icon">◎</div>
-              <h3 class="empty-state-title">Nenhuma transação neste período</h3>
+              <h3 class="empty-state-title">Nenhum cliente cadastrado</h3>
               <p class="empty-state-text">
-                Seu painel está limpo por aqui. Adicione a primeira transação para começar a acompanhar ganhos, gastos e tendências do mês.
+                Sua barbearia ainda está sem clientes cadastrados. Adicione o primeiro cliente para começar o fluxo.
               </p>
               <button id="emptyStateButton" class="primary-button" type="button">
-                Adicionar primeira transação
+                Adicionar primeiro cliente
               </button>
             </div>
 
@@ -321,11 +321,11 @@
                       <input type="checkbox" id="selectAllCheckbox" />
                     </th>
                     <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Categoria</th>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Serviço</th>
+                    <th>Cliente</th>
+                    <th>Telefone</th>
+                    <th>Última visita</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
@@ -345,20 +345,20 @@
         <section id="section-betting" class="module-section hidden">
           <section class="betting-hero panel moving-border reveal-up">
             <div>
-              <span class="panel-eyebrow">Módulo de apostas</span>
-              <h2>Central de operações</h2>
-              <p class="betting-hero-text">Central para registro de operações e acompanhamento de performance.</p>
+              <span class="panel-eyebrow">Módulo de clientes</span>
+              <h2>Central de clientes</h2>
+              <p class="betting-hero-text">Central para cadastro, histórico e acompanhamento dos clientes.</p>
             </div>
             <div class="betting-hero-actions">
-              <button id="addBettingOperationButton" class="primary-button primary-button-lg" type="button">+ Nova operação</button>
-              <button id="clearBettingOperationsButton" class="secondary-button ghost-button" type="button">Limpar operações</button>
+              <button id="addBettingOperationButton" class="primary-button primary-button-lg" type="button">+ Novo cliente</button>
+              <button id="clearBettingOperationsButton" class="secondary-button ghost-button" type="button">Limpar clientes</button>
             </div>
           </section>
 
           
-          <nav class="betting-subnav" aria-label="Navegação do módulo de apostas">
+          <nav class="betting-subnav" aria-label="Navegação do módulo de clientes">
             <button class="betting-subnav-button active" type="button" data-betting-tab="overview">Visão geral</button>
-            <button class="betting-subnav-button" type="button" data-betting-tab="operations">Operações <span id="bettingOperationsBadge" class="tab-badge">0</span></button>
+            <button class="betting-subnav-button" type="button" data-betting-tab="operations">Clientes <span id="bettingOperationsBadge" class="tab-badge">0</span></button>
             <button class="betting-subnav-button" type="button" data-betting-tab="agenda">Agenda <span id="bettingAgendaBadge" class="tab-badge">0</span></button>
             <button class="betting-subnav-button" type="button" data-betting-tab="alerts">Alertas <span id="bettingAlertsBadge" class="tab-badge">0</span></button>
             <button class="betting-subnav-button" type="button" data-betting-tab="performance">Performance</button>
@@ -382,7 +382,7 @@
               <span class="stat-footnote">Custos e perdas operacionais finalizadas.</span>
             </article>
             <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Operações abertas</span>
+              <span class="stat-label">Clientes abertas</span>
               <strong id="bettingCountValue" class="stat-value small">0</strong>
               <span class="stat-footnote">Quantidade em andamento.</span>
             </article>
@@ -571,7 +571,7 @@
               <div class="panel-header panel-header-split">
                 <div>
                   <span class="panel-eyebrow">Histórico operacional</span>
-                  <h2>Operações registradas</h2>
+                  <h2>Clientes registradas</h2>
                 </div>
                 <span id="bettingStatusSummary" class="module-placeholder-tag">Sem operações</span>
               </div>
@@ -610,7 +610,7 @@
               <div>
                 <span class="panel-eyebrow">Agenda operacional</span>
                 <h2>Próximos jogos</h2>
-                <p class="panel-description">Operações abertas organizadas por data e horário.</p>
+                <p class="panel-description">Clientes abertas organizadas por data e horário.</p>
               </div>
             </div>
 

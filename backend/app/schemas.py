@@ -103,3 +103,92 @@ class GoalConfigResponse(BaseModel):
     habit_daily_goal: int
 
     model_config = {"from_attributes": True}
+
+# =============================
+# CUTHUB - BARBEARIA
+# =============================
+
+ClientStatus = Literal["active", "inactive"]
+AppointmentStatus = Literal["scheduled", "completed", "cancelled"]
+
+
+class ClientCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    phone: str = ""
+    email: str = ""
+    preferred_cut: str = ""
+    notes: str = ""
+
+
+class ClientResponse(BaseModel):
+    id: int
+    name: str
+    phone: str
+    email: str | None
+    preferred_cut: str | None
+    notes: str | None
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class BarberCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    phone: str = ""
+    specialty: str = ""
+    status: ClientStatus = "active"
+
+
+class BarberResponse(BaseModel):
+    id: int
+    name: str
+    phone: str | None
+    specialty: str | None
+    status: ClientStatus
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class ServiceCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    price: float = Field(default=0, ge=0)
+    duration_minutes: int = Field(default=30, ge=5, le=480)
+    description: str = ""
+    tools: str = ""
+
+
+class ServiceResponse(BaseModel):
+    id: int
+    name: str
+    price: float
+    duration_minutes: int
+    description: str | None
+    tools: str | None
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class AppointmentCreate(BaseModel):
+    client_id: int
+    barber_id: int
+    service_id: int
+    appointment_date: date
+    appointment_time: str = Field(default="09:00", min_length=4, max_length=5)
+    status: AppointmentStatus = "scheduled"
+    notes: str = ""
+
+
+class AppointmentResponse(BaseModel):
+    id: int
+    client_id: int
+    barber_id: int
+    service_id: int
+    appointment_date: date
+    appointment_time: str
+    status: AppointmentStatus
+    notes: str | None
+    created_at: datetime
+
+    model_config = {"from_attributes": True}

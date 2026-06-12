@@ -3,10 +3,14 @@ from datetime import date, datetime, timedelta
 from sqlalchemy import extract, func, select
 from sqlalchemy.orm import Session
 
-from app.models import DashboardConfig, GoalConfig, Habit, HabitCheckin, Task, Transaction
+from app.models import Appointment, Barber, Client, DashboardConfig, GoalConfig, Habit, HabitCheckin, Service, Task, Transaction
 from app.schemas import (
+    AppointmentCreate,
+    BarberCreate,
+    ClientCreate,
     HabitCheckinToggle,
     HabitCreate,
+    ServiceCreate,
     TaskCreate,
     TotalBalanceConfigCreate,
     TransactionCreate,
@@ -562,3 +566,266 @@ def save_goal_config(db: Session, payload: GoalConfigCreate) -> GoalConfig:
     db.commit()
     db.refresh(config)
     return config
+
+# =============================
+# CUTHUB - CLIENTES
+# =============================
+
+def create_client(db: Session, payload: ClientCreate) -> Client:
+    client = Client(
+        name=payload.name.strip(),
+        phone=payload.phone.strip(),
+        email=payload.email.strip(),
+        preferred_cut=payload.preferred_cut.strip(),
+        notes=payload.notes.strip(),
+    )
+    db.add(client)
+    db.commit()
+    db.refresh(client)
+    return client
+
+
+def list_clients(db: Session) -> list[Client]:
+    stmt = select(Client).order_by(Client.created_at.desc(), Client.id.desc())
+    return list(db.scalars(stmt).all())
+
+
+def get_client_by_id(db: Session, client_id: int) -> Client | None:
+    stmt = select(Client).where(Client.id == client_id)
+    return db.scalar(stmt)
+
+
+def update_client(db: Session, client_id: int, payload: ClientCreate) -> Client | None:
+    client = get_client_by_id(db, client_id)
+    if client is None:
+        return None
+
+    client.name = payload.name.strip()
+    client.phone = payload.phone.strip()
+    client.email = payload.email.strip()
+    client.preferred_cut = payload.preferred_cut.strip()
+    client.notes = payload.notes.strip()
+
+    db.commit()
+    db.refresh(client)
+    return client
+
+
+def delete_client(db: Session, client_id: int) -> bool:
+    client = get_client_by_id(db, client_id)
+    if client is None:
+        return False
+
+    db.delete(client)
+    db.commit()
+    return True
+
+
+# =============================
+# CUTHUB - BARBEIROS
+# =============================
+
+def create_barber(db: Session, payload: BarberCreate) -> Barber:
+    barber = Barber(
+        name=payload.name.strip(),
+        phone=payload.phone.strip(),
+        specialty=payload.specialty.strip(),
+        status=payload.status,
+    )
+    db.add(barber)
+    db.commit()
+    db.refresh(barber)
+    return barber
+
+
+def list_barbers(db: Session) -> list[Barber]:
+    stmt = select(Barber).order_by(Barber.status.asc(), Barber.name.asc())
+    return list(db.scalars(stmt).all())
+
+
+def get_barber_by_id(db: Session, barber_id: int) -> Barber | None:
+    stmt = select(Barber).where(Barber.id == barber_id)
+    return db.scalar(stmt)
+
+
+def update_barber(db: Session, barber_id: int, payload: BarberCreate) -> Barber | None:
+    barber = get_barber_by_id(db, barber_id)
+    if barber is None:
+        return None
+
+    barber.name = payload.name.strip()
+    barber.phone = payload.phone.strip()
+    barber.specialty = payload.specialty.strip()
+    barber.status = payload.status
+
+    db.commit()
+    db.refresh(barber)
+    return barber
+
+
+def delete_barber(db: Session, barber_id: int) -> bool:
+    barber = get_barber_by_id(db, barber_id)
+    if barber is None:
+        return False
+
+    db.delete(barber)
+    db.commit()
+    return True
+
+
+# =============================
+# CUTHUB - SERVIÇOS
+# =============================
+
+def create_service(db: Session, payload: ServiceCreate) -> Service:
+    service = Service(
+        name=payload.name.strip(),
+        price=payload.price,
+        duration_minutes=payload.duration_minutes,
+        description=payload.description.strip(),
+        tools=payload.tools.strip(),
+    )
+    db.add(service)
+    db.commit()
+    db.refresh(service)
+    return service
+
+
+def list_services(db: Session) -> list[Service]:
+    stmt = select(Service).order_by(Service.name.asc())
+    return list(db.scalars(stmt).all())
+
+
+def get_service_by_id(db: Session, service_id: int) -> Service | None:
+    stmt = select(Service).where(Service.id == service_id)
+    return db.scalar(stmt)
+
+
+def update_service(db: Session, service_id: int, payload: ServiceCreate) -> Service | None:
+    service = get_service_by_id(db, service_id)
+    if service is None:
+        return None
+
+    service.name = payload.name.strip()
+    service.price = payload.price
+    service.duration_minutes = payload.duration_minutes
+    service.description = payload.description.strip()
+    service.tools = payload.tools.strip()
+
+    db.commit()
+    db.refresh(service)
+    return service
+
+
+def delete_service(db: Session, service_id: int) -> bool:
+    service = get_service_by_id(db, service_id)
+    if service is None:
+        return False
+
+    db.delete(service)
+    db.commit()
+    return True
+
+
+# =============================
+# CUTHUB - AGENDAMENTOS
+# =============================
+
+def create_appointment(db: Session, payload: AppointmentCreate) -> Appointment:
+    appointment = Appointment(
+        client_id=payload.client_id,
+        barber_id=payload.barber_id,
+        service_id=payload.service_id,
+        appointment_date=payload.appointment_date,
+        appointment_time=payload.appointment_time,
+        status=payload.status,
+        notes=payload.notes.strip(),
+    )
+    db.add(appointment)
+    db.commit()
+    db.refresh(appointment)
+    return appointment
+
+
+def list_appointments(
+    db: Session,
+    target_date: date | None = None,
+) -> list[Appointment]:
+    stmt = select(Appointment)
+
+    if target_date is not None:
+        stmt = stmt.where(Appointment.appointment_date == target_date)
+
+    stmt = stmt.order_by(
+        Appointment.appointment_date.asc(),
+        Appointment.appointment_time.asc(),
+        Appointment.id.asc(),
+    )
+    return list(db.scalars(stmt).all())
+
+
+def get_appointment_by_id(db: Session, appointment_id: int) -> Appointment | None:
+    stmt = select(Appointment).where(Appointment.id == appointment_id)
+    return db.scalar(stmt)
+
+
+def update_appointment(
+    db: Session,
+    appointment_id: int,
+    payload: AppointmentCreate,
+) -> Appointment | None:
+    appointment = get_appointment_by_id(db, appointment_id)
+    if appointment is None:
+        return None
+
+    appointment.client_id = payload.client_id
+    appointment.barber_id = payload.barber_id
+    appointment.service_id = payload.service_id
+    appointment.appointment_date = payload.appointment_date
+    appointment.appointment_time = payload.appointment_time
+    appointment.status = payload.status
+    appointment.notes = payload.notes.strip()
+
+    db.commit()
+    db.refresh(appointment)
+    return appointment
+
+
+def delete_appointment(db: Session, appointment_id: int) -> bool:
+    appointment = get_appointment_by_id(db, appointment_id)
+    if appointment is None:
+        return False
+
+    db.delete(appointment)
+    db.commit()
+    return True
+
+
+def get_cuthub_dashboard(db: Session) -> dict:
+    today = date.today()
+
+    clients = list_clients(db)
+    barbers = list_barbers(db)
+    services = list_services(db)
+    today_appointments = list_appointments(db, today)
+
+    completed_today = [
+        appointment for appointment in today_appointments
+        if appointment.status == "completed"
+    ]
+
+    scheduled_today = [
+        appointment for appointment in today_appointments
+        if appointment.status == "scheduled"
+    ]
+
+    return {
+        "clients_count": len(clients),
+        "active_barbers_count": sum(1 for barber in barbers if barber.status == "active"),
+        "services_count": len(services),
+        "appointments_today_count": len(today_appointments),
+        "scheduled_today_count": len(scheduled_today),
+        "completed_today_count": len(completed_today),
+        "recent_clients": clients[:8],
+        "today_appointments": today_appointments,
+    }

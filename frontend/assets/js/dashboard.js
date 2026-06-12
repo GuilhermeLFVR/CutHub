@@ -11,7 +11,7 @@ let activeSection = "finance";
 let bettingOperations = [];
 
 let bettingManualWorkCash = Number(
-  localStorage.getItem("dashnox_manual_work_cash") || 0
+  localStorage.getItem("cuthub_manual_work_cash") || 0
 );
 
 function getUnifiedTotalBalance() {
@@ -24,7 +24,7 @@ function getUnifiedTotalBalance() {
 
 function saveBettingManualWorkCash() {
   localStorage.setItem(
-    "dashnox_manual_work_cash",
+    "cuthub_manual_work_cash",
     String(bettingManualWorkCash)
   );
 }
@@ -85,7 +85,7 @@ function initializeBettingOperationalBalance() {
       const value = Number(String(input?.value || "0").replace(",", "."));
 
       if (!Number.isFinite(value) || value < 0) {
-        showToast("Valor inválido", "Digite um saldo total válido.", "error");
+        showToast("Valor inválido", "Digite uma capacidade válida.", "error");
         return;
       }
 
@@ -98,8 +98,8 @@ function initializeBettingOperationalBalance() {
         await updateUnifiedTotalBalance(value);
 
         showToast(
-          "Saldo sincronizado",
-          "Financeiro e caixa de trabalho foram atualizados.",
+          "Resumo sincronizado",
+          "Dashboard e painel operacional foram atualizados.",
           "success"
         );
       } catch (error) {
@@ -132,8 +132,8 @@ function initializeBettingOperationalBalance() {
       }
 
       showToast(
-        "Caixa atualizado",
-        "Caixa operacional ajustado.",
+        "Resumo atualizado",
+        "Painel operacional ajustado.",
         "success"
       );
     });
@@ -165,12 +165,12 @@ let goalsConfig = { finance_monthly_goal: 0 };
 function getSectionMeta(section) {
   const sectionMap = {
     finance: {
-      title: "Financeiro",
-      description: "Controle ganhos, gastos, saldo real e metas mensais sem misturar as operações.",
+      title: "Dashboard",
+      description: "Visão geral da barbearia: clientes, agenda, serviços e cliente.",
     },
     betting: {
-      title: "Apostas",
-      description: "Central para surebets, freebets, missões, PA, cashout e performance operacional.",
+      title: "Clientes",
+      description: "Central para cadastro, histórico e preferências dos clientes.",
     },
   };
 
@@ -506,8 +506,8 @@ function updateCards(data) {
   const statusElement = document.getElementById("statusValue");
   if (statusElement) {
     statusElement.textContent = data.transactions.length
-      ? `${data.transactions.length} lançamentos`
-      : "Sem lançamentos";
+      ? `${data.transactions.length} cadastros`
+      : "Sem cadastros";
   }
 }
 
@@ -540,7 +540,7 @@ async function handleSaveTotalBalance() {
   const value = Number(rawValue);
 
   if (!Number.isFinite(value) || value < 0) {
-    showToast("Valor inválido", "Digite um saldo base válido.", "error");
+    showToast("Valor inválido", "Digite uma capacidade válida.", "error");
     return;
   }
 
@@ -555,10 +555,10 @@ async function handleSaveTotalBalance() {
     await updateUnifiedTotalBalance(value);
 
     if (hint) {
-      hint.textContent = "Saldo total atualizado.";
+      hint.textContent = "Capacidade operacional atualizada.";
     }
 
-    showToast("Saldo total salvo", "Saldo sincronizado com o caixa de trabalho.", "success");
+    showToast("Capacidade salva", "Resumo sincronizado com o painel operacional.", "success");
   } catch (error) {
     showToast("Erro", error.message, "error");
   } finally {
@@ -586,9 +586,9 @@ function updateTitles(month, year) {
   ];
 
   const label = `${monthNames[month - 1]}/${year}`;
-  document.getElementById("chartTitle").textContent = `Gastos por Categoria - ${label}`;
-  document.getElementById("flowTitle").textContent = `Fluxo Diário - ${label}`;
-  document.getElementById("tableTitle").textContent = `Transações - ${label}`;
+  document.getElementById("chartTitle").textContent = `Serviços por Categoria - ${label}`;
+  document.getElementById("flowTitle").textContent = `Atendimentos por dia - ${label}`;
+  document.getElementById("tableTitle").textContent = `Clientes - ${label}`;
 }
 
 function renderTransactions(transactions) {
@@ -739,7 +739,7 @@ function applyTableFilters() {
   paginatedTransactions.forEach((transaction) => {
     const row = document.createElement("tr");
     const typeClass = transaction.type === "income" ? "type-income" : "type-expense";
-    const typeLabel = transaction.type === "income" ? "Entrada" : "Saída";
+    const typeLabel = transaction.type === "income" ? "Ativo" : "Inativo";
     const isChecked = selectedTransactionIds.has(transaction.id);
     const checkedAttr = isChecked ? "checked" : "";
     const selectedClass = isChecked ? "selected-row" : "";
@@ -810,7 +810,7 @@ function attachRowEvents() {
 
       if (!id || Number.isNaN(id)) {
         console.error("ID inválido:", button.dataset.id);
-        showToast("Erro", "ID da transação inválido.", "error");
+        showToast("Erro", "ID da cliente inválido.", "error");
         return;
       }
 
@@ -992,7 +992,7 @@ function renderDailyFlowChart(dailyFlow) {
         labels: ["Sem dados"],
         datasets: [
           {
-            label: "Ganhos",
+            label: "Clientes",
             data: [0],
             backgroundColor: "rgba(0, 255, 156, 0.3)",
             borderColor: "rgba(0, 255, 156, 0.5)",
@@ -1000,7 +1000,7 @@ function renderDailyFlowChart(dailyFlow) {
             borderRadius: 8,
           },
           {
-            label: "Gastos",
+            label: "Serviços",
             data: [0],
             backgroundColor: "rgba(255, 95, 122, 0.3)",
             borderColor: "rgba(255, 95, 122, 0.5)",
@@ -1062,7 +1062,7 @@ function renderDailyFlowChart(dailyFlow) {
       labels,
       datasets: [
         {
-          label: "Ganhos",
+          label: "Clientes",
           data: incomes,
           backgroundColor: "rgba(0, 255, 156, 0.75)",
           borderColor: "rgba(0, 255, 156, 1)",
@@ -1070,7 +1070,7 @@ function renderDailyFlowChart(dailyFlow) {
           borderRadius: 8,
         },
         {
-          label: "Gastos",
+          label: "Serviços",
           data: expenses,
           backgroundColor: "rgba(255, 95, 122, 0.75)",
           borderColor: "rgba(255, 95, 122, 1)",
@@ -1185,7 +1185,7 @@ function renderInsight(currentData, previousData) {
   let message = "";
 
   if (!currentData.transactions.length) {
-    message = "Ainda não há movimentações neste período. Assim que você registrar a primeira transação, o DashNOX começa a gerar insights automáticos por aqui.";
+    message = "Ainda não há movimentações neste período. Assim que você registrar a primeira cliente, o DashNOX começa a gerar insights automáticos por aqui.";
   } else if (previousExpense > 0) {
     const diff = currentExpense - previousExpense;
     const percent = Math.abs((diff / previousExpense) * 100).toFixed(1);
@@ -1210,7 +1210,7 @@ function renderInsight(currentData, previousData) {
       highestDay ? `Seu dia mais caro foi ${highestDay}.` : ""
     }`;
   } else {
-    message = "Sem gastos registrados neste período. Quando as transações entrarem, o DashNOX passa a gerar insights automáticos por aqui.";
+    message = "Sem gastos registrados neste período. Quando as clientes entrarem, o DashNOX passa a gerar insights automáticos por aqui.";
   }
 
   insightText.textContent = message;
@@ -1343,7 +1343,7 @@ function openEditModal(transaction) {
   document.getElementById("transaction_date").value = transaction.transaction_date;
   document.getElementById("description").value = transaction.description;
   document.getElementById("notes").value = transaction.notes || "";
-  document.getElementById("categoryHint").textContent = "Categoria carregada da transação.";
+  document.getElementById("categoryHint").textContent = "Categoria carregada da cliente.";
 
   document.getElementById("transactionModal").classList.remove("hidden");
 }
@@ -1361,11 +1361,11 @@ function openDeleteModal() {
 
   if (pendingDeleteMode === "bulk") {
     const count = selectedTransactionIds.size;
-    deleteModalTitle.textContent = "Excluir Transações";
+    deleteModalTitle.textContent = "Excluir Clientes";
     deleteConfirmText.textContent = `Tem certeza que deseja excluir ${count} transaç${count === 1 ? "ão selecionada" : "ões selecionadas"}? Essa ação não poderá ser desfeita.`;
   } else {
     deleteModalTitle.textContent = "Excluir Transação";
-    deleteConfirmText.textContent = "Tem certeza que deseja excluir esta transação? Essa ação não poderá ser desfeita.";
+    deleteConfirmText.textContent = "Tem certeza que deseja excluir esta cliente? Essa ação não poderá ser desfeita.";
   }
 
   document.getElementById("deleteConfirmModal").classList.remove("hidden");
@@ -1399,7 +1399,7 @@ async function confirmDelete() {
     });
 
     if (!response.ok) {
-      throw new Error("Não foi possível excluir a transação.");
+      throw new Error("Não foi possível excluir a cliente.");
     }
 
     selectedTransactionIds.delete(pendingDeleteId);
@@ -1411,7 +1411,7 @@ async function confirmDelete() {
     triggerBalanceFeedback("negative");
     triggerBalanceValueFeedback("negative");
 
-    showToast("Transação excluída", "A transação foi removida com sucesso.", "success");
+    showToast("Transação excluída", "A cliente foi removida com sucesso.", "success");
   } catch (error) {
     closeDeleteModal();
     showToast("Erro", error.message, "error");
@@ -1436,7 +1436,7 @@ async function confirmBulkDelete() {
     });
 
     if (!response.ok) {
-      throw new Error("Não foi possível excluir as transações selecionadas.");
+      throw new Error("Não foi possível excluir as clientes selecionadas.");
     }
 
     const data = await response.json();
@@ -1450,7 +1450,7 @@ async function confirmBulkDelete() {
     triggerBalanceValueFeedback("negative");
 
     showToast(
-      "Transações excluídas",
+      "Clientes excluídas",
       `${data.deleted_count} transaç${data.deleted_count === 1 ? "ão foi removida" : "ões foram removidas"} com sucesso.`,
       "success"
     );
@@ -1531,8 +1531,8 @@ async function submitTransaction(event) {
     if (!response.ok) {
       throw new Error(
         isEditing
-          ? "Não foi possível atualizar a transação."
-          : "Não foi possível salvar a transação."
+          ? "Não foi possível atualizar a cliente."
+          : "Não foi possível salvar a cliente."
       );
     }
 
@@ -1549,7 +1549,7 @@ async function submitTransaction(event) {
       isEditing ? "Transação atualizada" : "Transação criada",
       isEditing
         ? "As alterações foram salvas com sucesso."
-        : "A nova transação foi adicionada ao dashboard.",
+        : "A nova cliente foi adicionada ao dashboard.",
       "success"
     );
 
@@ -1752,7 +1752,7 @@ async function saveBettingOperation(payload) {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.detail || 'Não foi possível salvar a operação.');
+    throw new Error(error.detail || 'Não foi possível salvar a cliente.');
   }
 
   return response.json();
@@ -1765,7 +1765,7 @@ async function removeBettingOperation(id) {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.detail || 'Não foi possível excluir a operação.');
+    throw new Error(error.detail || 'Não foi possível excluir a cliente.');
   }
 }
 
@@ -1774,7 +1774,7 @@ async function removeAllBettingOperations() {
     method: 'DELETE',
   });
 
-  if (!response.ok) throw new Error('Não foi possível limpar as operações.');
+  if (!response.ok) throw new Error('Não foi possível limpar as clientes.');
 }
 
 
@@ -1943,7 +1943,7 @@ function resetBettingForm() {
   resetBettingHouses();
 
   const title = document.getElementById('bettingFormTitle');
-  if (title) title.textContent = 'Nova operação';
+  if (title) title.textContent = 'Nova cliente';
 }
 
 function getBettingFormPayload() {
@@ -1994,7 +1994,7 @@ function renderBettingAlerts() {
   const now = new Date();
 
   bettingOperations.forEach((operation) => {
-    const operationName = operation.game || operation.market || 'Operação';
+    const operationName = operation.game || operation.market || 'Cliente';
 
     const isOpen = isBettingOperationOpen(operation);
 
@@ -2014,7 +2014,7 @@ function renderBettingAlerts() {
 
       if (diffHours >= 24) {
         alerts.push({
-          title: 'Operação aberta há muito tempo',
+          title: 'Cliente aberta há muito tempo',
           description: `${operationName} continua aberta há mais de 24h.`,
           tag: 'ABERTA',
           danger: true,
@@ -2144,7 +2144,7 @@ function bindBettingWorkCashControls() {
     }
 
     bettingManualWorkCash = value;
-    localStorage.setItem("dashnox_manual_work_cash", String(value));
+    localStorage.setItem("cuthub_manual_work_cash", String(value));
 
     const workCashElement = document.getElementById("bettingWorkCashValue");
     if (workCashElement) {
@@ -2157,7 +2157,7 @@ function bindBettingWorkCashControls() {
 
     renderBettingCashAndMonthlyPanel();
 
-    showToast("Caixa atualizado", "Caixa operacional salvo.", "success");
+    showToast("Resumo atualizado", "Caixa operacional salvo.", "success");
   });
 }
 
@@ -2168,7 +2168,7 @@ function renderBettingCashAndMonthlyPanel() {
   const realBalance = Number(currentDashboardData?.total_balance_base || currentDashboardData?.total_balance || 0);
 
   bettingManualWorkCash = Number(
-    localStorage.getItem("dashnox_manual_work_cash") ||
+    localStorage.getItem("cuthub_manual_work_cash") ||
     bettingManualWorkCash ||
     0
   );
@@ -2760,7 +2760,7 @@ function renderBettingModule() {
   if (roiElement) roiElement.textContent = `${roi.toFixed(2)}%`;
   const countElement = document.getElementById('bettingCountValue');
   if (countElement) countElement.textContent = String(stats.openCount);
-  if (statusSummary) statusSummary.textContent = bettingOperations.length ? `${stats.openCount} abertas · ${bettingOperations.length} total` : 'Sem operações';
+  if (statusSummary) statusSummary.textContent = bettingOperations.length ? `${stats.openCount} abertas · ${bettingOperations.length} total` : 'Sem clientes';
 
   renderBettingCashAndMonthlyPanel();
 
@@ -2783,7 +2783,7 @@ function renderBettingModule() {
             <strong>${operation.type} · ${formatBettingHousesLabel(operation)}</strong>
             <span class="module-placeholder-tag ${String(operation.status || '').toLowerCase() === 'finalizada' ? 'betting-status-finished' : 'betting-status-open'}">${String(operation.status || '').toLowerCase() === 'finalizada' ? 'Finalizada' : 'Aberta'}</span>
           </div>
-          <p class="module-item-description">${operation.game || "Jogo não informado"} · ${operation.market} · Operação: ${formatDate(operation.date)} · ${eventDateLabel} ${countdownLabel}${operation.notes ? ` · ${operation.notes}` : ''}</p>
+          <p class="module-item-description">${operation.game || "Jogo não informado"} · ${operation.market} · Cliente: ${formatDate(operation.date)} · ${eventDateLabel} ${countdownLabel}${operation.notes ? ` · ${operation.notes}` : ''}</p>
           <div class="betting-operation-metrics">
             <span>${isBettingOperationOpen(operation) ? 'Em aberto' : 'Investido'}: <strong>${formatCurrency(itemStake)}</strong></span>
             ${Number(operation.freebet_value || 0) > 0 ? `<span>Freebet: <strong class="positive">${formatCurrency(operation.freebet_value)}</strong></span>` : ''}
@@ -2835,7 +2835,7 @@ async function submitBettingOperation(event) {
   event.preventDefault();
   const payload = getBettingFormPayload();
   if (!payload.houses.length || !payload.game || !payload.market || !Number.isFinite(payload.stake) || !Number.isFinite(payload.mission_cost) || !Number.isFinite(payload.profit)) {
-    showToast('Operação inválida', 'Preencha pelo menos uma casa, jogo, mercado, valor investido, custo da missão e lucro corretamente.', 'error');
+    showToast('Cliente inválida', 'Preencha pelo menos uma casa, jogo, mercado, valor investido, custo da missão e lucro corretamente.', 'error');
     return;
   }
 
@@ -2849,7 +2849,7 @@ async function submitBettingOperation(event) {
   renderBettingAlerts();
     resetBettingForm();
     pulseCollection('.betting-kpi-grid .stat-card', 'success-glow');
-    showToast('Operação salva', 'Registro de apostas atualizado.', 'success');
+    showToast('Cliente salva', 'Registro de apostas atualizado.', 'success');
   } catch (error) {
     showToast('Erro', error.message, 'error');
   }
@@ -2871,7 +2871,7 @@ function editBettingOperation(id) {
   document.getElementById('bettingEventDate').value = operation.event_date ? String(operation.event_date).slice(0, 16) : '';
   document.getElementById('bettingNotes').value = operation.notes || '';
   const title = document.getElementById('bettingFormTitle');
-  if (title) title.textContent = 'Editar operação';
+  if (title) title.textContent = 'Editar cliente';
   switchSection('betting');
 }
 
@@ -2900,10 +2900,10 @@ async function toggleBettingOperationFinished(id) {
   renderBettingAlerts();
     await loadDashboard({ showLoader: false });
     showToast(
-      shouldFinish ? 'Operação finalizada' : 'Operação reaberta',
+      shouldFinish ? 'Cliente finalizada' : 'Cliente reaberta',
       shouldFinish
-        ? 'O lucro/prejuízo subiu para o Financeiro.'
-        : 'O lançamento automático foi removido do Financeiro.',
+        ? 'O lucro/prejuízo subiu para o Dashboard.'
+        : 'O cadastro automático foi removido do Dashboard.',
       shouldFinish ? 'success' : 'info'
     );
   } catch (error) {
@@ -2919,7 +2919,7 @@ async function deleteBettingOperation(id) {
     renderBettingModule();
   renderBettingAlerts();
     await loadDashboard({ showLoader: false });
-    showToast('Operação removida', 'Registro excluído do módulo de apostas.', 'info');
+    showToast('Cliente removida', 'Registro excluído do módulo de apostas.', 'info');
   } catch (error) {
     showToast('Erro', error.message, 'error');
   }
@@ -2934,7 +2934,7 @@ async function clearBettingOperations() {
     renderBettingModule();
   renderBettingAlerts();
     resetBettingForm();
-    showToast('Módulo limpo', 'Todas as operações foram removidas.', 'info');
+    showToast('Módulo limpo', 'Todas as clientes foram removidas.', 'info');
   } catch (error) {
     showToast('Erro', error.message, 'error');
   }

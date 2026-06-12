@@ -703,3 +703,174 @@ def clear_betting_operations(db: Session = Depends(get_db)):
 
     _write_betting_operations([])
     return {"message": "Operações removidas com sucesso."}
+
+# =============================
+# CUTHUB - CLIENTES
+# =============================
+
+@app.get("/api/cuthub/dashboard")
+def cuthub_dashboard(db: Session = Depends(get_db)):
+    return crud.get_cuthub_dashboard(db)
+
+
+@app.get("/api/clients", response_model=list[schemas.ClientResponse])
+def get_clients(db: Session = Depends(get_db)):
+    return crud.list_clients(db)
+
+
+@app.post("/api/clients", response_model=schemas.ClientResponse)
+def create_client(payload: schemas.ClientCreate, db: Session = Depends(get_db)):
+    return crud.create_client(db, payload)
+
+
+@app.put("/api/clients/{client_id}", response_model=schemas.ClientResponse)
+def update_client(
+    client_id: int,
+    payload: schemas.ClientCreate,
+    db: Session = Depends(get_db),
+):
+    client = crud.update_client(db, client_id, payload)
+
+    if not client:
+        raise HTTPException(status_code=404, detail="Cliente não encontrado.")
+
+    return client
+
+
+@app.delete("/api/clients/{client_id}")
+def delete_client(client_id: int, db: Session = Depends(get_db)):
+    deleted = crud.delete_client(db, client_id)
+
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Cliente não encontrado.")
+
+    return {"message": "Cliente removido com sucesso."}
+
+
+# =============================
+# CUTHUB - BARBEIROS
+# =============================
+
+@app.get("/api/barbers", response_model=list[schemas.BarberResponse])
+def get_barbers(db: Session = Depends(get_db)):
+    return crud.list_barbers(db)
+
+
+@app.post("/api/barbers", response_model=schemas.BarberResponse)
+def create_barber(payload: schemas.BarberCreate, db: Session = Depends(get_db)):
+    return crud.create_barber(db, payload)
+
+
+@app.put("/api/barbers/{barber_id}", response_model=schemas.BarberResponse)
+def update_barber(
+    barber_id: int,
+    payload: schemas.BarberCreate,
+    db: Session = Depends(get_db),
+):
+    barber = crud.update_barber(db, barber_id, payload)
+
+    if not barber:
+        raise HTTPException(status_code=404, detail="Barbeiro não encontrado.")
+
+    return barber
+
+
+@app.delete("/api/barbers/{barber_id}")
+def delete_barber(barber_id: int, db: Session = Depends(get_db)):
+    deleted = crud.delete_barber(db, barber_id)
+
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Barbeiro não encontrado.")
+
+    return {"message": "Barbeiro removido com sucesso."}
+
+
+# =============================
+# CUTHUB - SERVIÇOS
+# =============================
+
+@app.get("/api/services", response_model=list[schemas.ServiceResponse])
+def get_services(db: Session = Depends(get_db)):
+    return crud.list_services(db)
+
+
+@app.post("/api/services", response_model=schemas.ServiceResponse)
+def create_service(payload: schemas.ServiceCreate, db: Session = Depends(get_db)):
+    return crud.create_service(db, payload)
+
+
+@app.put("/api/services/{service_id}", response_model=schemas.ServiceResponse)
+def update_service(
+    service_id: int,
+    payload: schemas.ServiceCreate,
+    db: Session = Depends(get_db),
+):
+    service = crud.update_service(db, service_id, payload)
+
+    if not service:
+        raise HTTPException(status_code=404, detail="Serviço não encontrado.")
+
+    return service
+
+
+@app.delete("/api/services/{service_id}")
+def delete_service(service_id: int, db: Session = Depends(get_db)):
+    deleted = crud.delete_service(db, service_id)
+
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Serviço não encontrado.")
+
+    return {"message": "Serviço removido com sucesso."}
+
+
+# =============================
+# CUTHUB - AGENDAMENTOS
+# =============================
+
+@app.get("/api/appointments", response_model=list[schemas.AppointmentResponse])
+def get_appointments(
+    target_date: date | None = Query(default=None),
+    db: Session = Depends(get_db),
+):
+    return crud.list_appointments(db, target_date=target_date)
+
+
+@app.post("/api/appointments", response_model=schemas.AppointmentResponse)
+def create_appointment(
+    payload: schemas.AppointmentCreate,
+    db: Session = Depends(get_db),
+):
+    if not crud.get_client_by_id(db, payload.client_id):
+        raise HTTPException(status_code=404, detail="Cliente não encontrado.")
+
+    if not crud.get_barber_by_id(db, payload.barber_id):
+        raise HTTPException(status_code=404, detail="Barbeiro não encontrado.")
+
+    if not crud.get_service_by_id(db, payload.service_id):
+        raise HTTPException(status_code=404, detail="Serviço não encontrado.")
+
+    return crud.create_appointment(db, payload)
+
+
+@app.put("/api/appointments/{appointment_id}", response_model=schemas.AppointmentResponse)
+def update_appointment(
+    appointment_id: int,
+    payload: schemas.AppointmentCreate,
+    db: Session = Depends(get_db),
+):
+    appointment = crud.update_appointment(db, appointment_id, payload)
+
+    if not appointment:
+        raise HTTPException(status_code=404, detail="Agendamento não encontrado.")
+
+    return appointment
+
+
+@app.delete("/api/appointments/{appointment_id}")
+def delete_appointment(appointment_id: int, db: Session = Depends(get_db)):
+    deleted = crud.delete_appointment(db, appointment_id)
+
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Agendamento não encontrado.")
+
+    return {"message": "Agendamento removido com sucesso."}
