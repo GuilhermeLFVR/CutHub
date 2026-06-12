@@ -1,0 +1,601 @@
+[
+  {
+    "id": "4a36602e-cfd9-4082-8fe6-2c6d63822330",
+    "type": "Missão",
+    "houses": [],
+    "house": "365 x sporty x bolsa",
+    "market": "casa x fora",
+    "game": "Manchester City x Brentford",
+    "status": "Finalizada",
+    "stake": 2000.04,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 5.99,
+    "date": "2026-05-08",
+    "event_date": "2026-05-09",
+    "notes": "13:30"
+  },
+  {
+    "id": "809a2e71-b377-415b-b215-bc9795209c44",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "SPORTY"
+      }
+    ],
+    "house": "BET365",
+    "market": "casa x fora",
+    "game": "Rio Ave x Sporting",
+    "status": "Finalizada",
+    "stake": 246.81,
+    "freebet_value": 50.0,
+    "mission_cost": 5.0,
+    "profit": 36.69,
+    "date": "2026-05-11",
+    "event_date": "2026-05-11T16:15",
+    "notes": ""
+  },
+  {
+    "id": "235be3d6-5ab6-43e5-b06e-bcf962a5cf8d",
+    "type": "Missão",
+    "houses": [
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "BOLSA"
+      }
+    ],
+    "house": "BET365",
+    "market": "Aumentada 25%",
+    "game": "OKC x LAKERS",
+    "status": "Finalizada",
+    "stake": 1550.53,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 11.95,
+    "date": "2026-05-11",
+    "event_date": "2026-05-11T23:30",
+    "notes": ""
+  },
+  {
+    "id": "dc41b87d-db8e-4cee-a75c-8e8c42eb3868",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "SPORTINGBET"
+      }
+    ],
+    "house": "BET365",
+    "market": "casa x fora",
+    "game": "Palmeiras x Jacuipense",
+    "status": "Finalizada",
+    "stake": 917.2,
+    "freebet_value": 100.0,
+    "mission_cost": 0.0,
+    "profit": 82.8,
+    "date": "2026-05-11",
+    "event_date": "2026-05-13T21:30",
+    "notes": ""
+  },
+  {
+    "id": "5aa77d49-de0d-4001-b496-e07d3e087f6e",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "BETESPORTE"
+      },
+      {
+        "name": "STAKE"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa x fora",
+    "game": "Basel x Gallen",
+    "status": "Finalizada",
+    "stake": 29.7,
+    "freebet_value": 15.0,
+    "mission_cost": 0.0,
+    "profit": 10.05,
+    "date": "2026-05-11",
+    "event_date": "2026-05-14T11:30",
+    "notes": ""
+  },
+  {
+    "id": "3dc8b639-9292-45b7-aacf-f035f6ca3b69",
+    "type": "Missão",
+    "houses": [
+      {
+        "name": "ESPORTIVA"
+      },
+      {
+        "name": "SUPERBET"
+      },
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "BOLSA"
+      }
+    ],
+    "house": "ESPORTIVA",
+    "market": "Múltipla",
+    "game": "Sevilla X Villareal",
+    "status": "Finalizada",
+    "stake": 321.35,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 303.38,
+    "date": "2026-05-13",
+    "event_date": "2026-05-13T14:00",
+    "notes": "Duplo + freebet de 100"
+  },
+  {
+    "id": "3393ffae-509c-4b3e-9528-a73782f2f2b6",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BOLSA"
+      },
+      {
+        "name": "ESPORTIVA"
+      }
+    ],
+    "house": "BOLSA",
+    "market": "Múltipla",
+    "game": "Manchester City x Crystal Palace",
+    "status": "Finalizada",
+    "stake": 810.0,
+    "freebet_value": 100.0,
+    "mission_cost": 37.07,
+    "profit": 43.91,
+    "date": "2026-05-13",
+    "event_date": "2026-05-13T16:00",
+    "notes": "Freebet de 100"
+  },
+  {
+    "id": "03064ba3-efab-4adb-a8c3-736e50453b8e",
+    "type": "Missão",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "BOLSA"
+      },
+      {
+        "name": "ESPORTIVA"
+      }
+    ],
+    "house": "BETANO",
+    "market": "Múltipla",
+    "game": "Remo X Bahia",
+    "status": "Finalizada",
+    "stake": 402.0,
+    "freebet_value": 0.0,
+    "mission_cost": 26.2,
+    "profit": 43.24,
+    "date": "2026-05-13",
+    "event_date": "2026-05-13T21:30",
+    "notes": ""
+  },
+  {
+    "id": "c15b045c-4b98-417c-b670-846df25d8403",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "apostabet"
+      },
+      {
+        "name": "SPORTINGBET"
+      },
+      {
+        "name": "ESPORTIVA"
+      }
+    ],
+    "house": "apostabet",
+    "market": "casa x fora",
+    "game": "Atlético Mineiro X Mirassol",
+    "status": "Finalizada",
+    "stake": 55.45,
+    "freebet_value": 100.0,
+    "mission_cost": 17.95,
+    "profit": 44.55,
+    "date": "2026-05-13",
+    "event_date": "2026-05-16T18:30",
+    "notes": ""
+  },
+  {
+    "id": "934af1c4-89cb-4433-b59e-333f35943c00",
+    "type": "Surebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "STAKE"
+      },
+      {
+        "name": "KTO"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa x fora",
+    "game": "Pachuca X Puma",
+    "status": "Finalizada",
+    "stake": 921.5,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 15.51,
+    "date": "2026-05-14",
+    "event_date": "2026-05-17T22:00",
+    "notes": ""
+  },
+  {
+    "id": "5701d888-27c4-4593-8e66-140d836afff9",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "apostabet"
+      },
+      {
+        "name": "BETANO"
+      }
+    ],
+    "house": "BET365",
+    "market": "casa x fora",
+    "game": "Arsenal X Burnley",
+    "status": "Finalizada",
+    "stake": 512.18,
+    "freebet_value": 50.0,
+    "mission_cost": 0.0,
+    "profit": 37.77,
+    "date": "2026-05-17",
+    "event_date": "2026-05-18T16:00",
+    "notes": ""
+  },
+  {
+    "id": "3b0c52bc-159c-4615-a9ca-1accb536fd41",
+    "type": "Surebet",
+    "houses": [
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "BETFAIR"
+      }
+    ],
+    "house": "BET365",
+    "market": "casa X fora",
+    "game": "Santa fé X Platense",
+    "status": "Finalizada",
+    "stake": 1300.0,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 121.67,
+    "date": "2026-05-19",
+    "event_date": "2026-05-19T21:00",
+    "notes": ""
+  },
+  {
+    "id": "e94bef69-3b0a-4d38-9767-ed2e6bffe7b0",
+    "type": "Surebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "BOLSA"
+      },
+      {
+        "name": "SPORTINGBET"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa X fora",
+    "game": "Rosario Central X ucv",
+    "status": "Finalizada",
+    "stake": 1510.0,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 8.92,
+    "date": "2026-05-19",
+    "event_date": "2026-05-19T19:00",
+    "notes": ""
+  },
+  {
+    "id": "ca525fae-c2cb-4e46-b598-6f9e0aab2747",
+    "type": "Surebet",
+    "houses": [
+      {
+        "name": "SPORTINGBET"
+      },
+      {
+        "name": "BOLSA"
+      }
+    ],
+    "house": "SPORTINGBET",
+    "market": "casa X fora",
+    "game": "Al nassr X Damas FC",
+    "status": "Finalizada",
+    "stake": 2105.54,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 20.04,
+    "date": "2026-05-20",
+    "event_date": "2026-05-21T15:00",
+    "notes": ""
+  },
+  {
+    "id": "4321ddbe-6523-48af-a2ae-6ea338a3b912",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "STAKE"
+      },
+      {
+        "name": "7GAMES"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa X fora",
+    "game": "Flamengo X Palmeiras",
+    "status": "Finalizada",
+    "stake": 63.76,
+    "freebet_value": 20.0,
+    "mission_cost": 0.0,
+    "profit": 14.22,
+    "date": "2026-05-22",
+    "event_date": "2026-05-23T21:00",
+    "notes": ""
+  },
+  {
+    "id": "553d976e-e641-42c1-9e8e-a2b758f02926",
+    "type": "Missão",
+    "houses": [
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "SUPERBET"
+      }
+    ],
+    "house": "BET365",
+    "market": "Aumentada 25%",
+    "game": "Vasco X Bragantino",
+    "status": "Finalizada",
+    "stake": 413.1,
+    "freebet_value": 0.0,
+    "mission_cost": 0.0,
+    "profit": 11.9,
+    "date": "2026-05-24",
+    "event_date": "2026-05-24T20:30",
+    "notes": "+ 25 giros 365"
+  },
+  {
+    "id": "81a151b1-e30d-458c-82f8-580203831600",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "STAKE"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa X fora",
+    "game": "SP x BOSTON RIVER",
+    "status": "Finalizada",
+    "stake": 557.79,
+    "freebet_value": 100.0,
+    "mission_cost": 0.0,
+    "profit": 92.18,
+    "date": "2026-05-25",
+    "event_date": "2026-05-26T19:00",
+    "notes": ""
+  },
+  {
+    "id": "5d76a796-6e48-4e16-9f27-1beb90c3a623",
+    "type": "Surebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "BETSSON"
+      },
+      {
+        "name": "7GAMES"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa X fora",
+    "game": "FLAMENGO x CUSCO",
+    "status": "Finalizada",
+    "stake": 1190.98,
+    "freebet_value": 130.46,
+    "mission_cost": 0.0,
+    "profit": 113.62,
+    "date": "2026-05-25",
+    "event_date": "2026-05-26T21:30",
+    "notes": ""
+  },
+  {
+    "id": "eac801fc-9277-47b1-b212-6946bb299484",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "7GAMES"
+      },
+      {
+        "name": "BETÃO"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa X fora",
+    "game": "Bragantino x Carabobo",
+    "status": "Finalizada",
+    "stake": 409.64,
+    "freebet_value": 40.38,
+    "mission_cost": 0.0,
+    "profit": 34.54,
+    "date": "2026-05-27",
+    "event_date": "2026-05-27T21:30",
+    "notes": "Free 7games"
+  },
+  {
+    "id": "e0e052b1-7567-4533-b1ac-2e1347c5b76e",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BETANO"
+      },
+      {
+        "name": "7GAMES"
+      },
+      {
+        "name": "BETÃO"
+      }
+    ],
+    "house": "BETANO",
+    "market": "casa X fora",
+    "game": "Bragantino x Carabobo",
+    "status": "Finalizada",
+    "stake": 455.49,
+    "freebet_value": 44.9,
+    "mission_cost": 0.0,
+    "profit": 38.41,
+    "date": "2026-05-27",
+    "event_date": "2026-05-27T21:30",
+    "notes": "Free betao"
+  },
+  {
+    "id": "5677a0b8-148e-4241-bd72-a57a1001ccac",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "APOSTAGANHA"
+      },
+      {
+        "name": "R7"
+      },
+      {
+        "name": "STAKE"
+      }
+    ],
+    "house": "APOSTAGANHA",
+    "market": "casa X fora",
+    "game": "Fluminense X Rivadavia",
+    "status": "Finalizada",
+    "stake": 241.28,
+    "freebet_value": 34.72,
+    "mission_cost": 0.0,
+    "profit": 29.54,
+    "date": "2026-05-27",
+    "event_date": "2026-05-27T21:30",
+    "notes": "Free R7"
+  },
+  {
+    "id": "1f5d55de-0963-4bfa-94cd-64288f96a4dd",
+    "type": "Missão",
+    "houses": [
+      {
+        "name": "BETÃO"
+      },
+      {
+        "name": "7GAMES"
+      },
+      {
+        "name": "R7"
+      }
+    ],
+    "house": "BETÃO",
+    "market": "casa X fora",
+    "game": "Crystal Palace x Vallecano",
+    "status": "Finalizada",
+    "stake": 3699.99,
+    "freebet_value": 0.0,
+    "mission_cost": 92.02,
+    "profit": 0.0,
+    "date": "2026-05-27",
+    "event_date": "2026-05-27T16:00",
+    "notes": ""
+  },
+  {
+    "id": "10ce129e-ebc3-4a97-8bf1-905100fb6384",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BETFAIR"
+      },
+      {
+        "name": "7GAMES"
+      }
+    ],
+    "house": "BETFAIR",
+    "market": "casa X fora",
+    "game": "Operario X Juventude",
+    "status": "Finalizada",
+    "stake": 69.22,
+    "freebet_value": 30.0,
+    "mission_cost": 0.0,
+    "profit": 19.57,
+    "date": "2026-06-02",
+    "event_date": "2026-06-05T20:00",
+    "notes": ""
+  },
+  {
+    "id": "7edaee6f-ef94-4a14-a82e-b9419b83b648",
+    "type": "Freebet",
+    "houses": [
+      {
+        "name": "BET365"
+      },
+      {
+        "name": "KTO"
+      },
+      {
+        "name": "BOLSA"
+      }
+    ],
+    "house": "BET365",
+    "market": "casa X fora",
+    "game": "Holanda X Argelia",
+    "status": "Finalizada",
+    "stake": 1818.08,
+    "freebet_value": 200.0,
+    "mission_cost": 0.0,
+    "profit": 181.87,
+    "date": "2026-06-03",
+    "event_date": "2026-06-03T15:45",
+    "notes": ""
+  }
+]

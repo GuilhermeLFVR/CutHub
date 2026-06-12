@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DashNOX</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <div id="appLoader" class="app-loader">
+      <div class="loader-core">
+        <div class="loader-logo-wrap">
+          <div class="loader-glow"></div>
+          <img
+            src="/assets/img/logo-dashnox.png"
+            alt="Logo DashNOX"
+            class="loader-logo"
+          />
+        </div>
+        <h1 class="loader-title">DashNOX</h1>
+        <p class="loader-subtitle">Inicializando seu painel financeiro...</p>
+        <div class="loader-bar">
+          <div class="loader-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="brand-mini-wrap">
+            <img
+              src="/assets/img/logo-dashnox.png"
+              alt="Logo DashNOX"
+              class="brand-mini-logo"
+            />
+            <div class="brand-mini">DashNOX</div>
+          </div>
+          <p class="sidebar-subtitle">Painel financeiro</p>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a class="nav-item active" href="#" data-section-target="finance">Financeiro</a>
+          <a class="nav-item" href="#" data-section-target="betting">Apostas</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="hero-header reveal-up">
+          <div class="hero-copy">
+            <span class="hero-badge">Painel financeiro inteligente</span>
+            <h1 class="brand-title">DashNOX</h1>
+            <p class="hero-description">
+              Controle financeiro e operacional em um só lugar.
+            </p>
+          </div>
+
+          <div class="hero-logo-wrap" id="heroLogoWrap">
+            <div class="hero-logo-aura"></div>
+            <div class="logo-shine"></div>
+            <img
+              src="/assets/img/logo-dashnox.png"
+              alt="Logo DashNOX"
+              class="hero-logo"
+              id="heroLogo"
+            />
+          </div>
+        </header>
+
+        <section class="module-switcher-panel moving-border reveal-up">
+          <div class="module-switcher-copy">
+            <span class="panel-eyebrow">Painel principal</span>
+            <h2 id="moduleHeading">Financeiro</h2>
+            <p id="moduleDescription" class="module-switcher-description">Organize dinheiro e operações de apostas em um painel claro, afiado e sem bagunça.</p>
+          </div>
+
+          <div class="module-switcher-actions">
+            <button class="module-tab active" type="button" data-section-target="finance">Financeiro</button>
+            <button class="module-tab" type="button" data-section-target="betting">Apostas</button>
+          </div>
+        </section>
+
+        <section id="financeGoalsPanel" class="panel moving-border reveal-up goals-panel goals-panel-premium">
+          <div class="panel-header panel-header-split goals-panel-header">
+            <div>
+              <span class="panel-eyebrow">Meta financeira</span>
+              <h2>Meta do mês</h2>
+              <p class="goals-helper">Defina a meta financeira do mês selecionado.</p>
+            </div>
+            <button id="saveGoalsButton" class="primary-button goals-save-button" type="button">Salvar meta</button>
+          </div>
+
+          <div class="goals-form-grid goals-form-grid-single">
+            <div class="form-group goals-form-group">
+              <label for="financeGoalInput">Meta financeira do mês</label>
+              <input class="goals-input" id="financeGoalInput" type="number" min="0" step="0.01" placeholder="Ex.: 3000" />
+            </div>
+          </div>
+
+          <div class="goals-progress-grid goals-progress-grid-single">
+            <article class="stat-card goal-progress-card">
+              <span class="stat-label">Dinheiro</span>
+              <strong id="financeGoalHeadline" class="stat-value small">Sem meta</strong>
+              <div class="goal-progress-bar"><div id="financeGoalBar" class="goal-progress-fill"></div></div>
+              <p id="financeGoalText" class="stat-footnote">Defina sua meta mensal para acompanhar o ritmo.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="toolbar-panel moving-border reveal-up">
+          <div class="toolbar-panel-left">
+            <div class="filters-inline">
+              <div class="filter-group">
+                <label for="monthFilter">Mês</label>
+                <select id="monthFilter"></select>
+              </div>
+
+              <div class="filter-group">
+                <label for="yearFilter">Ano</label>
+                <select id="yearFilter"></select>
+              </div>
+
+              <button id="applyFilterButton" class="secondary-button" type="button">
+                Filtrar
+              </button>
+              <button id="exportCsvButton" class="secondary-button ghost-button" type="button">
+                Baixar extrato
+              </button>
+            </div>
+          </div>
+
+          <div class="toolbar-panel-right">
+            <button id="openModalButton" class="primary-button primary-button-lg" type="button">
+              + Nova Transação
+            </button>
+          </div>
+        </section>
+
+        <section id="section-finance" class="module-section module-section-active">
+        <div id="dashboardSkeleton" class="dashboard-skeleton hidden">
+          <section class="cards-grid cards-grid-main">
+            <article class="stat-card skeleton-card"></article>
+            <article class="stat-card skeleton-card"></article>
+            <article class="stat-card skeleton-card"></article>
+            <article class="stat-card skeleton-card"></article>
+          </section>
+
+          <section class="cards-grid summary-grid">
+            <article class="stat-card skeleton-card small"></article>
+            <article class="stat-card skeleton-card small"></article>
+            <article class="stat-card skeleton-card small"></article>
+            <article class="stat-card skeleton-card small"></article>
+          </section>
+
+          <section class="panel skeleton-panel"></section>
+          <section class="panel skeleton-panel"></section>
+          <section class="panel skeleton-panel tall"></section>
+        </div>
+
+        <div id="dashboardContent">
+          <section class="cards-grid cards-grid-main">
+            <article class="stat-card stat-card-featured moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-balance">◈</span>
+                <span class="stat-label">Saldo do Período</span>
+              </div>
+              <strong id="balanceValue" class="stat-value">R$ 0,00</strong>
+              <span class="stat-footnote">Visão consolidada do período</span>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-income">↗</span>
+                <span class="stat-label">Ganhos</span>
+              </div>
+              <strong id="incomeValue" class="stat-value positive">R$ 0,00</strong>
+              <span class="stat-footnote">Total de entradas do período</span>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-expense">↘</span>
+                <span class="stat-label">Gastos</span>
+              </div>
+              <strong id="expenseValue" class="stat-value negative">R$ 0,00</strong>
+              <span class="stat-footnote">Total de saídas do período</span>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-status">◎</span>
+                <span class="stat-label">Status</span>
+              </div>
+              <strong id="statusValue" class="stat-value small">Carregando...</strong>
+              <span class="stat-footnote">Resumo da atividade atual</span>
+            </article>
+
+            <article class="stat-card stat-card-total-balance moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-status">◌</span>
+                <span class="stat-label">Saldo Total</span>
+              </div>
+              <strong id="totalBalanceValue" class="stat-value small">R$ 0,00</strong>
+              <span class="stat-footnote">Saldo real manual, independente do mês</span>
+              <div class="total-balance-base-row">
+                <span class="total-balance-base-label">Base atual</span>
+                <strong id="totalBalanceBaseValue" class="total-balance-base-value">R$ 0,00</strong>
+              </div>
+              <div class="total-balance-form">
+                <input id="totalBalanceInput" class="total-balance-input" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex.: 1500,00">
+                <button id="saveTotalBalanceButton" class="primary-button total-balance-button" type="button">Salvar</button>
+              </div>
+              <span id="totalBalanceHint" class="stat-footnote total-balance-hint">Defina quanto você tem hoje em conta. Esse valor não muda quando você troca o mês.</span>
+            </article>
+          </section>
+
+          <section class="cards-grid summary-grid">
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Categoria Top</span>
+              <strong id="topCategory" class="stat-value small">-</strong>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Total de Transações</span>
+              <strong id="totalTransactions" class="stat-value small">0</strong>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Ticket Médio</span>
+              <strong id="avgTicket" class="stat-value small">R$ 0,00</strong>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Dia Mais Caro</span>
+              <strong id="highestDay" class="stat-value small">-</strong>
+            </article>
+          </section>
+
+          <section id="insightPanel" class="panel insight-panel moving-border hidden reveal-up">
+            <div class="insight-header">
+              <span class="insight-badge">Insight do mês</span>
+            </div>
+            <p id="insightText" class="insight-text">Carregando insight...</p>
+          </section>
+
+          <section class="panel chart-panel moving-border reveal-up">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Análise temporal</span>
+                <h2 id="flowTitle">Fluxo Diário do Mês</h2>
+              </div>
+            </div>
+
+            <div class="chart-wrapper">
+              <canvas id="dailyFlowChart"></canvas>
+            </div>
+          </section>
+
+          <section id="chart-section" class="panel chart-panel moving-border reveal-up">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Distribuição de gastos</span>
+                <h2 id="chartTitle">Gastos por Categoria</h2>
+              </div>
+            </div>
+
+            <div class="chart-wrapper">
+              <canvas id="categoryChart"></canvas>
+            </div>
+          </section>
+
+          <section id="transactions-section" class="panel table-panel moving-border reveal-up">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Lançamentos do período</span>
+                <h2 id="tableTitle">Transações</h2>
+              </div>
+            </div>
+
+            <div class="table-filters table-filters-extended">
+              <input type="text" id="searchInput" placeholder="Buscar descrição..." />
+              <select id="typeFilter">
+                <option value="">Todos os tipos</option>
+                <option value="income">Ganhos</option>
+                <option value="expense">Gastos</option>
+              </select>
+              <input type="text" id="categoryFilter" placeholder="Filtrar categoria..." />
+              <button id="bulkDeleteButton" class="danger-button bulk-delete-button" type="button" disabled>
+                Excluir selecionadas
+              </button>
+            </div>
+
+            <div id="selectionSummary" class="selection-summary hidden">
+              0 transações selecionadas
+            </div>
+
+            <div id="emptyState" class="empty-state-panel hidden">
+              <div class="empty-state-icon">◎</div>
+              <h3 class="empty-state-title">Nenhuma transação neste período</h3>
+              <p class="empty-state-text">
+                Seu painel está limpo por aqui. Adicione a primeira transação para começar a acompanhar ganhos, gastos e tendências do mês.
+              </p>
+              <button id="emptyStateButton" class="primary-button" type="button">
+                Adicionar primeira transação
+              </button>
+            </div>
+
+            <div class="table-wrapper" id="tableWrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="checkbox-cell">
+                      <input type="checkbox" id="selectAllCheckbox" />
+                    </th>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="transactionsBody"></tbody>
+              </table>
+            </div>
+
+            <div id="transactionsPagination" class="pagination-bar hidden">
+              <button id="prevPageButton" class="secondary-button pagination-button" type="button">Anterior</button>
+              <span id="pageInfo" class="pagination-info">Página 1 de 1</span>
+              <button id="nextPageButton" class="secondary-button pagination-button" type="button">Próxima</button>
+            </div>
+          </section>
+        </div>
+        </section>
+
+        <section id="section-betting" class="module-section hidden">
+          <section class="betting-hero panel moving-border reveal-up">
+            <div>
+              <span class="panel-eyebrow">Módulo de apostas</span>
+              <h2>Central de operações</h2>
+              <p class="betting-hero-text">Central para registro de operações e acompanhamento de performance.</p>
+            </div>
+            <div class="betting-hero-actions">
+              <button id="addBettingOperationButton" class="primary-button primary-button-lg" type="button">+ Nova operação</button>
+              <button id="clearBettingOperationsButton" class="secondary-button ghost-button" type="button">Limpar operações</button>
+            </div>
+          </section>
+
+          
+          <nav class="betting-subnav" aria-label="Navegação do módulo de apostas">
+            <button class="betting-subnav-button active" type="button" data-betting-tab="overview">Visão geral</button>
+            <button class="betting-subnav-button" type="button" data-betting-tab="operations">Operações <span id="bettingOperationsBadge" class="tab-badge">0</span></button>
+            <button class="betting-subnav-button" type="button" data-betting-tab="agenda">Agenda <span id="bettingAgendaBadge" class="tab-badge">0</span></button>
+            <button class="betting-subnav-button" type="button" data-betting-tab="alerts">Alertas <span id="bettingAlertsBadge" class="tab-badge">0</span></button>
+            <button class="betting-subnav-button" type="button" data-betting-tab="performance">Performance</button>
+          </nav>
+
+          <div class="betting-tab-panel active" data-betting-panel="overview">
+<section class="cards-grid betting-kpi-grid">
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Lucro do mês</span>
+              <strong id="bettingProfitValue" class="stat-value positive">R$ 0,00</strong>
+              <span class="stat-footnote">Resultado finalizado no mês selecionado.</span>
+            </article>
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Investido em aberto</span>
+              <strong id="bettingStakeValue" class="stat-value small">R$ 0,00</strong>
+              <span class="stat-footnote">Dinheiro preso em operações abertas.</span>
+            </article>
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Custo do mês</span>
+              <strong id="bettingMissionCostValue" class="stat-value small negative">R$ 0,00</strong>
+              <span class="stat-footnote">Custos e perdas operacionais finalizadas.</span>
+            </article>
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Operações abertas</span>
+              <strong id="bettingCountValue" class="stat-value small">0</strong>
+              <span class="stat-footnote">Quantidade em andamento.</span>
+            </article>
+          </section>
+
+          
+<section class="betting-dashboard-grid">
+            <article class="panel moving-border reveal-up betting-cash-panel">
+              <div class="panel-header panel-header-split">
+                <div>
+                  <span class="panel-eyebrow">Caixa operacional</span>
+                  <h2>Caixa de trabalho</h2>
+                  <p class="panel-description">Separe saldo pessoal, capital em operação e dinheiro disponível para trabalhar.</p>
+                </div>
+              </div>
+
+              <div class="betting-cash-grid">
+                <div class="betting-cash-item">
+                  <span>Saldo total unificado</span>
+                  <strong id="bettingRealBalanceValue">R$ 0,00</strong>
+
+                  <div class="betting-balance-edit">
+                    <input id="bettingRealBalanceInput" type="number" min="0" step="0.01" placeholder="Saldo total" / class="betting-balance-input" />
+                    <button id="saveBettingBalanceButton" type="button" class="secondary-button">Salvar</button>
+                  </div>
+                </div>
+                <div class="betting-cash-item">
+                  <span>Investido em aberto</span>
+                  <strong id="bettingOpenCapitalValue">R$ 0,00</strong>
+                </div>
+                <div class="betting-cash-item betting-cash-item-featured">
+                  <span>Disponível estimado</span>
+                  <strong id="bettingAvailableBalanceValue">R$ 0,00</strong>
+                </div>
+                <div class="betting-cash-item">
+                  <span>Caixa operacional</span>
+                  <strong id="bettingWorkCashValue">R$ 0,00</strong>
+
+                  <div class="betting-balance-actions">
+                    <input id="bettingWorkCashInput" type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="Caixa de trabalho"
+                    / class="betting-balance-input" />
+
+                    <button
+                      id="saveBettingWorkCashButton"
+                      type="button"
+                      class="betting-balance-button"
+                    >
+                      Atualizar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <p id="bettingCashHint" class="betting-cash-hint">Disponível estimado = caixa operacional - capital em operações abertas.</p>
+            </article>
+
+            <article class="panel moving-border reveal-up betting-month-panel">
+              <div class="panel-header panel-header-split">
+                <div>
+                  <span class="panel-eyebrow">Resumo mensal</span>
+                  <h2>Performance de apostas</h2>
+                  <p class="panel-description">Resultado das operações finalizadas no mês selecionado.</p>
+                </div>
+              </div>
+
+              <div class="betting-month-grid">
+                <div class="betting-month-item">
+                  <span>Lucro finalizado</span>
+                  <strong id="bettingMonthProfitValue" class="positive">R$ 0,00</strong>
+                </div>
+                <div class="betting-month-item">
+                  <span>Custo de missões</span>
+                  <strong id="bettingMonthMissionCostValue" class="negative">R$ 0,00</strong>
+                </div>
+                <div class="betting-month-item">
+                  <span>Freebets recebidas</span>
+                  <strong id="bettingMonthFreebetValue">R$ 0,00</strong>
+                </div>
+                <div class="betting-month-item">
+                  <span>ROI finalizado</span>
+                  <strong id="bettingMonthRoiValue">0,00%</strong>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          
+          
+          </div>
+
+          <div class="betting-tab-panel" data-betting-panel="operations">
+<section class="betting-layout">
+            <article class="panel moving-border reveal-up betting-form-panel">
+              <div class="panel-header">
+                <span class="panel-eyebrow">Registro rápido</span>
+                <h2 id="bettingFormTitle">Nova operação</h2>
+              </div>
+
+              <form id="bettingOperationForm" class="transaction-form">
+                <input type="hidden" id="bettingOperationId" />
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="bettingOperationType">Tipo</label>
+                    <select id="bettingOperationType" required>
+                      <option value="Surebet">Surebet</option>
+                      <option value="Freebet">Freebet</option>
+                      <option value="Missão">Missão</option>
+                      <option value="Odd Boost">Odd Boost</option>
+                      <option value="Cashout/PA">Cashout/PA</option>
+                    </select>
+                  </div>
+                  <div class="form-group form-group-full">
+                    <label>Casas envolvidas</label>
+
+                    <div id="bettingHousesList" class="betting-houses-list">
+                      <div class="betting-house-row">
+                        <input class="betting-house-name" type="text" maxlength="80" placeholder="Casa. Ex.: Betano" />
+                        <select class="betting-house-role">
+                          <option value="Principal">Principal</option>
+                          <option value="Hedge">Hedge</option>
+                          <option value="Freebet">Freebet</option>
+                          <option value="Missão">Missão</option>
+                          <option value="Exchange">Exchange</option>
+                          <option value="Cashout">Cashout</option>
+                          <option value="Outro">Outro</option>
+                        </select>
+                        <input class="betting-house-stake" type="number" min="0" step="0.01" placeholder="Valor" />
+                        <input class="betting-house-odd" type="number" min="0" step="0.01" placeholder="Odd" />
+                        <button class="icon-button betting-house-remove" type="button" title="Remover casa">✕</button>
+                      </div>
+                    </div>
+
+                    <button id="addBettingHouseButton" class="secondary-button betting-house-add" type="button">+ Adicionar outra casa</button>
+                    <p class="form-helper">Informe as casas envolvidas na operação. Use a busca ou digite uma nova casa.</p>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="bettingGame">Jogo</label>
+                    <input id="bettingGame" type="text" maxlength="120" placeholder="Ex.: Real Madrid x Barcelona" required />
+                  </div>
+<div class="form-group">
+                    <label for="bettingMarket">Mercado</label>
+                    <input id="bettingMarket" type="text" maxlength="100" placeholder="Ex.: Casa x Fora, Escanteios, Gols" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="bettingStake">Valor investido</label>
+                    <input id="bettingStake" type="number" min="0" step="0.01" placeholder="Ex.: 100" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="bettingFreebetValue">Valor da freebet</label>
+                    <input id="bettingFreebetValue" type="number" min="0" step="0.01" placeholder="Ex.: 100" />
+                  </div>
+                  <div class="form-group">
+                    <label for="bettingMissionCost">Custo/perda da missão</label>
+                    <input id="bettingMissionCost" type="number" min="0" step="0.01" placeholder="Ex.: 12.50" />
+                  </div>
+                  <div class="form-group">
+                    <label for="bettingExpectedProfit">Lucro previsto/real</label>
+                    <input id="bettingExpectedProfit" type="number" step="0.01" placeholder="Ex.: 8.50" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="bettingDate">Data da operação</label>
+                    <input id="bettingDate" type="date" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="bettingEventDate">Data e horário do jogo</label>
+                    <input id="bettingEventDate" type="datetime-local" />
+                  </div>
+                  <div class="form-group form-group-full">
+                    <label for="bettingNotes">Observações</label>
+                    <input id="bettingNotes" type="text" maxlength="220" placeholder="Ex.: Duplo, Cashout" />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="button" id="resetBettingFormButton" class="secondary-button">Limpar</button>
+                  <button type="submit" class="primary-button">Salvar operação</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="panel moving-border reveal-up betting-list-panel">
+              <div class="panel-header panel-header-split">
+                <div>
+                  <span class="panel-eyebrow">Histórico operacional</span>
+                  <h2>Operações registradas</h2>
+                </div>
+                <span id="bettingStatusSummary" class="module-placeholder-tag">Sem operações</span>
+              </div>
+
+              
+              
+              <div class="betting-search-toolbar">
+                <input
+                  id="bettingHouseFilter"
+                  type="text"
+                  placeholder="Buscar por casa..."
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="betting-filter-group">
+                <button class="betting-filter-button active" type="button" data-filter="all">Todas</button>
+                <button class="betting-filter-button" type="button" data-filter="open">Abertas</button>
+                <button class="betting-filter-button" type="button" data-filter="finished">Finalizadas</button>
+              </div>
+
+              <div id="bettingOperationsEmpty" class="empty-state-panel">
+                <div class="empty-state-icon">◈</div>
+                <h3 class="empty-state-title">Nenhuma operação ainda</h3>
+                <p class="empty-state-text">Cadastre a primeira surebet, missão ou freebet. Nada de planilha perdida no limbo.</p>
+              </div>
+
+              <div id="bettingOperationsList" class="module-item-list betting-operation-list"></div>
+            </article>
+          </section>
+          </div>
+
+          <div class="betting-tab-panel" data-betting-panel="agenda">
+<section class="panel moving-border reveal-up betting-agenda-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Agenda operacional</span>
+                <h2>Próximos jogos</h2>
+                <p class="panel-description">Operações abertas organizadas por data e horário.</p>
+              </div>
+            </div>
+
+            <div class="betting-agenda-grid">
+              <article class="betting-agenda-column">
+                <h3>Hoje</h3>
+                <div id="bettingAgendaToday" class="betting-agenda-list"></div>
+              </article>
+
+              <article class="betting-agenda-column">
+                <h3>Amanhã</h3>
+                <div id="bettingAgendaTomorrow" class="betting-agenda-list"></div>
+              </article>
+
+              <article class="betting-agenda-column">
+                <h3>Semana</h3>
+                <div id="bettingAgendaWeek" class="betting-agenda-list"></div>
+              </article>
+            </div>
+          </section>
+
+          
+          </div>
+
+          <div class="betting-tab-panel" data-betting-panel="alerts">
+
+            <section class="panel moving-border reveal-up betting-sound-panel">
+              <div class="panel-header panel-header-split">
+                <div>
+                  <span class="panel-eyebrow">Alertas sonoros</span>
+                  <h2>Notificações operacionais</h2>
+                  <p class="panel-description">Alertas suaves para jogos próximos e início das partidas.</p>
+                </div>
+              </div>
+
+              <div class="betting-sound-controls">
+                <button id="enableBettingSoundButton" class="primary-button" type="button">
+                  Ativar alertas
+                </button>
+
+                <select id="bettingSoundType">
+                  <option value="soft">Soft</option>
+                  <option value="digital">Digital</option>
+                  <option value="radar">Radar</option>
+                </select>
+
+                <input id="bettingSoundVolume" type="range" min="0" max="100" value="35" />
+
+                <button id="testBettingSoundButton" class="secondary-button" type="button">
+                  Testar som
+                </button>
+              </div>
+            </section>
+
+<section class="panel moving-border reveal-up betting-alerts-card">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Monitoramento</span>
+                <h2>Alertas operacionais</h2>
+              </div>
+            </div>
+
+            <div id="bettingAlertsList" class="betting-alerts-list">
+              <div class="empty-state-panel compact">Nenhum alerta operacional.</div>
+            </div>
+          </section>
+
+          
+          </div>
+
+          <div class="betting-tab-panel" data-betting-panel="performance">
+            <section class="panel moving-border reveal-up betting-performance-panel">
+              <div class="panel-header panel-header-split">
+                <div>
+                  <span class="panel-eyebrow">Performance</span>
+                  <h2>Resumo operacional</h2>
+                  <p class="panel-description">Indicadores mensais das operações finalizadas.</p>
+                </div>
+              </div>
+
+              <div class="betting-month-grid">
+                <div class="betting-month-item">
+                  <span>Lucro finalizado</span>
+                  <strong id="bettingPerformanceProfitValue" class="positive">R$ 0,00</strong>
+                </div>
+                <div class="betting-month-item">
+                  <span>Custo de missões</span>
+                  <strong id="bettingPerformanceMissionCostValue" class="negative">R$ 0,00</strong>
+                </div>
+                <div class="betting-month-item">
+                  <span>Freebets recebidas</span>
+                  <strong id="bettingPerformanceFreebetValue">R$ 0,00</strong>
+                </div>
+                <div class="betting-month-item">
+                  <span>ROI finalizado</span>
+                  <strong id="bettingPerformanceRoiValue">0,00%</strong>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="transactionModal" class="modal hidden">
+      <div class="modal-content moving-border">
+        <div class="modal-header">
+          <h2 id="modalTitle">Nova Transação</h2>
+          <button id="closeModalButton" class="icon-button" type="button">✕</button>
+        </div>
+
+        <form id="transactionForm" class="transaction-form">
+          <input type="hidden" id="transactionId" name="transactionId" />
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="type">Tipo</label>
+              <select id="type" name="type" required>
+                <option value="expense">Gasto</option>
+                <option value="income">Ganho</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="amount">Valor</label>
+              <input id="amount" name="amount" type="number" step="0.01" min="0.01" required />
+            </div>
+
+            <div class="form-group">
+              <label for="category">Categoria</label>
+              <input id="category" name="category" type="text" required />
+              <small id="categoryHint" class="field-hint">A categoria pode ser sugerida automaticamente.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="transaction_date">Data</label>
+              <input id="transaction_date" name="transaction_date" type="date" required />
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="description">Descrição</label>
+              <input id="description" name="description" type="text" required />
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="notes">Observações</label>
+              <input id="notes" name="notes" type="text" />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="cancelModalButton" class="secondary-button">Cancelar</button>
+            <button type="submit" id="submitButton" class="primary-button">Salvar</button>
+          </div>
+        </form>
+
+        <p id="formMessage" class="form-message"></p>
+      </div>
+    </div>
+
+    <div id="deleteConfirmModal" class="modal hidden">
+      <div class="modal-content modal-confirm moving-border">
+        <div class="modal-header">
+          <h2 id="deleteModalTitle">Excluir Transação</h2>
+          <button id="closeDeleteModalButton" class="icon-button" type="button">✕</button>
+        </div>
+
+        <p id="deleteConfirmText" class="confirm-text">
+          Tem certeza que deseja excluir esta transação? Essa ação não poderá ser desfeita.
+        </p>
+
+        <div class="form-actions">
+          <button type="button" id="cancelDeleteButton" class="secondary-button">Cancelar</button>
+          <button type="button" id="confirmDeleteButton" class="danger-button">Excluir</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/assets/js/dashboard.js"></script>
+  </body>
+</html>
