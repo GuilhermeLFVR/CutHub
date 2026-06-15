@@ -23,9 +23,8 @@ from app import models, schemas, crud
 from app.auth import authenticate_user, hash_password
 
 
-# =============================
 # DATABASE
-# =============================
+
 models.Base.metadata.create_all(bind=engine)
 
 
@@ -50,9 +49,8 @@ _ensure_runtime_columns()
 
 
 
-# =============================
 # PATHS
-# =============================
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = (BASE_DIR.parent / "frontend").resolve()
 FACE_IMAGES_DIR = FRONTEND_DIR / "assets" / "client-faces"
@@ -62,15 +60,15 @@ LOCAL_CONFIG_DIR.mkdir(exist_ok=True)
 MONTHLY_GOALS_FILE = LOCAL_CONFIG_DIR / "monthly_goals.json"
 
 
-# =============================
+
 # APP
-# =============================
+
 app = FastAPI()
 
 
-# =============================
+
 # AUTH - LOGIN / USUÁRIOS
-# =============================
+
 def _require_admin_header(x_user_role: str | None = Header(default=None)):
     if x_user_role != "admin":
         raise HTTPException(status_code=403, detail="Acesso restrito ao administrador.")
@@ -230,9 +228,9 @@ def calculate_status(income: float, expense: float, balance: float) -> str:
 
 
 
-# =============================
+
 # SALDO TOTAL AUTOMÁTICO
-# =============================
+
 def _transaction_balance_delta_from_values(transaction_type: str, amount: float) -> float:
     value = float(amount or 0)
 
@@ -314,9 +312,9 @@ def _delete_transaction_and_adjust_balance(db: Session, transaction_id: int):
     return deleted
 
 
-# =============================
+
 # CORS
-# =============================
+
 ALLOWED_ORIGINS = ["*"]
 
 app.add_middleware(
@@ -328,9 +326,9 @@ app.add_middleware(
 )
 
 
-# =============================
+
 # STATIC FILES
-# =============================
+
 if (FRONTEND_DIR / "assets").exists():
     app.mount(
         "/assets",
@@ -339,9 +337,8 @@ if (FRONTEND_DIR / "assets").exists():
     )
 
 
-# =============================
 # FRONTEND
-# =============================
+
 @app.get("/")
 def serve_dashboard():
     index_file = FRONTEND_DIR / "index.html"
@@ -352,9 +349,10 @@ def serve_dashboard():
     return FileResponse(index_file)
 
 
-# =============================
+
 # TRANSAÇÕES
-# =============================
+
+
 @app.get("/api/transactions", response_model=list[schemas.TransactionResponse])
 def get_transactions(
     month: int | None = Query(default=None, ge=1, le=12),
@@ -399,9 +397,10 @@ def delete_transaction(
     return {"message": "Transação removida com sucesso."}
 
 
-# =============================
+
 # DELETE EM MASSA
-# =============================
+
+
 @app.post("/api/transactions/bulk-delete")
 def delete_transactions_bulk(
     payload: schemas.BulkDeleteRequest,
@@ -430,9 +429,10 @@ def delete_transactions_bulk(
     }
 
 
-# =============================
+
 # EXPORT CSV
-# =============================
+
+
 @app.get("/api/transactions/export")
 def export_transactions_csv(
     month: int | None = Query(default=None, ge=1, le=12),
@@ -483,9 +483,9 @@ def export_transactions_csv(
     )
 
 
-# =============================
+
 # SUGESTÃO DE CATEGORIA
-# =============================
+
 @app.post("/api/suggest-category")
 def suggest_category(
     payload: schemas.CategorySuggestRequest,
@@ -551,9 +551,9 @@ def dashboard(
     }
 
 
-# =============================
+
 # METAS MENSAIS
-# =============================
+
 def _goal_key(month: int, year: int) -> str:
     return f"{year}-{str(month).zfill(2)}"
 
@@ -621,9 +621,9 @@ def save_goals(payload: dict):
         "finance_monthly_goal": finance_goal,
     }
 
-# =============================
+
 # APOSTAS - OPERAÇÕES
-# =============================
+
 BETTING_OPERATIONS_FILE = LOCAL_CONFIG_DIR / "betting_operations.json"
 
 
@@ -874,9 +874,9 @@ def clear_betting_operations(db: Session = Depends(get_db)):
     _write_betting_operations([])
     return {"message": "Operações removidas com sucesso."}
 
-# =============================
+
 # CUTHUB - CLIENTES
-# =============================
+
 
 @app.get("/api/cuthub/dashboard")
 def cuthub_dashboard(db: Session = Depends(get_db)):
@@ -1111,9 +1111,9 @@ def delete_client(client_id: int, db: Session = Depends(get_db)):
     return {"message": "Cliente removido com sucesso."}
 
 
-# =============================
+
 # CUTHUB - BARBEIROS
-# =============================
+
 
 @app.get("/api/barbers", response_model=list[schemas.BarberResponse])
 def get_barbers(db: Session = Depends(get_db)):
@@ -1149,9 +1149,9 @@ def delete_barber(barber_id: int, db: Session = Depends(get_db)):
     return {"message": "Barbeiro removido com sucesso."}
 
 
-# =============================
+
 # CUTHUB - SERVIÇOS
-# =============================
+
 
 @app.get("/api/services", response_model=list[schemas.ServiceResponse])
 def get_services(db: Session = Depends(get_db)):
@@ -1187,9 +1187,9 @@ def delete_service(service_id: int, db: Session = Depends(get_db)):
     return {"message": "Serviço removido com sucesso."}
 
 
-# =============================
+
 # CUTHUB - DISPONIBILIDADE
-# =============================
+
 
 @app.get("/api/availability", response_model=list[schemas.BarberAvailabilityResponse])
 def get_availability(db: Session = Depends(get_db)):
@@ -1268,9 +1268,9 @@ def get_available_slots(
     }
 
 
-# =============================
+
 # CUTHUB - AGENDAMENTOS
-# =============================
+
 
 @app.get("/api/appointments", response_model=list[schemas.AppointmentResponse])
 def get_appointments(
@@ -1372,9 +1372,9 @@ def delete_appointment(appointment_id: int, db: Session = Depends(get_db)):
     return {"message": "Agendamento removido com sucesso."}
 
 
-# =============================
+
 # CUTHUB - HISTÓRICO DE CORTES
-# =============================
+
 
 @app.get("/api/haircuts", response_model=list[schemas.HaircutRecordResponse])
 def get_haircut_records(
