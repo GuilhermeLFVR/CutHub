@@ -32,10 +32,7 @@ def _normalize_category(category: str | None) -> str:
     return raw
 
 
-
-# =============================
 # CUTHUB - USUÁRIOS / AUTH
-# =============================
 
 def normalize_email(email: str) -> str:
     return str(email or "").strip().lower()
@@ -413,9 +410,7 @@ def save_total_balance_config(
     return config
 
 
-# =============================
 # TASKS / ROTINA
-# =============================
 
 def create_task(db: Session, payload: TaskCreate) -> Task:
     task = Task(
@@ -501,9 +496,7 @@ def get_tasks_dashboard(db: Session) -> dict:
     return {"tasks": tasks_payload, "summary": summary}
 
 
-# =============================
 # HABITS / PESSOAL
-# =============================
 
 def create_habit(db: Session, payload: HabitCreate) -> Habit:
     habit = Habit(
@@ -652,9 +645,7 @@ def get_habits_dashboard(db: Session, month: int, year: int) -> dict:
     return {"habits": habits_payload, "summary": summary}
 
 
-# =============================
 # GOALS / METAS
-# =============================
 
 def get_goal_config(db: Session) -> GoalConfig | None:
     stmt = select(GoalConfig).order_by(GoalConfig.id.asc()).limit(1)
@@ -680,9 +671,7 @@ def save_goal_config(db: Session, payload: GoalConfigCreate) -> GoalConfig:
     db.refresh(config)
     return config
 
-# =============================
 # CUTHUB - CLIENTES
-# =============================
 
 def create_client(db: Session, payload: ClientCreate) -> Client:
     client = Client(
@@ -773,9 +762,7 @@ def delete_client(db: Session, client_id: int) -> bool:
     return True
 
 
-# =============================
 # CUTHUB - BARBEIROS
-# =============================
 
 def create_barber(db: Session, payload: BarberCreate) -> Barber:
     barber = Barber(
@@ -826,9 +813,7 @@ def delete_barber(db: Session, barber_id: int) -> bool:
     return True
 
 
-# =============================
 # CUTHUB - SERVIÇOS
-# =============================
 
 def create_service(db: Session, payload: ServiceCreate) -> Service:
     service = Service(
