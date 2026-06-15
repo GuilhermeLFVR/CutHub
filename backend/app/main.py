@@ -506,9 +506,8 @@ def save_total_balance_config(
     return crud.save_total_balance_config(db, payload)
 
 
-# =============================
 # DASHBOARD
-# =============================
+
 @app.get("/api/dashboard")
 def dashboard(
     month: int | None = Query(default=None, ge=1, le=12),
@@ -622,8 +621,6 @@ def save_goals(payload: dict):
     }
 
 
-# APOSTAS - OPERAÇÕES
-
 BETTING_OPERATIONS_FILE = LOCAL_CONFIG_DIR / "betting_operations.json"
 
 
@@ -656,10 +653,7 @@ def _is_betting_finalized(status: str) -> bool:
 
 
 def _parse_operation_finance_date(operation: dict) -> date:
-    """
-    Usa a data do jogo para lançar no financeiro.
-    Se ela não existir, usa a data da operação.
-    """
+   
     raw_date = str(operation.get("date") or date.today().isoformat()).strip()
 
     try:
@@ -694,17 +688,7 @@ def _delete_betting_finance_transaction(db: Session, operation_id: str) -> None:
 
 
 def _sync_betting_operation_to_finance(db: Session, operation: dict) -> None:
-    """
-    Se a operação estiver finalizada, cria/atualiza um lançamento no financeiro.
-    Se sair de finalizada, remove o lançamento vinculado.
-
-    Resultado líquido:
-    profit - mission_cost
-
-    Positivo = income
-    Negativo = expense
-    Zero = remove lançamento, porque não altera a balança.
-    """
+    
     operation_id = str(operation.get("id") or "").strip()
     if not operation_id:
         return
@@ -767,15 +751,7 @@ def _sync_betting_operation_to_finance(db: Session, operation: dict) -> None:
 
 
 def get_betting_period_result(month: int, year: int) -> float:
-    """
-    Resultado líquido das operações de apostas finalizadas no período.
-
-    Fórmula:
-    lucro líquido = profit - mission_cost
-
-    Só entram operações com status Finalizada/finalizada.
-    O período usa a data da operação ("date"), não a data do jogo ("event_date").
-    """
+    
     operations = _read_betting_operations()
     total = 0.0
 
