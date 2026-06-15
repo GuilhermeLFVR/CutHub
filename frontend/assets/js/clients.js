@@ -1,4 +1,4 @@
-/* CutHub clients.js - cadastro facial premium com múltiplas poses */
+/* CutHub clients.js */
 
 window.CutHub = window.CutHub || {};
 
