@@ -1,4 +1,4 @@
-/* CutHub booking.js - hotfix 422 robusto mantendo calendário existente */
+/* CutHub booking.js */
 
 window.CutHub = window.CutHub || {};
 
