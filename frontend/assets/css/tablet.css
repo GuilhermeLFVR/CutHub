@@ -655,7 +655,7 @@
   border-color: rgba(255, 209, 102, 0.34);
 }
 
-/* Hotfix fluxo Tablet: cores por status + foto depois */
+/* cores por status + foto */
 .cuthub-tablet-card {
   position: relative;
   overflow: hidden;
