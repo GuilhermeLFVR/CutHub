@@ -1,0 +1,14 @@
+backend/.venv/
+backend/__pycache__/
+backend/app/__pycache__/
+
+*.pyc
+*.pyo
+
+frontend/assets/client-faces/
+
+.env
+
+.vscode/
+
+*.h5

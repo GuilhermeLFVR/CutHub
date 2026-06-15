@@ -1,0 +1,39 @@
+@media (max-width: 980px) {
+  .dashboard-calendar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-calendar-day {
+    min-height: 84px;
+    padding: 9px;
+  }
+
+  .tablet-week-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tablet-calendar-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .dashboard-calendar-weekdays,
+  .dashboard-appointment-calendar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-calendar-weekdays {
+    display: none;
+  }
+
+  .dashboard-calendar-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tablet-day-chip {
+    width: 100%;
+  }
+}

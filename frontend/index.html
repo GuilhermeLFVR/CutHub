@@ -10,8 +10,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/style.css" />
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
@@ -19,11 +17,7 @@
       <div class="loader-core">
         <div class="loader-logo-wrap">
           <div class="loader-glow"></div>
-          <img
-            src="/assets/img/logo-cuthub.png"
-            alt="Logo CutHub"
-            class="loader-logo"
-          />
+          <img src="/assets/img/logo-cuthub.png" alt="Logo CutHub" class="loader-logo" />
         </div>
         <h1 class="loader-title">CutHub</h1>
         <p class="loader-subtitle">Inicializando sua barbearia...</p>
@@ -33,23 +27,94 @@
       </div>
     </div>
 
-    <div class="app-shell">
+    <section id="authScreen" class="auth-screen hidden">
+      <div class="auth-card moving-border">
+        <div class="auth-logo-wrap">
+          <img src="/assets/img/logo-cuthub.png" alt="Logo CutHub" class="auth-logo" />
+        </div>
+
+        <span class="panel-eyebrow">Acesso seguro</span>
+        <h1 id="authTitle">Entrar no CutHub</h1>
+        <p id="authDescription" class="auth-description">
+          Faça login para acessar o painel da barbearia.
+        </p>
+
+        <div class="auth-mode-tabs">
+          <button id="showLoginButton" class="auth-mode-button active" type="button">Entrar</button>
+          <button id="showRegisterButton" class="auth-mode-button" type="button">Criar conta</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" name="email" type="email" value="admin@cuthub.com" autocomplete="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Senha</label>
+            <input id="loginPassword" name="password" type="password" value="admin123" autocomplete="current-password" required />
+          </div>
+
+          <button id="loginButton" class="primary-button primary-button-lg" type="submit">Entrar</button>
+          <p id="loginError" class="auth-error hidden"></p>
+        </form>
+
+        <form id="clientRegisterForm" class="auth-form hidden">
+          <div class="form-group">
+            <label for="registerNameInput">Nome</label>
+            <input id="registerNameInput" type="text" placeholder="Seu nome completo" autocomplete="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="registerPhoneInput">Número</label>
+            <input id="registerPhoneInput" type="tel" placeholder="Ex.: (81) 99999-9999" autocomplete="tel" required />
+          </div>
+
+          <div class="form-group">
+            <label for="registerEmailInput">Email</label>
+            <input id="registerEmailInput" type="email" placeholder="voce@email.com" autocomplete="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="registerPasswordInput">Senha</label>
+            <input id="registerPasswordInput" type="password" placeholder="Crie uma senha" autocomplete="new-password" required />
+          </div>
+
+          <button id="clientRegisterButton" class="primary-button primary-button-lg" type="submit">
+            Criar conta de cliente
+          </button>
+          <p id="registerError" class="auth-error hidden"></p>
+        </form>
+
+        </div>
+      </div>
+    </section>
+
+    <div id="appShell" class="app-shell auth-locked">
       <aside class="sidebar">
         <div class="sidebar-top">
           <div class="brand-mini-wrap">
-            <img
-              src="/assets/img/logo-cuthub.png"
-              alt="Logo CutHub"
-              class="brand-mini-logo"
-            />
+            <img src="/assets/img/logo-cuthub.png" alt="Logo CutHub" class="brand-mini-logo" />
             <div class="brand-mini">CutHub</div>
           </div>
           <p class="sidebar-subtitle">Gestão de barbearias</p>
         </div>
 
+        <div id="currentUserBox" class="sidebar-user-card hidden">
+          <span class="sidebar-user-label">Usuário logado</span>
+          <strong id="currentUserName">-</strong>
+          <small id="currentUserRole">-</small>
+          <button id="logoutButton" class="secondary-button ghost-button sidebar-logout" type="button">Sair</button>
+        </div>
+
         <nav class="sidebar-nav">
           <a class="nav-item active" href="#" data-section-target="finance">Dashboard</a>
           <a class="nav-item" href="#" data-section-target="betting">Clientes</a>
+          <a class="nav-item" href="#" data-section-target="booking">Agendar Corte</a>
+          <a class="nav-item" href="#" data-section-target="availability">Disponibilidade</a>
+          <a class="nav-item" href="#" data-section-target="history">Histórico</a>
+          <a class="nav-item" href="#" data-section-target="barber-tablet">Tablet</a>
+          <a class="nav-item" href="#" data-section-target="users" data-role-admin-only>Usuários</a>
         </nav>
       </aside>
 
@@ -58,20 +123,13 @@
           <div class="hero-copy">
             <span class="hero-badge">Plataforma inteligente para barbearias</span>
             <h1 class="brand-title">CutHub</h1>
-            <p class="hero-description">
-              Clientes, agendamentos e atendimentos em um só lugar.
-            </p>
+            <p class="hero-description">Clientes, agendamentos e atendimentos em um só lugar.</p>
           </div>
 
           <div class="hero-logo-wrap" id="heroLogoWrap">
             <div class="hero-logo-aura"></div>
             <div class="logo-shine"></div>
-            <img
-              src="/assets/img/logo-cuthub.png"
-              alt="Logo CutHub"
-              class="hero-logo"
-              id="heroLogo"
-            />
+            <img src="/assets/img/logo-cuthub.png" alt="Logo CutHub" class="hero-logo" id="heroLogo" />
           </div>
         </header>
 
@@ -79,718 +137,522 @@
           <div class="module-switcher-copy">
             <span class="panel-eyebrow">Painel principal</span>
             <h2 id="moduleHeading">Dashboard</h2>
-            <p id="moduleDescription" class="module-switcher-description">Gerencie clientes, barbeiros e agendamentos em um único painel.</p>
+            <p id="moduleDescription" class="module-switcher-description">
+              Gerencie clientes, barbeiros e agendamentos em um único painel.
+            </p>
           </div>
 
           <div class="module-switcher-actions">
             <button class="module-tab active" type="button" data-section-target="finance">Dashboard</button>
             <button class="module-tab" type="button" data-section-target="betting">Clientes</button>
-          </div>
-        </section>
-
-        <section id="financeGoalsPanel" class="panel moving-border reveal-up goals-panel goals-panel-premium">
-          <div class="panel-header panel-header-split goals-panel-header">
-            <div>
-              <span class="panel-eyebrow">Resumo operacional</span>
-              <h2>Resumo da barbearia</h2>
-              <p class="goals-helper">Acompanhe os principais indicadores da barbearia.</p>
-            </div>
-            <button id="saveGoalsButton" class="primary-button goals-save-button" type="button">Salvar resumo</button>
-          </div>
-
-          <div class="goals-form-grid goals-form-grid-single">
-            <div class="form-group goals-form-group">
-              <label for="financeGoalInput">Resumo operacional do mês</label>
-              <input class="goals-input" id="financeGoalInput" type="number" min="0" step="0.01" placeholder="Ex.: 120" />
-            </div>
-          </div>
-
-          <div class="goals-progress-grid goals-progress-grid-single">
-            <article class="stat-card goal-progress-card">
-              <span class="stat-label">Atendimentos</span>
-              <strong id="financeGoalHeadline" class="stat-value small">Sem meta</strong>
-              <div class="goal-progress-bar"><div id="financeGoalBar" class="goal-progress-fill"></div></div>
-              <p id="financeGoalText" class="stat-footnote">Defina a meta de atendimentos para acompanhar o ritmo do mês.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="toolbar-panel moving-border reveal-up">
-          <div class="toolbar-panel-left">
-            <div class="filters-inline">
-              <div class="filter-group">
-                <label for="monthFilter">Mês</label>
-                <select id="monthFilter"></select>
-              </div>
-
-              <div class="filter-group">
-                <label for="yearFilter">Ano</label>
-                <select id="yearFilter"></select>
-              </div>
-
-              <button id="applyFilterButton" class="secondary-button" type="button">
-                Filtrar
-              </button>
-              <button id="exportCsvButton" class="secondary-button ghost-button" type="button">
-                Exportar dados
-              </button>
-            </div>
-          </div>
-
-          <div class="toolbar-panel-right">
-            <button id="openModalButton" class="primary-button primary-button-lg" type="button">
-              + Novo Cliente
-            </button>
+            <button class="module-tab" type="button" data-section-target="booking">Agendar Corte</button>
+            <button class="module-tab" type="button" data-section-target="availability">Disponibilidade</button>
+            <button class="module-tab" type="button" data-section-target="history">Histórico</button>
+            <button class="module-tab" type="button" data-section-target="barber-tablet">Tablet</button>
+            <button class="module-tab" type="button" data-section-target="users" data-role-admin-only>Usuários</button>
           </div>
         </section>
 
         <section id="section-finance" class="module-section module-section-active">
-        <div id="dashboardSkeleton" class="dashboard-skeleton hidden">
-          <section class="cards-grid cards-grid-main">
-            <article class="stat-card skeleton-card"></article>
-            <article class="stat-card skeleton-card"></article>
-            <article class="stat-card skeleton-card"></article>
-            <article class="stat-card skeleton-card"></article>
-          </section>
-
-          <section class="cards-grid summary-grid">
-            <article class="stat-card skeleton-card small"></article>
-            <article class="stat-card skeleton-card small"></article>
-            <article class="stat-card skeleton-card small"></article>
-            <article class="stat-card skeleton-card small"></article>
-          </section>
-
-          <section class="panel skeleton-panel"></section>
-          <section class="panel skeleton-panel"></section>
-          <section class="panel skeleton-panel tall"></section>
-        </div>
-
-        <div id="dashboardContent">
           <section class="cards-grid cards-grid-main">
             <article class="stat-card stat-card-featured moving-border reveal-up">
               <div class="stat-topline">
-                <span class="stat-icon icon-balance">◈</span>
-                <span class="stat-label">Agendamentos Hoje</span>
+                <span class="stat-icon icon-income">●</span>
+                <span class="stat-label">Faturamento hoje</span>
               </div>
-              <strong id="balanceValue" class="stat-value">0</strong>
-              <span class="stat-footnote">Horários marcados para hoje</span>
-            </article>
-
-            <article class="stat-card moving-border reveal-up">
-              <div class="stat-topline">
-                <span class="stat-icon icon-income">↗</span>
-                <span class="stat-label">Clientes</span>
-              </div>
-              <strong id="incomeValue" class="stat-value positive">R$ 0,00</strong>
-              <span class="stat-footnote">Clientes cadastrados na base</span>
-            </article>
-
-            <article class="stat-card moving-border reveal-up">
-              <div class="stat-topline">
-                <span class="stat-icon icon-expense">↘</span>
-                <span class="stat-label">Serviços</span>
-              </div>
-              <strong id="expenseValue" class="stat-value negative">R$ 0,00</strong>
-              <span class="stat-footnote">Serviços disponíveis no catálogo</span>
+              <strong id="dashboardTodayRevenue" class="stat-value">R$ 0,00</strong>
+              <span class="stat-footnote">Somente atendimentos concluídos.</span>
             </article>
 
             <article class="stat-card moving-border reveal-up">
               <div class="stat-topline">
                 <span class="stat-icon icon-status">◎</span>
-                <span class="stat-label">Status</span>
+                <span class="stat-label">Atendimentos hoje</span>
               </div>
-              <strong id="statusValue" class="stat-value small">Carregando...</strong>
-              <span class="stat-footnote">Resumo operacional atual</span>
+              <strong id="dashboardTodayAppointments" class="stat-value small">0</strong>
+              <span class="stat-footnote">Agendados para o dia.</span>
             </article>
 
-            <article class="stat-card stat-card-total-balance moving-border reveal-up">
+            <article class="stat-card moving-border reveal-up">
               <div class="stat-topline">
                 <span class="stat-icon icon-status">◌</span>
-                <span class="stat-label">Barbeiros Ativos</span>
+                <span class="stat-label">Em andamento</span>
               </div>
-              <strong id="totalBalanceValue" class="stat-value small">R$ 0,00</strong>
-              <span class="stat-footnote">Equipe disponível para atendimento</span>
-              <div class="total-balance-base-row">
-                <span class="total-balance-base-label">Capacidade</span>
-                <strong id="totalBalanceBaseValue" class="total-balance-base-value">R$ 0,00</strong>
+              <strong id="dashboardInProgress" class="stat-value small">0</strong>
+              <span class="stat-footnote">Atendimentos iniciados.</span>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-expense">×</span>
+                <span class="stat-label">Cancelados</span>
               </div>
-              <div class="total-balance-form">
-                <input id="totalBalanceInput" class="total-balance-input" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex.: 1500,00">
-                <button id="saveTotalBalanceButton" class="primary-button total-balance-button" type="button">Salvar</button>
-              </div>
-              <span id="totalBalanceHint" class="stat-footnote total-balance-hint">Defina a capacidade operacional da barbearia.</span>
+              <strong id="dashboardCancelled" class="stat-value small">0</strong>
+              <span class="stat-footnote">Perdas operacionais do dia.</span>
             </article>
           </section>
 
           <section class="cards-grid summary-grid">
             <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Serviço Top</span>
-              <strong id="topCategory" class="stat-value small">-</strong>
+              <span class="stat-label">Clientes cadastrados</span>
+              <strong id="dashboardClientsCount" class="stat-value small">0</strong>
             </article>
 
             <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Total de Clientes</span>
-              <strong id="totalTransactions" class="stat-value small">0</strong>
-            </article>
-
-            <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Tempo Médio</span>
-              <strong id="avgTicket" class="stat-value small">R$ 0,00</strong>
-            </article>
-
-            <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Dia Mais Cheio</span>
-              <strong id="highestDay" class="stat-value small">-</strong>
+              <span class="stat-label">Concluídos hoje</span>
+              <strong id="dashboardCompleted" class="stat-value small">0</strong>
             </article>
           </section>
 
-          <section id="insightPanel" class="panel insight-panel moving-border hidden reveal-up">
-            <div class="insight-header">
-              <span class="insight-badge">Insight operacional</span>
-            </div>
-            <p id="insightText" class="insight-text">Carregando insight...</p>
-          </section>
-
-          <section class="panel chart-panel moving-border reveal-up">
+          <section class="panel moving-border reveal-up">
             <div class="panel-header panel-header-split">
               <div>
-                <span class="panel-eyebrow">Agenda temporal</span>
-                <h2 id="flowTitle">Atendimentos por dia</h2>
+                <span class="panel-eyebrow">Agenda de hoje</span>
+                <h2>Próximos atendimentos</h2>
               </div>
+              <button class="secondary-button" type="button" data-section-target="barber-tablet">Abrir tablet</button>
             </div>
 
-            <div class="chart-wrapper">
-              <canvas id="dailyFlowChart"></canvas>
-            </div>
+            <div id="dashboardNextAppointmentsList" class="cuthub-list"></div>
           </section>
-
-          <section id="chart-section" class="panel chart-panel moving-border reveal-up">
-            <div class="panel-header panel-header-split">
-              <div>
-                <span class="panel-eyebrow">Distribuição de serviços</span>
-                <h2 id="chartTitle">Serviços por Categoria</h2>
-              </div>
-            </div>
-
-            <div class="chart-wrapper">
-              <canvas id="categoryChart"></canvas>
-            </div>
-          </section>
-
-          <section id="transactions-section" class="panel table-panel moving-border reveal-up">
-            <div class="panel-header panel-header-split">
-              <div>
-                <span class="panel-eyebrow">Cadastros recentes</span>
-                <h2 id="tableTitle">Clientes</h2>
-              </div>
-            </div>
-
-            <div class="table-filters table-filters-extended">
-              <input type="text" id="searchInput" placeholder="Buscar cliente..." />
-              <select id="typeFilter">
-                <option value="">Todos os status</option>
-                <option value="income">Clientes</option>
-                <option value="expense">Serviços</option>
-              </select>
-              <input type="text" id="categoryFilter" placeholder="Filtrar serviço..." />
-              <button id="bulkDeleteButton" class="danger-button bulk-delete-button" type="button" disabled>
-                Remover selecionados
-              </button>
-            </div>
-
-            <div id="selectionSummary" class="selection-summary hidden">
-              0 clientes selecionados
-            </div>
-
-            <div id="emptyState" class="empty-state-panel hidden">
-              <div class="empty-state-icon">◎</div>
-              <h3 class="empty-state-title">Nenhum cliente cadastrado</h3>
-              <p class="empty-state-text">
-                Sua barbearia ainda está sem clientes cadastrados. Adicione o primeiro cliente para começar o fluxo.
-              </p>
-              <button id="emptyStateButton" class="primary-button" type="button">
-                Adicionar primeiro cliente
-              </button>
-            </div>
-
-            <div class="table-wrapper" id="tableWrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="checkbox-cell">
-                      <input type="checkbox" id="selectAllCheckbox" />
-                    </th>
-                    <th>ID</th>
-                    <th>Status</th>
-                    <th>Serviço</th>
-                    <th>Cliente</th>
-                    <th>Telefone</th>
-                    <th>Última visita</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody id="transactionsBody"></tbody>
-              </table>
-            </div>
-
-            <div id="transactionsPagination" class="pagination-bar hidden">
-              <button id="prevPageButton" class="secondary-button pagination-button" type="button">Anterior</button>
-              <span id="pageInfo" class="pagination-info">Página 1 de 1</span>
-              <button id="nextPageButton" class="secondary-button pagination-button" type="button">Próxima</button>
-            </div>
-          </section>
-        </div>
         </section>
 
         <section id="section-betting" class="module-section hidden">
-          <section class="betting-hero panel moving-border reveal-up">
-            <div>
-              <span class="panel-eyebrow">Módulo de clientes</span>
-              <h2>Central de clientes</h2>
-              <p class="betting-hero-text">Central para cadastro, histórico e acompanhamento dos clientes.</p>
-            </div>
-            <div class="betting-hero-actions">
-              <button id="addBettingOperationButton" class="primary-button primary-button-lg" type="button">+ Novo cliente</button>
-              <button id="clearBettingOperationsButton" class="secondary-button ghost-button" type="button">Limpar clientes</button>
-            </div>
-          </section>
-
-          
-          <nav class="betting-subnav" aria-label="Navegação do módulo de clientes">
-            <button class="betting-subnav-button active" type="button" data-betting-tab="overview">Visão geral</button>
-            <button class="betting-subnav-button" type="button" data-betting-tab="operations">Clientes <span id="bettingOperationsBadge" class="tab-badge">0</span></button>
-            <button class="betting-subnav-button" type="button" data-betting-tab="agenda">Agenda <span id="bettingAgendaBadge" class="tab-badge">0</span></button>
-            <button class="betting-subnav-button" type="button" data-betting-tab="alerts">Alertas <span id="bettingAlertsBadge" class="tab-badge">0</span></button>
-            <button class="betting-subnav-button" type="button" data-betting-tab="performance">Performance</button>
-          </nav>
-
-          <div class="betting-tab-panel active" data-betting-panel="overview">
-<section class="cards-grid betting-kpi-grid">
-            <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Lucro do mês</span>
-              <strong id="bettingProfitValue" class="stat-value positive">R$ 0,00</strong>
-              <span class="stat-footnote">Resultado finalizado no mês selecionado.</span>
-            </article>
-            <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Investido em aberto</span>
-              <strong id="bettingStakeValue" class="stat-value small">R$ 0,00</strong>
-              <span class="stat-footnote">Dinheiro preso em operações abertas.</span>
-            </article>
-            <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Custo do mês</span>
-              <strong id="bettingMissionCostValue" class="stat-value small negative">R$ 0,00</strong>
-              <span class="stat-footnote">Custos e perdas operacionais finalizadas.</span>
-            </article>
-            <article class="stat-card moving-border reveal-up">
-              <span class="stat-label">Clientes abertas</span>
-              <strong id="bettingCountValue" class="stat-value small">0</strong>
-              <span class="stat-footnote">Quantidade em andamento.</span>
-            </article>
-          </section>
-
-          
-<section class="betting-dashboard-grid">
-            <article class="panel moving-border reveal-up betting-cash-panel">
-              <div class="panel-header panel-header-split">
-                <div>
-                  <span class="panel-eyebrow">Caixa operacional</span>
-                  <h2>Caixa de trabalho</h2>
-                  <p class="panel-description">Separe saldo pessoal, capital em operação e dinheiro disponível para trabalhar.</p>
-                </div>
-              </div>
-
-              <div class="betting-cash-grid">
-                <div class="betting-cash-item">
-                  <span>Saldo total unificado</span>
-                  <strong id="bettingRealBalanceValue">R$ 0,00</strong>
-
-                  <div class="betting-balance-edit">
-                    <input id="bettingRealBalanceInput" type="number" min="0" step="0.01" placeholder="Saldo total" / class="betting-balance-input" />
-                    <button id="saveBettingBalanceButton" type="button" class="secondary-button">Salvar</button>
-                  </div>
-                </div>
-                <div class="betting-cash-item">
-                  <span>Investido em aberto</span>
-                  <strong id="bettingOpenCapitalValue">R$ 0,00</strong>
-                </div>
-                <div class="betting-cash-item betting-cash-item-featured">
-                  <span>Disponível estimado</span>
-                  <strong id="bettingAvailableBalanceValue">R$ 0,00</strong>
-                </div>
-                <div class="betting-cash-item">
-                  <span>Caixa operacional</span>
-                  <strong id="bettingWorkCashValue">R$ 0,00</strong>
-
-                  <div class="betting-balance-actions">
-                    <input id="bettingWorkCashInput" type="number"
-                      min="0"
-                      step="0.01"
-                      placeholder="Caixa de trabalho"
-                    / class="betting-balance-input" />
-
-                    <button
-                      id="saveBettingWorkCashButton"
-                      type="button"
-                      class="betting-balance-button"
-                    >
-                      Atualizar
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <p id="bettingCashHint" class="betting-cash-hint">Disponível estimado = caixa operacional - capital em operações abertas.</p>
-            </article>
-
-            <article class="panel moving-border reveal-up betting-month-panel">
-              <div class="panel-header panel-header-split">
-                <div>
-                  <span class="panel-eyebrow">Resumo mensal</span>
-                  <h2>Performance de apostas</h2>
-                  <p class="panel-description">Resultado das operações finalizadas no mês selecionado.</p>
-                </div>
-              </div>
-
-              <div class="betting-month-grid">
-                <div class="betting-month-item">
-                  <span>Lucro finalizado</span>
-                  <strong id="bettingMonthProfitValue" class="positive">R$ 0,00</strong>
-                </div>
-                <div class="betting-month-item">
-                  <span>Custo de missões</span>
-                  <strong id="bettingMonthMissionCostValue" class="negative">R$ 0,00</strong>
-                </div>
-                <div class="betting-month-item">
-                  <span>Freebets recebidas</span>
-                  <strong id="bettingMonthFreebetValue">R$ 0,00</strong>
-                </div>
-                <div class="betting-month-item">
-                  <span>ROI finalizado</span>
-                  <strong id="bettingMonthRoiValue">0,00%</strong>
-                </div>
-              </div>
-            </article>
-          </section>
-
-          
-          
-          </div>
-
-          <div class="betting-tab-panel" data-betting-panel="operations">
-<section class="betting-layout">
-            <article class="panel moving-border reveal-up betting-form-panel">
-              <div class="panel-header">
-                <span class="panel-eyebrow">Registro rápido</span>
-                <h2 id="bettingFormTitle">Nova operação</h2>
-              </div>
-
-              <form id="bettingOperationForm" class="transaction-form">
-                <input type="hidden" id="bettingOperationId" />
-                <div class="form-grid">
-                  <div class="form-group">
-                    <label for="bettingOperationType">Tipo</label>
-                    <select id="bettingOperationType" required>
-                      <option value="Surebet">Surebet</option>
-                      <option value="Freebet">Freebet</option>
-                      <option value="Missão">Missão</option>
-                      <option value="Odd Boost">Odd Boost</option>
-                      <option value="Cashout/PA">Cashout/PA</option>
-                    </select>
-                  </div>
-                  <div class="form-group form-group-full">
-                    <label>Casas envolvidas</label>
-
-                    <div id="bettingHousesList" class="betting-houses-list">
-                      <div class="betting-house-row">
-                        <input class="betting-house-name" type="text" maxlength="80" placeholder="Casa. Ex.: Betano" />
-                        <select class="betting-house-role">
-                          <option value="Principal">Principal</option>
-                          <option value="Hedge">Hedge</option>
-                          <option value="Freebet">Freebet</option>
-                          <option value="Missão">Missão</option>
-                          <option value="Exchange">Exchange</option>
-                          <option value="Cashout">Cashout</option>
-                          <option value="Outro">Outro</option>
-                        </select>
-                        <input class="betting-house-stake" type="number" min="0" step="0.01" placeholder="Valor" />
-                        <input class="betting-house-odd" type="number" min="0" step="0.01" placeholder="Odd" />
-                        <button class="icon-button betting-house-remove" type="button" title="Remover casa">✕</button>
-                      </div>
-                    </div>
-
-                    <button id="addBettingHouseButton" class="secondary-button betting-house-add" type="button">+ Adicionar outra casa</button>
-                    <p class="form-helper">Informe as casas envolvidas na operação. Use a busca ou digite uma nova casa.</p>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="bettingGame">Jogo</label>
-                    <input id="bettingGame" type="text" maxlength="120" placeholder="Ex.: Real Madrid x Barcelona" required />
-                  </div>
-<div class="form-group">
-                    <label for="bettingMarket">Mercado</label>
-                    <input id="bettingMarket" type="text" maxlength="100" placeholder="Ex.: Casa x Fora, Escanteios, Gols" required />
-                  </div>
-                  <div class="form-group">
-                    <label for="bettingStake">Valor investido</label>
-                    <input id="bettingStake" type="number" min="0" step="0.01" placeholder="Ex.: 100" required />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="bettingFreebetValue">Valor da freebet</label>
-                    <input id="bettingFreebetValue" type="number" min="0" step="0.01" placeholder="Ex.: 100" />
-                  </div>
-                  <div class="form-group">
-                    <label for="bettingMissionCost">Custo/perda da missão</label>
-                    <input id="bettingMissionCost" type="number" min="0" step="0.01" placeholder="Ex.: 12.50" />
-                  </div>
-                  <div class="form-group">
-                    <label for="bettingExpectedProfit">Lucro previsto/real</label>
-                    <input id="bettingExpectedProfit" type="number" step="0.01" placeholder="Ex.: 8.50" required />
-                  </div>
-                  <div class="form-group">
-                    <label for="bettingDate">Data da operação</label>
-                    <input id="bettingDate" type="date" required />
-                  </div>
-                  <div class="form-group">
-                    <label for="bettingEventDate">Data e horário do jogo</label>
-                    <input id="bettingEventDate" type="datetime-local" />
-                  </div>
-                  <div class="form-group form-group-full">
-                    <label for="bettingNotes">Observações</label>
-                    <input id="bettingNotes" type="text" maxlength="220" placeholder="Ex.: Duplo, Cashout" />
-                  </div>
-                </div>
-                <div class="form-actions">
-                  <button type="button" id="resetBettingFormButton" class="secondary-button">Limpar</button>
-                  <button type="submit" class="primary-button">Salvar operação</button>
-                </div>
-              </form>
-            </article>
-
-            <article class="panel moving-border reveal-up betting-list-panel">
-              <div class="panel-header panel-header-split">
-                <div>
-                  <span class="panel-eyebrow">Histórico operacional</span>
-                  <h2>Clientes registradas</h2>
-                </div>
-                <span id="bettingStatusSummary" class="module-placeholder-tag">Sem operações</span>
-              </div>
-
-              
-              
-              <div class="betting-search-toolbar">
-                <input
-                  id="bettingHouseFilter"
-                  type="text"
-                  placeholder="Buscar por casa..."
-                  autocomplete="off"
-                />
-              </div>
-
-              <div class="betting-filter-group">
-                <button class="betting-filter-button active" type="button" data-filter="all">Todas</button>
-                <button class="betting-filter-button" type="button" data-filter="open">Abertas</button>
-                <button class="betting-filter-button" type="button" data-filter="finished">Finalizadas</button>
-              </div>
-
-              <div id="bettingOperationsEmpty" class="empty-state-panel">
-                <div class="empty-state-icon">◈</div>
-                <h3 class="empty-state-title">Nenhuma operação ainda</h3>
-                <p class="empty-state-text">Cadastre a primeira surebet, missão ou freebet. Nada de planilha perdida no limbo.</p>
-              </div>
-
-              <div id="bettingOperationsList" class="module-item-list betting-operation-list"></div>
-            </article>
-          </section>
-          </div>
-
-          <div class="betting-tab-panel" data-betting-panel="agenda">
-<section class="panel moving-border reveal-up betting-agenda-panel">
+          <section class="panel moving-border reveal-up">
             <div class="panel-header panel-header-split">
               <div>
-                <span class="panel-eyebrow">Agenda operacional</span>
-                <h2>Próximos jogos</h2>
-                <p class="panel-description">Clientes abertas organizadas por data e horário.</p>
+                <span class="panel-eyebrow">Relacionamento</span>
+                <h2>Clientes</h2>
+                <p class="module-switcher-description">
+                  Base de clientes com histórico de cortes, última visita, fotos recentes e recorrência.
+                </p>
+              </div>
+
+              <div class="module-switcher-actions">
+                <button id="openClientModalFromV2Button" class="primary-button" type="button">+ Novo cliente</button>
+                <button id="refreshClientsV2Button" class="secondary-button" type="button">Atualizar</button>
               </div>
             </div>
 
-            <div class="betting-agenda-grid">
-              <article class="betting-agenda-column">
-                <h3>Hoje</h3>
-                <div id="bettingAgendaToday" class="betting-agenda-list"></div>
-              </article>
-
-              <article class="betting-agenda-column">
-                <h3>Amanhã</h3>
-                <div id="bettingAgendaTomorrow" class="betting-agenda-list"></div>
-              </article>
-
-              <article class="betting-agenda-column">
-                <h3>Semana</h3>
-                <div id="bettingAgendaWeek" class="betting-agenda-list"></div>
-              </article>
+            <div class="cuthub-clients-toolbar">
+              <label class="cuthub-client-search-wrap" for="clientSearchInput">
+                <span>Buscar cliente</span>
+                <input id="clientSearchInput" type="search" placeholder="Nome, telefone, email ou corte preferido" autocomplete="off" />
+              </label>
             </div>
+
+            <div id="registeredClientsList" class="cuthub-registered-clients-list"></div>
           </section>
+        </section>
 
-          
-          </div>
-
-          <div class="betting-tab-panel" data-betting-panel="alerts">
-
-            <section class="panel moving-border reveal-up betting-sound-panel">
-              <div class="panel-header panel-header-split">
-                <div>
-                  <span class="panel-eyebrow">Alertas sonoros</span>
-                  <h2>Notificações operacionais</h2>
-                  <p class="panel-description">Alertas suaves para jogos próximos e início das partidas.</p>
-                </div>
-              </div>
-
-              <div class="betting-sound-controls">
-                <button id="enableBettingSoundButton" class="primary-button" type="button">
-                  Ativar alertas
-                </button>
-
-                <select id="bettingSoundType">
-                  <option value="soft">Soft</option>
-                  <option value="digital">Digital</option>
-                  <option value="radar">Radar</option>
-                </select>
-
-                <input id="bettingSoundVolume" type="range" min="0" max="100" value="35" />
-
-                <button id="testBettingSoundButton" class="secondary-button" type="button">
-                  Testar som
-                </button>
-              </div>
-            </section>
-
-<section class="panel moving-border reveal-up betting-alerts-card">
+        <section id="section-booking" class="module-section hidden">
+          <section class="panel moving-border reveal-up cuthub-public-booking">
             <div class="panel-header panel-header-split">
               <div>
-                <span class="panel-eyebrow">Monitoramento</span>
-                <h2>Alertas operacionais</h2>
+                <span class="panel-eyebrow">Agendamento online</span>
+                <h2>Agende seu corte</h2>
+                <p class="module-switcher-description">
+                  Escolha serviço, barbeiro, data e horário. O agendamento cai direto na agenda da barbearia.
+                </p>
               </div>
             </div>
 
-            <div id="bettingAlertsList" class="betting-alerts-list">
-              <div class="empty-state-panel compact">Nenhum alerta operacional.</div>
+            <form id="bookingForm" class="transaction-form cuthub-booking-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="bookingClientSelect">Cliente</label>
+                  <select id="bookingClientSelect" required></select>
+                </div>
+
+                <div class="form-group">
+                  <label for="bookingServiceSelect">Serviço</label>
+                  <select id="bookingServiceSelect" required></select>
+                </div>
+
+                <div class="form-group">
+                  <label for="bookingBarberSelect">Barbeiro</label>
+                  <select id="bookingBarberSelect" required></select>
+                </div>
+
+                <div class="form-group">
+                  <label for="bookingDateInput">Data</label>
+                  <input id="bookingDateInput" type="date" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="bookingTimeInput">Horário</label>
+                  <input id="bookingTimeInput" type="time" required />
+                </div>
+
+                <div class="form-group form-group-full">
+                  <label for="bookingNotesInput">Observações</label>
+                  <textarea id="bookingNotesInput" rows="3" placeholder="Detalhes importantes para o barbeiro..."></textarea>
+                </div>
+              </div>
+
+              <div class="modal-actions">
+                <button id="publicBookingSubmitButton" class="primary-button primary-button-lg" type="submit">
+                  Confirmar agendamento
+                </button>
+              </div>
+            </form>
+          </section>
+        </section>
+
+        <section id="section-availability" class="module-section hidden">
+          <section class="panel moving-border reveal-up cuthub-availability-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Disponibilidade</span>
+                <h2>Dias e horários de atendimento</h2>
+                <p class="module-switcher-description">
+                  Defina quando o barbeiro trabalha e bloqueie folgas, compromissos ou horários fechados.
+                </p>
+              </div>
             </div>
+
+            <form id="availabilityForm" class="transaction-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="availabilityBarberSelect">Barbeiro</label>
+                  <select id="availabilityBarberSelect"></select>
+                </div>
+
+                <div class="form-group">
+                  <label for="availabilityDayInput">Dia da semana</label>
+                  <select id="availabilityDayInput">
+                    <option value="monday">Segunda</option>
+                    <option value="tuesday">Terça</option>
+                    <option value="wednesday">Quarta</option>
+                    <option value="thursday">Quinta</option>
+                    <option value="friday">Sexta</option>
+                    <option value="saturday">Sábado</option>
+                    <option value="sunday">Domingo</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="availabilityStartInput">Início</label>
+                  <input id="availabilityStartInput" type="time" />
+                </div>
+
+                <div class="form-group">
+                  <label for="availabilityEndInput">Fim</label>
+                  <input id="availabilityEndInput" type="time" />
+                </div>
+              </div>
+
+              <div class="modal-actions">
+                <button class="primary-button" type="submit">Salvar disponibilidade</button>
+              </div>
+            </form>
+
+            <div id="availabilityList" class="cuthub-list"></div>
+          </section>
+        </section>
+
+        <section id="section-history" class="module-section hidden">
+          <section class="panel moving-border reveal-up cuthub-history-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Histórico visual</span>
+                <h2>Histórico de cortes</h2>
+                <p class="module-switcher-description">
+                  Cortes anteriores, fotos, observações e preferências para repetir o resultado nas próximas visitas.
+                </p>
+              </div>
+
+              <div class="module-switcher-actions">
+                <button id="openHaircutModalButton" class="primary-button" type="button">+ Novo registro</button>
+              </div>
+            </div>
+
+            <div id="unifiedHistoryMount"></div>
+          </section>
+        </section>
+
+        <section id="section-barber-tablet" class="module-section hidden">
+          <section class="panel moving-border reveal-up cuthub-tablet-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Visão do barbeiro</span>
+                <h2>Tablet</h2>
+                <p class="module-switcher-description">
+                  Tela rápida para o barbeiro ver o próximo cliente, serviço, observações e ferramentas necessárias.
+                </p>
+              </div>
+              <button id="refreshTabletButton" class="secondary-button" type="button">Atualizar</button>
+            </div>
+
+            <div id="tabletAppointmentsList" class="cuthub-list"></div>
+          </section>
+        </section>
+
+        <section id="section-users" class="module-section hidden" data-role-admin-only>
+          <section class="panel moving-border reveal-up users-admin-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Administração</span>
+                <h2>Usuários do sistema</h2>
+                <p class="module-switcher-description">
+                  Crie acessos para administradores e barbeiros.
+                </p>
+              </div>
+            </div>
+
+            <form id="userForm" class="transaction-form users-form">
+              <div class="form-grid users-form-grid">
+                <div class="form-group">
+                  <label for="userNameInput">Nome</label>
+                  <input id="userNameInput" type="text" placeholder="Ex.: Carlos Barbeiro" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="userEmailInput">Email</label>
+                  <input id="userEmailInput" type="email" placeholder="carlos@cuthub.com" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="userPhoneInput">Número</label>
+                  <input id="userPhoneInput" type="tel" placeholder="Ex.: (81) 99999-9999" />
+                </div>
+
+                <div class="form-group">
+                  <label for="userPasswordInput">Senha</label>
+                  <input id="userPasswordInput" type="password" placeholder="Obrigatória ao criar" />
+                </div>
+
+                <div class="form-group">
+                  <label for="userRoleInput">Perfil</label>
+                  <select id="userRoleInput" required>
+                    <option value="admin">Administrador</option>
+                    <option value="barber" selected>Barbeiro</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="modal-actions users-actions">
+                <button id="saveUserButton" class="primary-button" type="submit">Criar usuário</button>
+              </div>
+            </form>
           </section>
 
-          
-          </div>
-
-          <div class="betting-tab-panel" data-betting-panel="performance">
-            <section class="panel moving-border reveal-up betting-performance-panel">
-              <div class="panel-header panel-header-split">
-                <div>
-                  <span class="panel-eyebrow">Performance</span>
-                  <h2>Resumo operacional</h2>
-                  <p class="panel-description">Indicadores mensais das operações finalizadas.</p>
-                </div>
+          <section class="panel moving-border reveal-up users-list-panel">
+            <div class="panel-header panel-header-split compact">
+              <div>
+                <span class="panel-eyebrow">Controle de acesso</span>
+                <h3>Lista de usuários</h3>
               </div>
+            </div>
 
-              <div class="betting-month-grid">
-                <div class="betting-month-item">
-                  <span>Lucro finalizado</span>
-                  <strong id="bettingPerformanceProfitValue" class="positive">R$ 0,00</strong>
-                </div>
-                <div class="betting-month-item">
-                  <span>Custo de missões</span>
-                  <strong id="bettingPerformanceMissionCostValue" class="negative">R$ 0,00</strong>
-                </div>
-                <div class="betting-month-item">
-                  <span>Freebets recebidas</span>
-                  <strong id="bettingPerformanceFreebetValue">R$ 0,00</strong>
-                </div>
-                <div class="betting-month-item">
-                  <span>ROI finalizado</span>
-                  <strong id="bettingPerformanceRoiValue">0,00%</strong>
-                </div>
-              </div>
-            </section>
-          </div>
+            <div id="usersList" class="users-list"></div>
+          </section>
         </section>
       </main>
     </div>
 
-    <div id="transactionModal" class="modal hidden">
+    <div id="clientModal" class="modal hidden">
       <div class="modal-content moving-border">
         <div class="modal-header">
-          <h2 id="modalTitle">Nova Transação</h2>
-          <button id="closeModalButton" class="icon-button" type="button">✕</button>
+          <div>
+            <span class="panel-eyebrow">Cadastro de cliente</span>
+            <h2 id="clientModalTitle">Novo cliente</h2>
+          </div>
+          <button id="closeClientModalButton" class="icon-button" type="button">×</button>
         </div>
 
-        <form id="transactionForm" class="transaction-form">
-          <input type="hidden" id="transactionId" name="transactionId" />
-
+        <form id="clientForm" class="transaction-form">
           <div class="form-grid">
             <div class="form-group">
-              <label for="type">Tipo</label>
-              <select id="type" name="type" required>
-                <option value="expense">Gasto</option>
-                <option value="income">Ganho</option>
-              </select>
+              <label for="clientNameInput">Nome</label>
+              <input id="clientNameInput" type="text" required placeholder="Ex.: João Silva" />
             </div>
 
             <div class="form-group">
-              <label for="amount">Valor</label>
-              <input id="amount" name="amount" type="number" step="0.01" min="0.01" required />
+              <label for="clientPhoneInput">Telefone</label>
+              <input id="clientPhoneInput" type="text" placeholder="Ex.: (81) 99999-9999" />
             </div>
 
             <div class="form-group">
-              <label for="category">Categoria</label>
-              <input id="category" name="category" type="text" required />
-              <small id="categoryHint" class="field-hint">A categoria pode ser sugerida automaticamente.</small>
+              <label for="clientEmailInput">Email</label>
+              <input id="clientEmailInput" type="email" placeholder="Ex.: cliente@email.com" />
             </div>
 
             <div class="form-group">
-              <label for="transaction_date">Data</label>
-              <input id="transaction_date" name="transaction_date" type="date" required />
-            </div>
-
-            <div class="form-group form-group-full">
-              <label for="description">Descrição</label>
-              <input id="description" name="description" type="text" required />
-            </div>
-
-            <div class="form-group form-group-full">
-              <label for="notes">Observações</label>
-              <input id="notes" name="notes" type="text" />
+              <label for="clientCutInput">Corte preferido</label>
+              <input id="clientCutInput" type="text" placeholder="Ex.: Low fade + barba" />
             </div>
           </div>
 
-          <div class="form-actions">
-            <button type="button" id="cancelModalButton" class="secondary-button">Cancelar</button>
-            <button type="submit" id="submitButton" class="primary-button">Salvar</button>
+          <div class="form-group">
+            <label for="clientNotesInput">Observações</label>
+            <textarea id="clientNotesInput" rows="3" placeholder="Preferências, alergias, histórico, detalhes do atendimento..."></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button id="cancelClientButton" class="secondary-button" type="button">Cancelar</button>
+            <button id="saveClientButton" class="primary-button" type="submit">Salvar cliente</button>
           </div>
         </form>
-
-        <p id="formMessage" class="form-message"></p>
       </div>
     </div>
 
-    <div id="deleteConfirmModal" class="modal hidden">
-      <div class="modal-content modal-confirm moving-border">
+    <div id="barberModal" class="modal hidden">
+      <div class="modal-content moving-border">
         <div class="modal-header">
-          <h2 id="deleteModalTitle">Excluir Transação</h2>
-          <button id="closeDeleteModalButton" class="icon-button" type="button">✕</button>
+          <div>
+            <span class="panel-eyebrow">Cadastro de barbeiro</span>
+            <h2 id="barberModalTitle">Novo barbeiro</h2>
+          </div>
+          <button id="closeBarberModalButton" class="icon-button" type="button">×</button>
         </div>
 
-        <p id="deleteConfirmText" class="confirm-text">
-          Tem certeza que deseja excluir esta transação? Essa ação não poderá ser desfeita.
-        </p>
+        <form id="barberForm" class="transaction-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="barberNameInput">Nome</label>
+              <input id="barberNameInput" type="text" required placeholder="Ex.: João Navalha" />
+            </div>
 
-        <div class="form-actions">
-          <button type="button" id="cancelDeleteButton" class="secondary-button">Cancelar</button>
-          <button type="button" id="confirmDeleteButton" class="danger-button">Excluir</button>
+            <div class="form-group">
+              <label for="barberPhoneInput">Telefone</label>
+              <input id="barberPhoneInput" type="text" placeholder="Ex.: (81) 99999-9999" />
+            </div>
+
+            <div class="form-group">
+              <label for="barberSpecialtyInput">Especialidade</label>
+              <input id="barberSpecialtyInput" type="text" placeholder="Ex.: Degradê, barba, tesoura" />
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button id="cancelBarberButton" class="secondary-button" type="button">Cancelar</button>
+            <button id="saveBarberButton" class="primary-button" type="submit">Salvar barbeiro</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="serviceModal" class="modal hidden">
+      <div class="modal-content moving-border">
+        <div class="modal-header">
+          <div>
+            <span class="panel-eyebrow">Catálogo</span>
+            <h2 id="serviceModalTitle">Novo serviço</h2>
+          </div>
+          <button id="closeServiceModalButton" class="icon-button" type="button">×</button>
         </div>
+
+        <form id="serviceForm" class="transaction-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="serviceNameInput">Serviço</label>
+              <input id="serviceNameInput" type="text" required placeholder="Ex.: Corte e barba" />
+            </div>
+
+            <div class="form-group">
+              <label for="servicePriceInput">Preço</label>
+              <input id="servicePriceInput" type="number" min="0" step="0.01" required />
+            </div>
+
+            <div class="form-group">
+              <label for="serviceDurationInput">Duração em minutos</label>
+              <input id="serviceDurationInput" type="number" min="1" step="1" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="serviceToolsInput">Ferramentas</label>
+            <textarea id="serviceToolsInput" rows="3" placeholder="Ex.: Máquina, pente 1, pente 2, navalha, tesoura..."></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button id="cancelServiceButton" class="secondary-button" type="button">Cancelar</button>
+            <button id="saveServiceButton" class="primary-button" type="submit">Salvar serviço</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="haircutModal" class="modal hidden">
+      <div class="modal-content moving-border">
+        <div class="modal-header">
+          <div>
+            <span class="panel-eyebrow">Histórico</span>
+            <h2 id="haircutModalTitle">Novo registro de corte</h2>
+          </div>
+          <button id="closeHaircutModalButton" class="icon-button" type="button">×</button>
+        </div>
+
+        <form id="haircutForm" class="transaction-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="haircutClientInput">Cliente</label>
+              <select id="haircutClientInput" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="haircutServiceInput">Serviço</label>
+              <select id="haircutServiceInput" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="haircutBarberInput">Barbeiro</label>
+              <select id="haircutBarberInput" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="haircutDateInput">Data</label>
+              <input id="haircutDateInput" type="date" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="haircutTitleInput">Título</label>
+            <input id="haircutTitleInput" type="text" placeholder="Ex.: Degradê baixo com barba" />
+          </div>
+
+          <div class="form-group">
+            <label for="haircutToolsInput">Ferramentas usadas</label>
+            <input id="haircutToolsInput" type="text" placeholder="Ex.: Máquina, pente 1, pente 2, navalha" />
+          </div>
+
+          <div class="form-group">
+            <label for="haircutPhotoInput">URL/foto</label>
+            <input id="haircutPhotoInput" type="text" placeholder="/assets/client-faces/foto.png" />
+          </div>
+
+          <div class="form-group">
+            <label for="haircutNotesInput">Observações</label>
+            <textarea id="haircutNotesInput" rows="3" placeholder="Detalhes do corte, preferências e ajustes..."></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button id="cancelHaircutButton" class="secondary-button" type="button">Cancelar</button>
+            <button id="saveHaircutButton" class="primary-button" type="submit">Salvar histórico</button>
+          </div>
+        </form>
       </div>
     </div>
 
     <div id="toastContainer" class="toast-container"></div>
 
+    <script src="/assets/js/state.js"></script>
+    <script src="/assets/js/api.js"></script>
+    <script src="/assets/js/ui.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/router.js"></script>
+
     <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/clients.js"></script>
+    <script src="/assets/js/booking.js"></script>
+    <script src="/assets/js/availability.js"></script>
+    <script src="/assets/js/history.js"></script>
+    <script src="/assets/js/tablet.js"></script>
+    <script src="/assets/js/users.js"></script>
+
+    <script src="/assets/js/bootstrap.js"></script>
+
+    <script src="/assets/js/camera-fix.js"></script>
   </body>
 </html>

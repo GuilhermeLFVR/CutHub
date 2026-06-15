@@ -1,0 +1,33 @@
+.users-form {
+  margin-top: 16px;
+}
+
+.users-form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.users-actions {
+  justify-content: flex-end;
+}
+
+.users-list {
+  display: grid;
+  gap: 12px;
+}
+
+.users-list-panel {
+  margin-top: 18px;
+}
+
+.cuthub-status-pill,
+.tab-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #cfe4ff;
+  background: rgba(58, 134, 255, 0.12);
+  border: 1px solid rgba(58, 134, 255, 0.18);
+}

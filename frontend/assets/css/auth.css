@@ -1,0 +1,139 @@
+/* CutHub auth.css - hotfix visual login */
+
+.auth-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(58, 134, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 18% 85%, rgba(0, 217, 255, 0.08), transparent 24%),
+    linear-gradient(180deg, #020611 0%, #040916 55%, #020814 100%);
+}
+
+.auth-screen.hidden {
+  display: none !important;
+}
+
+/* Não deixa o dashboard aparecer por trás do login */
+body:has(#authScreen:not(.hidden)) #appShell {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.auth-card {
+  width: min(100%, 460px);
+  padding: 30px;
+  border-radius: 26px;
+  border: 1px solid rgba(58, 134, 255, 0.24);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(58, 134, 255, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(8, 17, 33, 0.98), rgba(4, 10, 22, 0.99));
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.52),
+    0 0 40px rgba(58, 134, 255, 0.08);
+}
+
+.auth-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.auth-logo {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 14px rgba(58, 134, 255, 0.28))
+    drop-shadow(0 0 28px rgba(0, 217, 255, 0.12));
+}
+
+.auth-card h1 {
+  margin: 0 0 10px;
+  font-size: 1.72rem;
+  letter-spacing: -0.025em;
+}
+
+.auth-description {
+  margin: 0 0 18px;
+  color: #a9bbda;
+  line-height: 1.55;
+}
+
+.auth-mode-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 6px;
+  border-radius: 18px;
+  border: 1px solid rgba(58, 134, 255, 0.16);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.auth-mode-button {
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--muted);
+  padding: 12px;
+  font-weight: 800;
+}
+
+.auth-mode-button.active {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(58, 134, 255, 0.42), rgba(0, 217, 255, 0.22));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+.auth-form {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-form input {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 14px;
+  border: 1px solid rgba(58, 134, 255, 0.18);
+  background: rgba(4, 10, 22, 0.92);
+  color: var(--text);
+  padding: 0 14px;
+  outline: none;
+}
+
+.auth-form input:focus {
+  border-color: rgba(0, 217, 255, 0.42);
+  box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.08);
+}
+
+.auth-form label {
+  color: #a9bbda;
+  font-size: .94rem;
+}
+
+.auth-error {
+  margin: 0;
+  color: #ff9daf;
+  font-size: 0.92rem;
+}
+
+.auth-demo {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(58, 134, 255, 0.16);
+  background: rgba(58, 134, 255, 0.06);
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+}
+
+.auth-demo strong {
+  color: var(--text);
+}

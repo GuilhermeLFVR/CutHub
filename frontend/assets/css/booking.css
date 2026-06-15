@@ -1,0 +1,160 @@
+/* Agendamento visual recuperado */
+
+.booking-native-date-hidden,
+.booking-native-time-hidden {
+  display: none !important;
+}
+
+.booking-visual-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  grid-column: 1 / -1;
+  margin: 8px 0 4px;
+}
+
+.booking-calendar-card,
+.booking-slots-card,
+.booking-visual-summary {
+  border-radius: 22px;
+  border: 1px solid rgba(58, 134, 255, 0.16);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(58, 134, 255, 0.09), transparent 30%),
+    rgba(255, 255, 255, 0.025);
+  padding: 18px;
+}
+
+.booking-calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.booking-calendar-head h3,
+.booking-slots-card h3 {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.booking-calendar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.booking-calendar-nav .secondary-button {
+  min-width: 48px;
+  padding-inline: 14px;
+  font-size: 1.25rem;
+}
+
+.booking-week-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.booking-date-chip {
+  min-height: 96px;
+  border-radius: 18px;
+  border: 1px solid rgba(58, 134, 255, 0.15);
+  background: rgba(7, 14, 29, 0.76);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s ease;
+}
+
+.booking-date-chip span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.booking-date-chip strong {
+  font-size: 1.45rem;
+}
+
+.booking-date-chip small {
+  color: var(--muted-2);
+}
+
+.booking-date-chip:hover,
+.booking-date-chip.active {
+  transform: translateY(-2px);
+  border-color: rgba(0, 217, 255, 0.38);
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.22), rgba(0, 217, 255, 0.08));
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.booking-date-chip.today {
+  border-color: rgba(255, 209, 102, 0.34);
+}
+
+.booking-slots-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.booking-slot-chip {
+  min-height: 48px;
+  min-width: 92px;
+  border-radius: 14px;
+  border: 1px solid rgba(58, 134, 255, 0.16);
+  background: rgba(7, 14, 29, 0.76);
+  color: var(--text);
+  font-weight: 800;
+  transition: 0.2s ease;
+}
+
+.booking-slot-chip:hover,
+.booking-slot-chip.active {
+  transform: translateY(-1px);
+  border-color: rgba(0, 217, 255, 0.38);
+  background: linear-gradient(135deg, rgba(58, 134, 255, 0.28), rgba(0, 217, 255, 0.14));
+}
+
+.booking-slot-chip.disabled {
+  opacity: 0.36;
+  cursor: not-allowed;
+}
+
+.booking-slot-chip small {
+  display: block;
+  color: var(--muted-2);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.booking-visual-summary {
+  margin-top: 12px;
+}
+
+.booking-visual-summary strong,
+.booking-visual-summary p,
+.booking-visual-summary small {
+  display: block;
+}
+
+.booking-visual-summary strong {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.booking-visual-summary p {
+  color: var(--muted);
+  margin: 4px 0;
+}
+
+.booking-visual-summary small {
+  color: var(--green);
+  margin-top: 8px;
+  font-weight: 800;
+}

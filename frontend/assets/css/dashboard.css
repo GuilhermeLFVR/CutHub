@@ -1,0 +1,160 @@
+/* Dashboard calendário mensal + remove agenda de hoje via JS */
+
+.cuthub-dashboard-calendar-panel {
+  margin-bottom: 22px;
+}
+
+.dashboard-calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 18px;
+}
+
+.dashboard-calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.dashboard-calendar-head h3,
+.dashboard-day-details h3 {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.dashboard-calendar-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.calendar-nav-button {
+  min-width: 50px;
+  padding-inline: 14px;
+  font-size: 1.3rem;
+}
+
+.dashboard-calendar-weekdays,
+.dashboard-appointment-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dashboard-calendar-weekdays {
+  margin-bottom: 8px;
+}
+
+.dashboard-calendar-weekdays span {
+  color: var(--muted-2);
+  font-size: 0.78rem;
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dashboard-calendar-day {
+  min-height: 104px;
+  border-radius: 16px;
+  border: 1px solid rgba(58, 134, 255, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5px;
+  padding: 11px;
+  transition: 0.2s ease;
+}
+
+.dashboard-calendar-day:hover:not(:disabled),
+.dashboard-calendar-day.active {
+  transform: translateY(-1px);
+  border-color: rgba(0, 217, 255, 0.36);
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.16), rgba(0, 217, 255, 0.06));
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.dashboard-calendar-day.today {
+  border-color: rgba(255, 209, 102, 0.36);
+}
+
+.dashboard-calendar-day-empty {
+  opacity: 0.22;
+  cursor: default;
+}
+
+.dashboard-calendar-day strong {
+  font-size: 1rem;
+}
+
+.dashboard-calendar-day span,
+.dashboard-calendar-day small,
+.dashboard-calendar-day em,
+.dashboard-calendar-day i {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-style: normal;
+}
+
+.dashboard-calendar-day i {
+  color: var(--yellow);
+}
+
+.dashboard-calendar-day em {
+  color: var(--green);
+}
+
+.dashboard-day-details {
+  border-radius: 20px;
+  border: 1px solid rgba(58, 134, 255, 0.14);
+  background: rgba(255, 255, 255, 0.025);
+  padding: 18px;
+}
+
+.dashboard-day-total {
+  display: block;
+  margin-top: 8px;
+  color: var(--cyan);
+}
+
+.dashboard-day-appointments-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.dashboard-day-appointment-card {
+  border-radius: 16px;
+  border: 1px solid rgba(58, 134, 255, 0.14);
+  background: rgba(7, 14, 29, 0.72);
+  padding: 13px;
+  display: grid;
+  gap: 6px;
+}
+
+.dashboard-day-appointment-card strong,
+.dashboard-day-appointment-card span,
+.dashboard-day-appointment-card small {
+  display: block;
+}
+
+.dashboard-day-appointment-card span,
+.dashboard-day-appointment-card small {
+  color: var(--muted);
+}
+
+.dashboard-day-appointment-card.status-completed {
+  border-color: rgba(0, 255, 156, 0.2);
+}
+
+.dashboard-day-appointment-card.status-in_progress {
+  border-color: rgba(255, 209, 102, 0.25);
+}
+
+.dashboard-day-appointment-card.status-cancelled {
+  border-color: rgba(255, 95, 122, 0.24);
+}

@@ -10,7 +10,7 @@ load_dotenv(ENV_PATH)
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_BOT_NAME = os.getenv("TELEGRAM_BOT_NAME", "DashNOX Bot")
 
-# 🔒 sempre existe, mesmo sem .env
+#sempre existe, mesmo sem .env
 ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS",
     "http://127.0.0.1:5500,http://localhost:5500,http://127.0.0.1:8000,http://localhost:8000",
