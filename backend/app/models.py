@@ -66,9 +66,8 @@ class GoalConfig(Base):
 
 
 
-# =============================
 # CUTHUB - USUÁRIOS / AUTH
-# =============================
+
 
 class User(Base):
     __tablename__ = "users"
@@ -82,9 +81,8 @@ class User(Base):
     is_active = Column(Boolean, nullable=False, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-# =============================
+
 # CUTHUB - BARBEARIA
-# =============================
 
 class Client(Base):
     __tablename__ = "clients"
