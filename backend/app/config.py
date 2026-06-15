@@ -8,7 +8,7 @@ ENV_PATH = BASE_DIR / "backend" / ".env"
 load_dotenv(ENV_PATH)
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
-TELEGRAM_BOT_NAME = os.getenv("TELEGRAM_BOT_NAME", "DashNOX Bot")
+TELEGRAM_BOT_NAME = os.getenv("TELEGRAM_BOT_NAME", "CutHub Bot")
 
 #sempre existe, mesmo sem .env
 ALLOWED_ORIGINS = os.getenv(
