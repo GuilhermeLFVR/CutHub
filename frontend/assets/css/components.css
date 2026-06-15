@@ -426,7 +426,7 @@
   font-size: 0.95rem;
 }
 
-/* Modal + forms, porque sua estrutura CSS atual não tem forms.css */
+/* Modal + forms */
 .transaction-form {
   display: flex;
   flex-direction: column;
@@ -612,7 +612,7 @@
   user-select: none;
 }
 
-/* Histórico fica aqui porque sua estrutura atual não tem history.css */
+/* Histórico 1 */
 .cuthub-history-panel {
   max-width: var(--panel-max);
 }
