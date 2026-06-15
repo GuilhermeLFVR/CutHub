@@ -1,4 +1,4 @@
-// Navegação entre telas
+// Navegação
 window.CutHub = window.CutHub || {};
 
 CutHub.sectionMeta = {
