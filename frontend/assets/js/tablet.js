@@ -1,4 +1,4 @@
-/* CutHub tablet.js - reconhecimento facial premium */
+/* CutHub tablet.js */
 
 window.CutHub = window.CutHub || {};
 
