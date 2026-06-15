@@ -1,6 +1,4 @@
-/* CutHub camera-fix.js - botão de correção de espelhamento
-   Carregar como ÚLTIMO script do projeto.
-*/
+/* CutHub camera-fix.js */
 
 (function cuthubCameraMirrorToggle() {
   window.CutHub = window.CutHub || {};
