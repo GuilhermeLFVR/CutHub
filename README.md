@@ -8,7 +8,7 @@ O projeto centraliza clientes, barbeiros, serviços, agendamentos, disponibilida
 
 # Visão Geral
 
-O CutHub foi criado para auxiliar a organização da rotina de uma barbearia por meio de uma interface única para administração e operação dos atendimentos.
+O CutHub foi criado para auxiliar a organização da rotina de uma barbearia por meio de uma interface única para administração e dos atendimentos.
 
 O sistema permite:
 
@@ -163,12 +163,15 @@ Permissões:
 CutHub
 │
 ├── backend
-│   ├── app
-│   │   ├── crud.py
-│   │   ├── models.py
-│   │   ├── schemas.py
-│   │   ├── database.py
-│   │   └── main.py
+└── app
+|   ├── __init__.py
+|   ├── auth.py
+|   ├── config.py
+|   ├── crud.py
+|   ├── database.py
+|   ├── main.py
+|   ├── models.py
+|   └── schemas.py
 │
 ├── frontend
 │   ├── assets
