@@ -27,7 +27,7 @@ CutHub.sectionMeta = {
     description: "Controle de acesso para administradores, barbeiros e clientes.",
   },
   "barber-tablet": {
-    title: "Tablet Barbeiro",
+    title: "Tablet do barbeiro",
     description: "Tela rápida para acompanhar referências e atendimentos.",
   },
 };

@@ -538,6 +538,13 @@ CutHub.confirmBookingDirectly = async function confirmBookingDirectly(event) {
     await CutHub.refreshAppointments?.();
     await CutHub.loadCoreData?.();
 
+    const calendarAppointment =
+      CutHub.findById?.(CutHub.state?.appointments || [], createdAppointment?.id) ||
+      createdAppointment ||
+      payload;
+
+    CutHub.showAppointmentCalendarPrompt?.(calendarAppointment);
+
     CutHub.renderBookingCalendar();
     await CutHub.renderDashboard?.();
     await CutHub.renderTablet?.();
@@ -1047,7 +1054,7 @@ CutHub.confirmBookingDirectly = async function confirmBookingDirectly(event) {
       button.textContent = "Confirmando...";
     }
 
-    await CutHub.directAppointmentPost(payload);
+    const createdAppointment = await CutHub.directAppointmentPost(payload);
 
     CutHub.showToast?.("Agendamento confirmado", "Corte agendado com sucesso.", "success");
 
@@ -1056,6 +1063,13 @@ CutHub.confirmBookingDirectly = async function confirmBookingDirectly(event) {
 
     await CutHub.refreshAppointments?.();
     await CutHub.loadCoreData?.();
+
+    const calendarAppointment =
+      CutHub.findById?.(CutHub.state?.appointments || [], createdAppointment?.id) ||
+      createdAppointment ||
+      payload;
+
+    CutHub.showAppointmentCalendarPrompt?.(calendarAppointment);
 
     CutHub.renderBookingCalendar();
     await CutHub.renderDashboard?.();

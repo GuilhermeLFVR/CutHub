@@ -12,3 +12,5 @@ frontend/assets/client-faces/
 .vscode/
 
 *.h5
+
+data/*.db

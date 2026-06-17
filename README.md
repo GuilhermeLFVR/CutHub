@@ -1,95 +1,165 @@
 # CutHub
 
-Sistema de gestão para barbearias com agendamento, gerenciamento de clientes, histórico de atendimentos e reconhecimento facial.
+Sistema de gestão para barbearias desenvolvido para a disciplina de Computação Gráfica.
+
+O projeto centraliza clientes, barbeiros, serviços, agendamentos, disponibilidade, histórico de atendimentos e reconhecimento facial em uma única plataforma.
 
 ---
 
 # Visão Geral
 
-O CutHub foi desenvolvido com o objetivo de digitalizar e organizar a rotina de uma barbearia através de uma única plataforma.
+O CutHub foi criado para auxiliar a organização da rotina de uma barbearia por meio de uma interface única para administração e operação dos atendimentos.
 
-O sistema permite gerenciar clientes, barbeiros, serviços, disponibilidade de horários, agendamentos e histórico de cortes, além de utilizar reconhecimento facial para identificação de clientes durante o atendimento.
+O sistema permite:
 
-O projeto foi desenvolvido utilizando Python, FastAPI, SQLite, HTML, CSS, JavaScript, OpenCV e DeepFace.
+* Cadastro e gerenciamento de clientes
+* Cadastro e gerenciamento de barbeiros
+* Controle de disponibilidade
+* Agendamentos de serviços
+* Histórico de cortes com registros fotográficos
+* Reconhecimento facial para identificação de clientes
+* Integração com calendários externos
+
+Tecnologias utilizadas:
+
+* Python
+* FastAPI
+* SQLite
+* HTML
+* CSS
+* JavaScript
+* OpenCV
+* DeepFace
 
 ---
 
-# Principais Funcionalidades
+# Funcionalidades
 
-## Gestão de Clientes
+## Clientes
 
-- Cadastro de clientes
-- Histórico de atendimentos
-- Registro de preferências
-- Foto de referência do cliente
-- Busca rápida de clientes
+* Cadastro de clientes
+* Consulta de histórico
+* Registro de observações
+* Foto facial para reconhecimento
+* Busca de clientes
 
-## Gestão de Barbeiros
+## Barbeiros
 
-- Cadastro de barbeiros
-- Controle de disponibilidade
-- Associação de agendamentos
+* Cadastro de barbeiros
+* Controle de disponibilidade
+* Agenda de atendimentos
+
+## Serviços
+
+Serviços cadastrados:
+
+* Corte
+* Corte e Barba
+* Barba
+* Sobrancelha
+* Luzes
 
 ## Agendamentos
 
-- Criação de agendamentos
-- Seleção de cliente
-- Seleção de barbeiro
-- Seleção de serviço
-- Controle de data e horário
-- Visualização em calendário
+* Criação de agendamentos
+* Seleção de cliente
+* Seleção de barbeiro
+* Seleção de serviço
+* Controle de data e horário
+* Visualização em calendário
 
-## Histórico
+## Integração com Calendários
 
-- Registro completo dos atendimentos
-- Consulta de atendimentos anteriores
-- Fotos antes e depois
-- Observações do atendimento
+Após a confirmação do agendamento, o sistema permite:
+
+* Abrir o compromisso diretamente no Google Agenda
+* Gerar arquivo .ICS compatível com Apple Calendar
+* Compatibilidade com Outlook
+* Compatibilidade com Calendário do Windows
+
+## Histórico de Atendimentos
+
+* Registro dos atendimentos realizados
+* Fotos antes e depois
+* Observações do atendimento
+* Consulta de cortes anteriores
 
 ## Tablet do Barbeiro
 
-- Interface simplificada para uso durante o atendimento
-- Calendário semanal
-- Próximos clientes
-- Fluxo de reconhecimento facial
-- Controle de status do atendimento
+* Interface adaptada para tablets
+* Calendário semanal
+* Visualização dos atendimentos
+* Fluxo de reconhecimento facial
+* Consulta rápida de informações do cliente
 
 ## Reconhecimento Facial
 
-- Captura de imagem pela webcam
-- Comparação facial utilizando DeepFace
-- Identificação automática de clientes cadastrados
-- Exibição de informações do cliente reconhecido
-- Validação por nível mínimo de confiança
+* Captura por webcam
+* Comparação facial com DeepFace
+* Identificação de clientes cadastrados
+* Exibição das informações do cliente reconhecido
 
 ---
 
-# Tecnologias Utilizadas
+# Perfis de Usuário
+
+## Administrador
+
+Permissões:
+
+* Gerenciar clientes
+* Gerenciar barbeiros
+* Gerenciar usuários
+* Gerenciar serviços
+* Gerenciar disponibilidade
+* Consultar histórico
+
+## Barbeiro
+
+Permissões:
+
+* Visualizar agenda
+* Utilizar o modo tablet
+* Realizar reconhecimento facial
+* Registrar atendimentos
+* Consultar histórico
+
+## Cliente
+
+Permissões:
+
+* Criar agendamentos
+* Consultar histórico
+* Visualizar informações pessoais
+
+---
+
+# Tecnologias
 
 ## Backend
 
-- Python
-- FastAPI
-- SQLAlchemy
-- SQLite
+* Python
+* FastAPI
+* SQLAlchemy
+* SQLite
 
 ## Frontend
 
-- HTML5
-- CSS3
-- JavaScript
+* HTML5
+* CSS3
+* JavaScript
 
 ## Visão Computacional
 
-- OpenCV
-- DeepFace
-- FaceNet
+* OpenCV
+* DeepFace
+* FaceNet
 
 ---
 
 # Estrutura do Projeto
 
-```text
+
 CutHub
 │
 ├── backend
@@ -99,8 +169,6 @@ CutHub
 │   │   ├── schemas.py
 │   │   ├── database.py
 │   │   └── main.py
-│   │
-│   └── requirements
 │
 ├── frontend
 │   ├── assets
@@ -111,346 +179,60 @@ CutHub
 │   │
 │   └── index.html
 │
-├── data
-│
 └── README.md
-```
 
----
-
-# Perfis de Usuário
-
-O sistema possui três perfis principais.
-
-## Administrador
-
-Responsável pelo gerenciamento geral.
-
-Permissões:
-
-- Cadastrar barbeiros
-- Cadastrar clientes
-- Criar usuários
-- Excluir usuários
-- Gerenciar serviços
-- Visualizar histórico
-- Gerenciar disponibilidade
-- Acompanhar atendimentos
-
----
-
-## Barbeiro
-
-Responsável pelos atendimentos.
-
-Permissões:
-
-- Visualizar agenda
-- Utilizar o tablet
-- Realizar reconhecimento facial
-- Registrar fotos antes e depois
-- Finalizar atendimentos
-- Consultar histórico
-
----
-
-## Cliente
-
-Responsável pelos próprios agendamentos.
-
-Permissões:
-
-- Consultar informações pessoais
-- Visualizar histórico
-- Criar agendamentos
-
----
-
-# Como Executar o Projeto
-
-## 1. Clonar o Repositório
-
-```bash
-git clone URL_DO_REPOSITORIO
-```
-
----
-
-## 2. Entrar na Pasta
-
-```bash
-cd CutHub
-```
-
----
-
-## 3. Criar Ambiente Virtual
-
-```bash
-python -m venv .venv
-```
-
----
-
-## 4. Ativar Ambiente Virtual
-
-Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-Linux:
-
-```bash
-source .venv/bin/activate
-```
-
----
-
-## 5. Instalar Dependências
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 6. Executar o Backend
-
-Entrar na pasta backend:
-
-```bash
-cd backend
-```
-
-Executar:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-Servidor:
-
-```text
-http://127.0.0.1:8000
-```
-
----
-
-# Fluxo Completo de Utilização
-
-## 1. Cadastro de Barbeiros
-
-Acessar:
-
-```text
-Usuários
-```
-
-Criar um usuário com perfil:
-
-```text
-Barbeiro
-```
-
----
-
-## 2. Cadastro de Clientes
-
-Acessar:
-
-```text
-Clientes
-```
-
-Cadastrar:
-
-- Nome
-- Telefone
-- Observações
-- Foto facial
-
----
-
-## 3. Configurar Disponibilidade
-
-Acessar:
-
-```text
-Disponibilidade
-```
-
-Selecionar:
-
-- Barbeiro
-- Dia
-- Horário
-
-Salvar.
-
----
-
-## 4. Criar Agendamento
-
-Acessar:
-
-```text
-Agendamentos
-```
-
-Selecionar:
-
-- Cliente
-- Barbeiro
-- Serviço
-- Data
-- Horário
-
-Salvar.
-
----
-
-## 5. Atendimento
-
-No módulo Tablet:
-
-1. Selecionar o atendimento.
-2. Abrir reconhecimento facial.
-3. Capturar imagem.
-4. Realizar comparação facial.
-5. Confirmar cliente identificado.
-6. Registrar foto antes.
-7. Realizar atendimento.
-8. Registrar foto depois.
-9. Finalizar atendimento.
-
----
-
-## 6. Histórico
-
-Após finalizar o atendimento:
-
-- Fotos são armazenadas
-- Informações são registradas
-- Cliente passa a possuir histórico atualizado
-
----
-
-# Reconhecimento Facial
-
-## Funcionamento
-
-O reconhecimento facial utiliza:
-
-- OpenCV para captura de imagens
-- DeepFace para comparação facial
-- FaceNet para extração de características
-
-Fluxo:
-
-```text
-Webcam
-↓
-Captura da imagem
-↓
-DeepFace
-↓
-Comparação com clientes cadastrados
-↓
-Validação de confiança
-↓
-Identificação do cliente
-```
-
----
-
-## Regras de Validação
-
-O sistema somente identifica um cliente quando a confiança mínima configurada é atingida.
-
-Casos rejeitados:
-
-- Imagem totalmente escura
-- Webcam bloqueada
-- Rosto não identificado
-- Similaridade insuficiente
-
----
-
-# Serviços Disponíveis
-
-Atualmente o sistema trabalha com:
-
-- Corte
-- Corte e Barba
-- Barba
-- Sobrancelha
-- Luzes
-
----
-
-# Organização dos Atendimentos
-
-## Azul
-
-```text
-Agendado
-```
-
-## Amarelo
-
-```text
-Em atendimento
-```
-
-## Verde
-
-```text
-Finalizado
-```
 
 ---
 
 # Banco de Dados
 
-O sistema utiliza SQLite.
-
 Principais entidades:
 
-- Users
-- Clients
-- Barbers
-- Services
-- Appointments
-- Availability
-- HaircutHistory
+* Users
+* Clients
+* Barbers
+* Services
+* Appointments
+* Availability
+* HaircutHistory
 
 ---
 
-# Melhorias Futuras
+# Execução
 
-- Notificações automáticas
-- Confirmação de agendamentos por e-mail
-- Integração com WhatsApp
-- Dashboard financeiro
-- Relatórios avançados
-- Reconhecimento facial em tempo real
-- Aplicativo mobile
+git clone URL_DO_REPOSITORIO
+cd CutHub
+
+python -m venv .venv
+.venv\Scripts\activate
+
+pip install -r requirements.txt
+
+cd backend
+uvicorn app.main:app --reload
+
+Servidor:
+
+http://127.0.0.1:8000
 
 ---
 
-# Considerações Finais
+# Fluxo Básico
 
-O CutHub foi desenvolvido com foco em usabilidade, organização e automação da rotina de uma barbearia.
-
-O projeto busca unir gestão administrativa e visão computacional em uma única plataforma, oferecendo uma solução moderna para controle de clientes, atendimentos e agendamentos.
+1. Cadastrar barbeiros
+2. Cadastrar clientes
+3. Definir disponibilidade
+4. Criar agendamentos
+5. Realizar atendimento
+6. Registrar fotos
+7. Finalizar atendimento
+8. Consultar histórico
 
 ---
 
 # Autor
 
- Guilherme Santos
+Guilherme Santos
 
 Estudante de Ciência da Computação
 
