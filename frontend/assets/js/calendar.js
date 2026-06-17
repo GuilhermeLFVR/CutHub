@@ -244,35 +244,38 @@
       modal.id = "postBookingCalendarModal";
       modal.className = "modal hidden";
       modal.innerHTML = `
-  <div class="calendar-modal-card">
-    <button class="calendar-modal-close" type="button" data-calendar-close>×</button>
-
-    <span class="panel-eyebrow">Agendamento confirmado</span>
-
-    <h2>Adicionar a agenda</h2>
+  <div class="modal-content calendar-modal-card moving-border">
+    <div class="modal-header">
+      <div>
+        <span class="panel-eyebrow">Agendamento confirmado</span>
+        <h2>Adicionar à agenda</h2>
+      </div>
+      <button class="icon-button" type="button" data-calendar-close aria-label="Fechar">×</button>
+    </div>
 
     <p class="calendar-modal-main" id="postBookingCalendarSummary">
-  Agendamento confirmado. Escolha como deseja enviar para a agenda.
-   </p>
+      Agendamento confirmado. Escolha como deseja enviar para a agenda.
+    </p>
 
     <div class="calendar-modal-actions">
-      <button class="secondary-button" type="button" data-calendar-download>
+      <button id="downloadPostBookingICS" class="secondary-button" type="button">
         Apple/Outlook
       </button>
-      <button class="primary-button" type="button" data-calendar-google>
+      <button id="openPostBookingGoogle" class="primary-button" type="button">
         Google Agenda
       </button>
-      <button class="secondary-button ghost-button" type="button" data-calendar-close>
+      <button id="closePostBookingCalendarModal" class="secondary-button ghost-button" type="button" data-calendar-close>
         Fechar
       </button>
     </div>
-     </div>
-       `;
+  </div>
+`;
       document.body.appendChild(modal);
 
       const close = () => modal.classList.add("hidden");
-      document.getElementById("closePostBookingCalendarModal")?.addEventListener("click", close);
-      document.getElementById("skipPostBookingCalendar")?.addEventListener("click", close);
+      modal.querySelectorAll("[data-calendar-close]").forEach((button) => {
+  button.addEventListener("click", close);
+});
       modal.addEventListener("click", (event) => {
         if (event.target === modal) close();
       });
