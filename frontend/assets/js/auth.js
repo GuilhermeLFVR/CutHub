@@ -9,9 +9,9 @@ CutHub.applyRoleVisibility = function applyRoleVisibility(role = CutHub.getRole(
   });
 
   const visibleByRole = {
-    admin: ["finance", "betting", "booking", "availability", "history", "users", "barber-tablet"],
+    admin: ["finance", "betting", "booking", "availability", "history", "subscriptions", "users", "barber-tablet"],
     barber: ["finance", "betting", "booking", "availability", "history", "barber-tablet"],
-    client: ["booking", "history"],
+    client: ["booking", "history", "plans"],
   };
 
   const allowed = visibleByRole[role] || [];

@@ -25,6 +25,45 @@ CutHub.getAppointmentsByDate = function getAppointmentsByDate(dateISO) {
     .sort((a, b) => CutHub.getAppointmentTime(a).localeCompare(CutHub.getAppointmentTime(b)));
 };
 
+CutHub.getSubscriptionPayload = function getSubscriptionPayload(item) {
+  return item?.subscription || item || {};
+};
+
+CutHub.getSubscriptionPlanPayload = function getSubscriptionPlanPayload(item) {
+  return item?.plan || CutHub.findById(CutHub.state.subscriptionPlans || [], CutHub.getSubscriptionPayload(item).plan_id);
+};
+
+CutHub.calculateSubscriptionDashboardMetrics = function calculateSubscriptionDashboardMetrics() {
+  const subscriptions = CutHub.state.subscriptions || [];
+  const activeSubscriptions = subscriptions.filter((item) => {
+    const subscription = CutHub.getSubscriptionPayload(item);
+    return String(subscription.status || "").toLowerCase() === "active";
+  });
+
+  const recurringRevenue = activeSubscriptions.reduce((total, item) => {
+    const plan = CutHub.getSubscriptionPlanPayload(item);
+    return total + Number(plan?.price || 0);
+  }, 0);
+
+  const planCounter = {};
+  activeSubscriptions.forEach((item) => {
+    const plan = CutHub.getSubscriptionPlanPayload(item);
+    if (!plan?.name) return;
+    planCounter[plan.name] = (planCounter[plan.name] || 0) + 1;
+  });
+
+  const topPlan = Object.entries(planCounter).sort((a, b) => b[1] - a[1])[0]?.[0] || "Nenhum";
+  const clientsCount = (CutHub.state.clients || []).length;
+  const adoptionRate = clientsCount ? ((activeSubscriptions.length / clientsCount) * 100).toFixed(1) : "0";
+
+  return {
+    recurringRevenue,
+    activeSubscriptionsCount: activeSubscriptions.length,
+    topPlan,
+    adoptionRate,
+  };
+};
+
 CutHub.getMonthDate = function getMonthDate(monthISO) {
   const safe = monthISO || CutHub.todayISO().slice(0, 7);
   return new Date(`${safe}-01T00:00:00`);
@@ -239,6 +278,13 @@ CutHub.renderDashboard = async function renderDashboard() {
   CutHub.setText("dashboardCompleted", String(completedToday.length));
   CutHub.setText("dashboardCancelled", String(cancelledToday.length));
   CutHub.setText("dashboardClientsCount", String(CutHub.state.clients.length));
+
+  const subscriptionMetrics = CutHub.calculateSubscriptionDashboardMetrics();
+
+  CutHub.setText("dashboardRecurringRevenue", CutHub.formatCurrency(subscriptionMetrics.recurringRevenue));
+  CutHub.setText("dashboardActiveSubscriptions", String(subscriptionMetrics.activeSubscriptionsCount));
+  CutHub.setText("dashboardTopPlan", subscriptionMetrics.topPlan);
+  CutHub.setText("dashboardAdoptionRate", `${subscriptionMetrics.adoptionRate}%`);
 
   const revenue = completedToday.reduce((sum, appointment) => {
     const service = CutHub.findById(CutHub.state.services, appointment.service_id);

@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 UserRole = Literal["admin", "barber", "client"]
 ClientStatus = Literal["active", "inactive"]
 AppointmentStatus = Literal["scheduled", "in_progress", "completed", "cancelled"]
+SubscriptionStatus = Literal["active", "overdue", "cancelled", "expired"]
 
 
 # =============================
@@ -102,6 +103,64 @@ class ClientFaceCaptureRequest(BaseModel):
 class RecognitionIdentifyRequest(BaseModel):
     image_data: str = Field(min_length=20)
     appointment_date: date | None = None
+
+
+
+
+# =============================
+# ASSINATURAS / PLANOS MENSAIS
+# =============================
+
+class SubscriptionPlanCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    price: float = Field(default=0, ge=0)
+    description: str = ""
+    monthly_limit: int = Field(default=1, ge=1, le=999)
+    included_services: str = ""
+    extra_discount_percent: float = Field(default=0, ge=0, le=100)
+    is_active: bool = True
+
+
+class SubscriptionPlanResponse(BaseModel):
+    id: int
+    name: str
+    price: float
+    description: str | None
+    monthly_limit: int
+    included_services: str | None
+    extra_discount_percent: float
+    is_active: bool
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class ClientSubscriptionCreate(BaseModel):
+    client_id: int
+    plan_id: int
+    status: SubscriptionStatus = "active"
+    start_date: date
+    end_date: date | None = None
+    used_this_month: int = Field(default=0, ge=0, le=999)
+
+
+class ClientSubscriptionResponse(BaseModel):
+    id: int
+    client_id: int
+    plan_id: int
+    status: SubscriptionStatus
+    start_date: date
+    end_date: date | None
+    used_this_month: int
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class ClientSubscriptionDetail(BaseModel):
+    subscription: ClientSubscriptionResponse
+    plan: SubscriptionPlanResponse
+    client: ClientResponse
 
 
 # =============================

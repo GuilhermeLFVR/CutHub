@@ -113,6 +113,8 @@
           <a class="nav-item" href="#" data-section-target="booking">Agendar Corte</a>
           <a class="nav-item" href="#" data-section-target="availability">Disponibilidade</a>
           <a class="nav-item" href="#" data-section-target="history">Histórico</a>
+          <a class="nav-item" href="#" data-section-target="plans">Planos</a>
+          <a class="nav-item" href="#" data-section-target="subscriptions" data-role-admin-only>Assinaturas</a>
           <a class="nav-item" href="#" data-section-target="barber-tablet">Tablet</a>
           <a class="nav-item" href="#" data-section-target="users" data-role-admin-only>Usuários</a>
         </nav>
@@ -148,6 +150,8 @@
             <button class="module-tab" type="button" data-section-target="booking">Agendar Corte</button>
             <button class="module-tab" type="button" data-section-target="availability">Disponibilidade</button>
             <button class="module-tab" type="button" data-section-target="history">Histórico</button>
+            <button class="module-tab" type="button" data-section-target="plans">Planos</button>
+            <button class="module-tab" type="button" data-section-target="subscriptions" data-role-admin-only>Assinaturas</button>
             <button class="module-tab" type="button" data-section-target="barber-tablet">Tablet</button>
             <button class="module-tab" type="button" data-section-target="users" data-role-admin-only>Usuários</button>
           </div>
@@ -201,6 +205,26 @@
             <article class="stat-card moving-border reveal-up">
               <span class="stat-label">Concluídos hoje</span>
               <strong id="dashboardCompleted" class="stat-value small">0</strong>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Receita recorrente</span>
+              <strong id="dashboardRecurringRevenue" class="stat-value small">R$ 0,00</strong>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Assinaturas ativas</span>
+              <strong id="dashboardActiveSubscriptions" class="stat-value small">0</strong>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Plano mais contratado</span>
+              <strong id="dashboardTopPlan" class="stat-value small">Nenhum</strong>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <span class="stat-label">Taxa de adesão</span>
+              <strong id="dashboardAdoptionRate" class="stat-value small">0%</strong>
             </article>
           </section>
 
@@ -385,6 +409,94 @@
             </div>
 
             <div id="tabletAppointmentsList" class="cuthub-list"></div>
+          </section>
+        </section>
+
+
+
+        <section id="section-plans" class="module-section hidden">
+          <section class="panel moving-border reveal-up cuthub-client-plan-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Planos mensais</span>
+                <h2>Escolha seu plano CutHub</h2>
+                <p class="module-switcher-description">
+                  Assine um plano mensal da barbearia, acompanhe seus benefícios e agende seus cortes com mais praticidade.
+                </p>
+              </div>
+            </div>
+
+            <div id="mySubscriptionBox" class="my-subscription-box"></div>
+            <div id="clientSubscriptionPlansList" class="subscription-plan-grid"></div>
+          </section>
+        </section>
+
+
+        <section id="section-subscriptions" class="module-section hidden" data-role-admin-only>
+          <section class="cards-grid cards-grid-main cuthub-subscription-stats">
+            <article class="stat-card moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-income">◆</span>
+                <span class="stat-label">Receita recorrente</span>
+              </div>
+              <strong id="subscriptionMRR" class="stat-value small">R$ 0,00</strong>
+              <span class="stat-footnote">Soma das assinaturas ativas.</span>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-status">◎</span>
+                <span class="stat-label">Assinaturas ativas</span>
+              </div>
+              <strong id="subscriptionActiveCount" class="stat-value small">0</strong>
+              <span class="stat-footnote">Clientes com plano vigente.</span>
+            </article>
+
+            <article class="stat-card moving-border reveal-up">
+              <div class="stat-topline">
+                <span class="stat-icon icon-status">%</span>
+                <span class="stat-label">Adoção</span>
+              </div>
+              <strong id="subscriptionAdoptionRate" class="stat-value small">0%</strong>
+              <span class="stat-footnote">Base de clientes em recorrência.</span>
+            </article>
+          </section>
+
+          <section class="panel moving-border reveal-up cuthub-subscription-analytics-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Análise comercial</span>
+                <h2>Insights de assinaturas</h2>
+                <p class="module-switcher-description">Indicadores automáticos para avaliar receita recorrente, adesão e distribuição dos planos.</p>
+              </div>
+            </div>
+
+            <div id="subscriptionAnalyticsPanel"></div>
+          </section>
+
+          <section class="panel moving-border reveal-up cuthub-subscriptions-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Gestão de planos</span>
+                <h2>Planos CutHub</h2>
+                <p class="module-switcher-description">Planos disponíveis para os clientes assinarem pelo próprio portal.</p>
+              </div>
+              <button id="seedSubscriptionPlansButton" class="secondary-button" type="button">Restaurar planos padrão</button>
+            </div>
+
+            <div id="subscriptionPlansList" class="subscription-plan-grid"></div>
+          </section>
+
+          <section class="panel moving-border reveal-up cuthub-subscription-admin-panel">
+            <div class="panel-header panel-header-split">
+              <div>
+                <span class="panel-eyebrow">Controle de recorrência</span>
+                <h2>Clientes assinantes</h2>
+                <p class="module-switcher-description">Acompanhe clientes com plano ativo, uso mensal, status e receita recorrente.</p>
+              </div>
+            </div>
+
+            <div id="subscriptionsList" class="subscriptions-list"></div>
           </section>
         </section>
 
@@ -650,6 +762,7 @@
     <script src="/assets/js/history.js"></script>
     <script src="/assets/js/tablet.js"></script>
     <script src="/assets/js/users.js"></script>
+    <script src="/assets/js/subscriptions.js"></script>
 
     <script src="/assets/js/calendar.js"></script>
 

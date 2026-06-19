@@ -42,6 +42,35 @@ class Client(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
+
+
+class SubscriptionPlan(Base):
+    __tablename__ = "subscription_plans"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False, index=True)
+    price = Column(Float, nullable=False, default=0.0)
+    description = Column(String, nullable=True, default="")
+    monthly_limit = Column(Integer, nullable=False, default=1)
+    included_services = Column(String, nullable=True, default="")
+    extra_discount_percent = Column(Float, nullable=False, default=0.0)
+    is_active = Column(Boolean, nullable=False, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class ClientSubscription(Base):
+    __tablename__ = "client_subscriptions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    client_id = Column(Integer, ForeignKey("clients.id"), nullable=False, index=True)
+    plan_id = Column(Integer, ForeignKey("subscription_plans.id"), nullable=False, index=True)
+    status = Column(String, nullable=False, default="active")
+    start_date = Column(Date, nullable=False, default=datetime.utcnow)
+    end_date = Column(Date, nullable=True)
+    used_this_month = Column(Integer, nullable=False, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class Barber(Base):
     __tablename__ = "barbers"
 

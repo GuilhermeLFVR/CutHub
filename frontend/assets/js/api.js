@@ -64,12 +64,14 @@ CutHub.del = function del(path) {
 };
 
 CutHub.loadCoreData = async function loadCoreData() {
-  const [clients, services, barbers, appointments, haircuts] = await Promise.all([
+  const [clients, services, barbers, appointments, haircuts, subscriptionPlans, subscriptions] = await Promise.all([
     CutHub.get("/clients").catch(() => []),
     CutHub.get("/services").catch(() => []),
     CutHub.get("/barbers").catch(() => []),
     CutHub.get("/appointments").catch(() => []),
     CutHub.get("/haircuts").catch(() => []),
+    CutHub.get("/subscription-plans").catch(() => []),
+    CutHub.get("/subscriptions").catch(() => []),
   ]);
 
   CutHub.state.clients = Array.isArray(clients) ? clients : [];
@@ -77,6 +79,8 @@ CutHub.loadCoreData = async function loadCoreData() {
   CutHub.state.barbers = Array.isArray(barbers) ? barbers : [];
   CutHub.state.appointments = Array.isArray(appointments) ? appointments : [];
   CutHub.state.haircuts = Array.isArray(haircuts) ? haircuts : [];
+  CutHub.state.subscriptionPlans = Array.isArray(subscriptionPlans) ? subscriptionPlans : [];
+  CutHub.state.subscriptions = Array.isArray(subscriptions) ? subscriptions : [];
 
   return CutHub.state;
 };

@@ -22,6 +22,14 @@ CutHub.sectionMeta = {
     title: "Histórico",
     description: "Histórico visual dos cortes, fotos e preferências dos clientes.",
   },
+  subscriptions: {
+    title: "Assinaturas",
+    description: "Clientes assinantes, receita recorrente e controle dos planos mensais.",
+  },
+  plans: {
+    title: "Planos",
+    description: "Escolha um plano mensal e acompanhe os benefícios da sua assinatura.",
+  },
   users: {
     title: "Usuários",
     description: "Controle de acesso para administradores, barbeiros e clientes.",
@@ -38,7 +46,7 @@ CutHub.defaultSectionForRole = function defaultSectionForRole() {
 };
 
 CutHub.switchSection = async function switchSection(section) {
-  const allowedSections = ["finance", "betting", "booking", "availability", "history", "users", "barber-tablet"];
+  const allowedSections = ["finance", "betting", "booking", "availability", "history", "subscriptions", "plans", "users", "barber-tablet"];
   const target = allowedSections.includes(section) ? section : CutHub.defaultSectionForRole();
 
   CutHub.state.activeSection = target;
@@ -63,6 +71,8 @@ CutHub.switchSection = async function switchSection(section) {
     booking: CutHub.renderBooking,
     availability: CutHub.renderAvailability,
     history: CutHub.renderHistory,
+    subscriptions: CutHub.renderSubscriptions,
+    plans: CutHub.renderPlans,
     users: CutHub.renderUsers,
     "barber-tablet": CutHub.renderTablet,
   };

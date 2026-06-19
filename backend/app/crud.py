@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 
 from app.models import (
     Appointment,
+    ClientSubscription,
+    SubscriptionPlan,
     Barber,
     BarberAvailability,
     BarberTimeOff,
@@ -15,6 +17,8 @@ from app.models import (
 )
 from app.schemas import (
     AppointmentCreate,
+    ClientSubscriptionCreate,
+    SubscriptionPlanCreate,
     BarberAvailabilityCreate,
     BarberCreate,
     BarberTimeOffCreate,
@@ -230,6 +234,166 @@ def delete_client(db: Session, client_id: int) -> bool:
     db.delete(client)
     db.commit()
     return True
+
+
+
+
+# =============================
+# ASSINATURAS
+# =============================
+
+def ensure_default_subscription_plans(db: Session) -> None:
+    if db.scalar(select(SubscriptionPlan).limit(1)):
+        return
+
+    default_plans = [
+        SubscriptionPlan(name="Hub Start", price=39.90, description="Plano de entrada para clientes que cortam uma vez por mês.", monthly_limit=1, included_services="Corte", extra_discount_percent=5),
+        SubscriptionPlan(name="Hub Plus", price=99.90, description="Plano para cliente frequente, com até quatro cortes mensais.", monthly_limit=4, included_services="Corte, Acabamento", extra_discount_percent=10),
+        SubscriptionPlan(name="Hub Unlimited", price=149.90, description="Cortes sem limite mensal, com prioridade de agendamento.", monthly_limit=999, included_services="Corte, Acabamento", extra_discount_percent=15),
+        SubscriptionPlan(name="Hub Elite", price=189.90, description="Plano premium com cabelo, barba e sobrancelha inclusos.", monthly_limit=999, included_services="Corte, Barba, Sobrancelha, Acabamento", extra_discount_percent=15),
+    ]
+    db.add_all(default_plans)
+    db.commit()
+
+
+def list_subscription_plans(db: Session, active_only: bool = False) -> list[SubscriptionPlan]:
+    ensure_default_subscription_plans(db)
+    stmt = select(SubscriptionPlan)
+    if active_only:
+        stmt = stmt.where(SubscriptionPlan.is_active == True)
+    stmt = stmt.order_by(SubscriptionPlan.price.asc(), SubscriptionPlan.id.asc())
+    return list(db.scalars(stmt).all())
+
+
+def get_subscription_plan_by_id(db: Session, plan_id: int) -> SubscriptionPlan | None:
+    return db.scalar(select(SubscriptionPlan).where(SubscriptionPlan.id == plan_id))
+
+
+def create_subscription_plan(db: Session, payload: SubscriptionPlanCreate) -> SubscriptionPlan:
+    plan = SubscriptionPlan(
+        name=payload.name.strip(),
+        price=payload.price,
+        description=payload.description.strip(),
+        monthly_limit=payload.monthly_limit,
+        included_services=payload.included_services.strip(),
+        extra_discount_percent=payload.extra_discount_percent,
+        is_active=payload.is_active,
+    )
+    db.add(plan)
+    db.commit()
+    db.refresh(plan)
+    return plan
+
+
+def update_subscription_plan(db: Session, plan_id: int, payload: SubscriptionPlanCreate) -> SubscriptionPlan | None:
+    plan = get_subscription_plan_by_id(db, plan_id)
+    if not plan:
+        return None
+    plan.name = payload.name.strip()
+    plan.price = payload.price
+    plan.description = payload.description.strip()
+    plan.monthly_limit = payload.monthly_limit
+    plan.included_services = payload.included_services.strip()
+    plan.extra_discount_percent = payload.extra_discount_percent
+    plan.is_active = payload.is_active
+    db.commit()
+    db.refresh(plan)
+    return plan
+
+
+def delete_subscription_plan(db: Session, plan_id: int) -> bool:
+    plan = get_subscription_plan_by_id(db, plan_id)
+    if not plan:
+        return False
+    db.delete(plan)
+    db.commit()
+    return True
+
+
+def list_client_subscriptions(db: Session) -> list[ClientSubscription]:
+    stmt = select(ClientSubscription).order_by(ClientSubscription.created_at.desc(), ClientSubscription.id.desc())
+    return list(db.scalars(stmt).all())
+
+
+def get_subscription_by_id(db: Session, subscription_id: int) -> ClientSubscription | None:
+    return db.scalar(select(ClientSubscription).where(ClientSubscription.id == subscription_id))
+
+
+def get_active_subscription_for_client(db: Session, client_id: int) -> ClientSubscription | None:
+    stmt = (
+        select(ClientSubscription)
+        .where(ClientSubscription.client_id == client_id, ClientSubscription.status == "active")
+        .order_by(ClientSubscription.created_at.desc(), ClientSubscription.id.desc())
+    )
+    return db.scalar(stmt)
+
+
+def register_subscription_usage(db: Session, client_id: int) -> ClientSubscription | None:
+    subscription = get_active_subscription_for_client(db, client_id)
+
+    if not subscription:
+        return None
+
+    subscription.used_this_month = int(subscription.used_this_month or 0) + 1
+    db.flush()
+    return subscription
+
+
+def create_client_subscription(db: Session, payload: ClientSubscriptionCreate) -> ClientSubscription:
+    existing = get_active_subscription_for_client(db, payload.client_id)
+    if existing:
+        existing.status = "cancelled"
+    subscription = ClientSubscription(
+        client_id=payload.client_id,
+        plan_id=payload.plan_id,
+        status=payload.status,
+        start_date=payload.start_date,
+        end_date=payload.end_date,
+        used_this_month=payload.used_this_month,
+    )
+    db.add(subscription)
+    db.commit()
+    db.refresh(subscription)
+    return subscription
+
+
+def update_client_subscription(db: Session, subscription_id: int, payload: ClientSubscriptionCreate) -> ClientSubscription | None:
+    subscription = get_subscription_by_id(db, subscription_id)
+    if not subscription:
+        return None
+    subscription.client_id = payload.client_id
+    subscription.plan_id = payload.plan_id
+    subscription.status = payload.status
+    subscription.start_date = payload.start_date
+    subscription.end_date = payload.end_date
+    subscription.used_this_month = payload.used_this_month
+    db.commit()
+    db.refresh(subscription)
+    return subscription
+
+
+def delete_client_subscription(db: Session, subscription_id: int) -> bool:
+    subscription = get_subscription_by_id(db, subscription_id)
+    if not subscription:
+        return False
+    db.delete(subscription)
+    db.commit()
+    return True
+
+
+def get_subscription_stats(db: Session) -> dict:
+    plans = list_subscription_plans(db)
+    subscriptions = list_client_subscriptions(db)
+    active = [item for item in subscriptions if item.status == "active"]
+    monthly_revenue = 0.0
+    for item in active:
+        plan = get_subscription_plan_by_id(db, item.plan_id)
+        monthly_revenue += float(getattr(plan, "price", 0) or 0)
+    return {
+        "plans_count": len(plans),
+        "active_subscriptions_count": len(active),
+        "monthly_recurring_revenue": monthly_revenue,
+    }
 
 
 # =============================
@@ -641,6 +805,8 @@ def update_appointment(db: Session, appointment_id: int, payload: AppointmentCre
     if appointment is None:
         return None
 
+    previous_status = str(appointment.status or "").lower()
+
     appointment.client_id = payload.client_id
     appointment.barber_id = payload.barber_id
     appointment.service_id = payload.service_id
@@ -648,6 +814,11 @@ def update_appointment(db: Session, appointment_id: int, payload: AppointmentCre
     appointment.appointment_time = payload.appointment_time
     appointment.status = payload.status
     appointment.notes = payload.notes.strip()
+
+    new_status = str(payload.status or "").lower()
+
+    if previous_status != "completed" and new_status == "completed":
+        register_subscription_usage(db, appointment.client_id)
 
     db.commit()
     db.refresh(appointment)
@@ -689,6 +860,8 @@ def get_cuthub_dashboard(db: Session) -> dict:
         if appointment.status == "scheduled"
     ]
 
+    subscription_stats = get_subscription_stats(db)
+
     return {
         "clients_count": len(clients),
         "active_barbers_count": sum(1 for barber in barbers if barber.status == "active"),
@@ -698,6 +871,7 @@ def get_cuthub_dashboard(db: Session) -> dict:
         "completed_today_count": len(completed_today),
         "recent_clients": clients[:8],
         "today_appointments": today_appointments,
+        **subscription_stats,
     }
 
 

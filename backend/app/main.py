@@ -41,6 +41,13 @@ def _ensure_runtime_columns():
 
 _ensure_runtime_columns()
 
+# Garante planos padrão para a camada comercial de assinatura.
+_seed_db = next(get_db())
+try:
+    crud.ensure_default_subscription_plans(_seed_db)
+finally:
+    _seed_db.close()
+
 
 # PATHS
 
@@ -453,6 +460,90 @@ def delete_client(client_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Cliente não encontrado.")
 
     return {"message": "Cliente removido com sucesso."}
+
+
+# ASSINATURAS
+
+def _subscription_detail(db: Session, subscription):
+    plan = crud.get_subscription_plan_by_id(db, subscription.plan_id)
+    client = crud.get_client_by_id(db, subscription.client_id)
+    if not plan or not client:
+        return None
+    return {"subscription": subscription, "plan": plan, "client": client}
+
+
+@app.get("/api/subscription-plans", response_model=list[schemas.SubscriptionPlanResponse])
+def get_subscription_plans(db: Session = Depends(get_db)):
+    return crud.list_subscription_plans(db)
+
+
+@app.post("/api/subscription-plans", response_model=schemas.SubscriptionPlanResponse)
+def create_subscription_plan(payload: schemas.SubscriptionPlanCreate, db: Session = Depends(get_db)):
+    return crud.create_subscription_plan(db, payload)
+
+
+@app.put("/api/subscription-plans/{plan_id}", response_model=schemas.SubscriptionPlanResponse)
+def update_subscription_plan(plan_id: int, payload: schemas.SubscriptionPlanCreate, db: Session = Depends(get_db)):
+    plan = crud.update_subscription_plan(db, plan_id, payload)
+    if not plan:
+        raise HTTPException(status_code=404, detail="Plano não encontrado.")
+    return plan
+
+
+@app.delete("/api/subscription-plans/{plan_id}")
+def delete_subscription_plan(plan_id: int, db: Session = Depends(get_db)):
+    deleted = crud.delete_subscription_plan(db, plan_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Plano não encontrado.")
+    return {"message": "Plano removido com sucesso."}
+
+
+@app.get("/api/subscriptions", response_model=list[schemas.ClientSubscriptionDetail])
+def get_subscriptions(db: Session = Depends(get_db)):
+    details = []
+    for subscription in crud.list_client_subscriptions(db):
+        detail = _subscription_detail(db, subscription)
+        if detail:
+            details.append(detail)
+    return details
+
+
+@app.get("/api/clients/{client_id}/subscription", response_model=schemas.ClientSubscriptionDetail | None)
+def get_client_subscription(client_id: int, db: Session = Depends(get_db)):
+    subscription = crud.get_active_subscription_for_client(db, client_id)
+    if not subscription:
+        return None
+    return _subscription_detail(db, subscription)
+
+
+@app.post("/api/subscriptions", response_model=schemas.ClientSubscriptionDetail)
+def create_subscription(payload: schemas.ClientSubscriptionCreate, db: Session = Depends(get_db)):
+    if not crud.get_client_by_id(db, payload.client_id):
+        raise HTTPException(status_code=404, detail="Cliente não encontrado.")
+    if not crud.get_subscription_plan_by_id(db, payload.plan_id):
+        raise HTTPException(status_code=404, detail="Plano não encontrado.")
+    subscription = crud.create_client_subscription(db, payload)
+    return _subscription_detail(db, subscription)
+
+
+@app.put("/api/subscriptions/{subscription_id}", response_model=schemas.ClientSubscriptionDetail)
+def update_subscription(subscription_id: int, payload: schemas.ClientSubscriptionCreate, db: Session = Depends(get_db)):
+    if not crud.get_client_by_id(db, payload.client_id):
+        raise HTTPException(status_code=404, detail="Cliente não encontrado.")
+    if not crud.get_subscription_plan_by_id(db, payload.plan_id):
+        raise HTTPException(status_code=404, detail="Plano não encontrado.")
+    subscription = crud.update_client_subscription(db, subscription_id, payload)
+    if not subscription:
+        raise HTTPException(status_code=404, detail="Assinatura não encontrada.")
+    return _subscription_detail(db, subscription)
+
+
+@app.delete("/api/subscriptions/{subscription_id}")
+def delete_subscription(subscription_id: int, db: Session = Depends(get_db)):
+    deleted = crud.delete_client_subscription(db, subscription_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Assinatura não encontrada.")
+    return {"message": "Assinatura removida com sucesso."}
 
 
 # BARBEIROS
